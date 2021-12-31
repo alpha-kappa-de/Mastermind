@@ -13,15 +13,15 @@ int main()
     player1_colorcode[4] = GREEN;
     player1_colorcode[5] = BLUE;
 
-    player2_guess[0] = BLUE;
-    player2_guess[1] = PURPLE;
-    player2_guess[2] = GREEN;
-    player2_guess[3] = BLUE;
-    player2_guess[4] = GREEN;
-    player2_guess[5] = RED;
+    player_guess[0] = BLUE;
+    player_guess[1] = PURPLE;
+    player_guess[2] = GREEN;
+    player_guess[3] = BLUE;
+    player_guess[4] = GREEN;
+    player_guess[5] = RED;
 
 
-    check_colorcode_and_print_correct_pins(player1_colorcode, player2_guess);
+    check_colorcode_and_print_correct_pins(player1_colorcode, player_guess);
     return 0;
 
 }

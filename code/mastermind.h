@@ -14,8 +14,7 @@
 
 int player1_colorcode[6];
 int player2_colorcode[6];
-int player1_guess[6];
-int player2_guess[6];
+int player_guess[6];
 
 int colorcode_length;
 
