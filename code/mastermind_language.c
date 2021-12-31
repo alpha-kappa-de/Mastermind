@@ -96,63 +96,85 @@ char *lang_color_name(int color)
 
 char *lang_you_typed()
 {
-        switch (gamelanguage) {
-        case LANGUAGE_ENGLISH:
-            return "You typed";
-            break;
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "You typed";
+        break;
 
-        case LANGUAGE_FRENCH:
-            return "Votre entree";
-            break;
+    case LANGUAGE_FRENCH:
+        return "Votre entree";
+        break;
 
-        case LANGUAGE_GERMAN:
-            return "Deine Eingabe";
-            break;
+    case LANGUAGE_GERMAN:
+        return "Deine Eingabe";
+        break;
 
-        default:
-            break;
+    default:
+        break;
     }
+    
     return NULL;
 }
 
 char *lang_correct_pins()
 {
-        switch (gamelanguage) {
-        case LANGUAGE_ENGLISH:
-            return "Correct pins";
-            break;
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "Correct pins";
+        break;
 
-        case LANGUAGE_FRENCH:
-            return "Stylos corrects";
-            break;
+    case LANGUAGE_FRENCH:
+        return "Stylos corrects";
+        break;
 
-        case LANGUAGE_GERMAN:
-            return "Richtige Stifte";
-            break;
+    case LANGUAGE_GERMAN:
+        return "Richtige Stifte";
+        break;
 
-        default:
-            break;
+    default:
+        break;
     }
     return NULL;
 }
 
 char *lang_correct_colors()
 {
-        switch (gamelanguage) {
-        case LANGUAGE_ENGLISH:
-            return "Correct colors";
-            break;
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "Correct colors";
+        break;
 
-        case LANGUAGE_FRENCH:
-            return "Couleurs correctes";
-            break;
+    case LANGUAGE_FRENCH:
+        return "Couleurs correctes";
+        break;
 
-        case LANGUAGE_GERMAN:
-            return "Richtige Farbe";
-            break;
+    case LANGUAGE_GERMAN:
+        return "Richtige Farbe";
+        break;
 
-        default:
-            break;
+    default:
+        break;
+    }
+    return NULL;
+}
+
+char *lang_type_your_guess()
+{
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "Guess the colorcode";
+        break;
+
+    case LANGUAGE_FRENCH:
+        return "Devinez le code couleur";
+        break;
+
+    case LANGUAGE_GERMAN:
+        return "Errate den Farbcode";
+        break;
+
+    default:
+        break;
     }
     return NULL;
 }

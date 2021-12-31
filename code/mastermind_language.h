@@ -14,5 +14,6 @@ char *lang_color_name(int color);
 char *lang_you_typed();
 char *lang_correct_pins();
 char *lang_correct_colors();
+char *lang_type_your_guess();
 
 #endif
