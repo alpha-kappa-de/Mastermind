@@ -48,17 +48,26 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
     }
     
     /* print message: input of player, amount of correct pins and correct colors */
-    printf("%s: ", lang_you_typed());
-    for (i = 0; i < colorcode_length; i++) {
-        printf("%s", lang_color_name(guess[i]));
-        if (i != (colorcode_length - 1)) {
-            printf(", ");
-        }
-    }
-    printf("\t\t%s: %i\t%s: %i", lang_correct_pins(), counter_correct_pins, lang_correct_colors(), counter_correct_color);
+    printf("\t\t");
+    lang_print_correct_pins();
+    printf(": %i\t", counter_correct_pins);
+    lang_print_correct_colors();
+    printf(": %i\n", counter_correct_color);
 
     /* free up space and return amount of correct pins */
     free(colorcode_pin_array);
     free(guess_pin_array);
     return counter_correct_pins;
+}
+
+int generate_random_color()
+{
+    static int random_number = 0;
+
+    if (random_number == 0) {
+        srand(time(NULL));
+    }
+
+    random_number = rand();
+    return (random_number % AMOUNT_OF_COLORS);
 }
