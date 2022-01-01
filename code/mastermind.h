@@ -11,10 +11,11 @@
 #define GREEN 3
 #define PURPLE 4
 #define BROWN 5
+#define COLORS 6
 
-int player1_colorcode[6];
-int player2_colorcode[6];
-int player_guess[6];
+int player1_colorcode[COLORS];
+int player2_colorcode[COLORS];
+int player_guess[COLORS];
 
 int colorcode_length;
 
