@@ -12,6 +12,7 @@
 
 #define LANGUAGE_ERROR -1
 
+#define MAX_COLORCODE_LENGTH 8
 #define AMOUNT_OF_COLORS 6
 #define BLUE 0
 #define RED 1
@@ -20,9 +21,9 @@
 #define PURPLE 4
 #define BROWN 5
 
-int player1_colorcode[AMOUNT_OF_COLORS];
-int player2_colorcode[AMOUNT_OF_COLORS];
-int player_guess[AMOUNT_OF_COLORS];
+int player1_colorcode[MAX_COLORCODE_LENGTH];
+int player2_colorcode[MAX_COLORCODE_LENGTH];
+int player_guess[MAX_COLORCODE_LENGTH];
 
 int colorcode_length;
 
