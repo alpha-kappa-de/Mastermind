@@ -5,4 +5,6 @@ int main()
 {
     gamelanguage = LANGUAGE_ENGLISH;
     colorcode_length = 4;
+
+    /* alex kommentar */
 }
