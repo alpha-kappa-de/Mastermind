@@ -11,7 +11,7 @@
 int gamelanguage;
 
 char *lang_color_name(int color);
-void lang_print_you_typed();
+void lang_print_you_typed(int *typed_code);
 void lang_print_correct_pins();
 void lang_print_correct_colors();
 void lang_print_type_your_guess();

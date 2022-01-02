@@ -94,7 +94,7 @@ char *lang_color_name(int color)
     INVALID_LANGUAGE_ERROR();
 }
 
-void lang_print_you_typed()
+void lang_print_you_typed(int *typed_code)
 {
     int i;
 
@@ -116,7 +116,7 @@ void lang_print_you_typed()
     }
 
     for (i = 0; i < colorcode_length; i++) {
-        printf("%s", lang_color_name(player_guess[i]));
+        printf("%s", lang_color_name(typed_code[i]));
         if (i != (colorcode_length - 1)) {
             printf(", ");
         }

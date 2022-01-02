@@ -3,5 +3,5 @@
 
 int main()
 {
-    
+    gamelanguage = LANGUAGE_ENGLISH;
 }
