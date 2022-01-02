@@ -20,7 +20,7 @@ int main()
     player_guess[4] = GREEN;
     player_guess[5] = RED;
 
-
+    /* testcomment */
     check_colorcode_and_print_correct_pins(player1_colorcode, player_guess);
     return 0;
 
