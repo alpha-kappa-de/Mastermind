@@ -7,4 +7,6 @@ int main()
     colorcode_length = 4;
 
     /* alex kommentar */
+
+    printf("alex wars");
 }
