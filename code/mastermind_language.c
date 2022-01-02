@@ -211,3 +211,93 @@ void lang_print_colorcode_wrong_format_message()
         }
     }
 }
+
+char *lang_menu_options(int menu_option)
+{
+    if (menu_option == MENU_OPTION_PLAY) {
+        switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "      Play      ";
+            break;
+
+        case LANGUAGE_FRENCH:
+            return "     Jouer      ";
+            break;
+
+        case LANGUAGE_GERMAN:
+            return "    Spielen     ";
+            break;
+
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+    }else if (menu_option == MENU_OPTION_HOWTOPLAY) {
+        switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "   How to play  ";
+            break;
+
+        case LANGUAGE_FRENCH:
+            return " Comment jouer  ";
+            break;
+
+        case LANGUAGE_GERMAN:
+            return " Wie man spielt ";
+            break;
+
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+    }else if (menu_option == MENU_OPTION_LANGUAGE) {
+        switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "    Language    ";
+            break;
+
+        case LANGUAGE_FRENCH:
+            return "     Langue     ";
+            break;
+
+        case LANGUAGE_GERMAN:
+            return "    Sprache     ";
+            break;
+
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+    }else if (menu_option == MENU_OPTION_STATS) {
+        switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "   Statistics   ";
+            break;
+
+        case LANGUAGE_FRENCH:
+            return "  Statistiques  ";
+            break;
+
+        case LANGUAGE_GERMAN:
+            return "   Statistiken  ";
+            break;
+
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+    }else if (menu_option == MENU_OPTION_EXIT) {
+        switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "      Exit      ";
+            break;
+
+        case LANGUAGE_FRENCH:
+            return "      Finir     ";
+            break;
+
+        case LANGUAGE_GERMAN:
+            return "    Beenden     ";
+            break;
+
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+    } else INVALID_OPTION_ERROR();
+}

@@ -1,5 +1,6 @@
 #include "mastermind_language.h"
 #include "mastermind.h"
+#include "mastermind_gui.h"
 
 int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
 {

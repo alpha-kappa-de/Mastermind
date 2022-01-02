@@ -16,5 +16,6 @@ void lang_print_correct_pins();
 void lang_print_correct_colors();
 void lang_print_type_your_guess();
 void lang_print_colorcode_wrong_format_message();
+char *lang_menu_options(int menu_option);
 
 #endif
