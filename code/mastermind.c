@@ -69,5 +69,5 @@ int generate_random_color()
     }
 
     random_number = rand();
-    return (random_number % AMOUNT_OF_COLORS);
+    return (random_number % (AMOUNT_OF_COLORS + 1));
 }
