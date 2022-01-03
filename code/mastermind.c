@@ -72,3 +72,31 @@ int generate_random_color()
     random_number = rand();
     return (random_number % (AMOUNT_OF_COLORS));
 }
+
+int flush_buff (void) 
+{
+    int c;
+    while ((c = getchar ()) != '\n' && c != EOF ) {}
+    return c != EOF ;
+}
+
+
+int player_input_mainmenu(int amount_of_menu_options)
+{
+    int input, status, c;
+
+    c = '\0 ';
+    status = scanf("%i", input);
+
+    if (status == EOF)
+        return BUFFER_ERROR;
+    if (status == 0 || input <= 0 || input >= amount_of_menu_options || (c = getchar()) != '\n') {
+        if (c == EOF || !flush_buff()) {
+            return BUFFER_ERROR;
+        }
+        INVALID_MENU_INPUT_ERROR();
+        return INVALID_MENU_INPUT;
+    }
+    return input;
+
+}

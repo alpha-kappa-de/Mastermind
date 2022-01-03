@@ -17,5 +17,6 @@ void lang_print_correct_colors();
 void lang_print_type_your_guess();
 void lang_print_colorcode_wrong_format_message();
 char *lang_menu_options(int menu_option);
+void lang_print_invalid_menu_input_message();
 
 #endif

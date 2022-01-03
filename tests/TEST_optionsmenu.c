@@ -13,8 +13,8 @@ int main()
     printf("\nMenu in French:\n");
     gui_print_options_menu();
 
-    gamelanguage = LANGUAGE_FRENCH;
-    printf("\nMenu in French:\n");
+    gamelanguage = LANGUAGE_GERMAN;
+    printf("\nMenu in German:\n");
     gui_print_options_menu();
 
     EXIT_PROGRAM_SUCCESSFUL();

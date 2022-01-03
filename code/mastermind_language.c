@@ -299,5 +299,25 @@ char *lang_menu_options(int menu_option)
         default:
             INVALID_LANGUAGE_ERROR();
         }
-    } else INVALID_OPTION_ERROR();
+    }
+}
+
+void lang_print_invalid_menu_input_message()
+{
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        printf("Wrong format! Please enter a number according to the menu option.\n");
+        break;
+
+    case LANGUAGE_FRENCH:
+        printf("Mauvais format! Veuillez entrer un nombre en fonction de l'option de menu.\n");
+        break;
+
+    case LANGUAGE_GERMAN:
+        printf("Falsches Format! Bitte gebe eine Zahl entsprechend der Menueoption ein.\n");
+        break;
+
+    default:
+        INVALID_LANGUAGE_ERROR();
+    }
 }
