@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <string.h>
 
+#define AMOUNT_OF_LANGUAGES 3
 #define LANGUAGE_GERMAN 0
 #define LANGUAGE_ENGLISH 1
 #define LANGUAGE_FRENCH 2
@@ -21,5 +22,7 @@ void lang_print_you_typed_menu_option(int menu_option);
 char *lang_wrong_format();
 char *lang_please_input_menu_option();
 char *lang_goodbye();
+char *lang_language_name(int language);
+char *lang_language_changed_to();
 
 #endif

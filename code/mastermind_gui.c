@@ -29,3 +29,46 @@ void gui_print_options_menu()
     printf("/________________/     /________________/     /________________/     /________________/     /________________/    \n");
     printf("%s\n", lang_please_input_menu_option());
 }
+
+void gui_print_language_menu()
+{
+    int i;
+    /* 1. Row: Head */
+    printf("\n");
+    for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
+        printf("   _________________");
+        
+        if (i != (AMOUNT_OF_LANGUAGES - 1)) {
+            printf("   ");
+        } else printf("\n");
+    }
+
+    /* 2. Row: Number */
+    for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
+        printf("  /      (%i)       /", i + 1);
+        
+        if (i != (AMOUNT_OF_LANGUAGES - 1)) {
+            printf("   ");
+        } else printf("\n");
+    }
+    
+    /* 3. Row: Language name */
+    for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
+        printf(" /%s/", lang_language_name(i));
+        
+        if (i != (AMOUNT_OF_LANGUAGES - 1)) {
+            printf("    ");
+        } else printf("\n");
+    }
+
+    /* 4. Row: Bottom */
+    for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
+        printf("/________________/");
+        
+        if (i != (AMOUNT_OF_LANGUAGES - 1)) {
+            printf("     ");
+        } else printf("\n");
+    }
+
+    printf("%s\n", lang_please_input_menu_option());
+}

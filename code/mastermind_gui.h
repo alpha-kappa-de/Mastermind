@@ -6,5 +6,6 @@
 
 void gui_print_mastermind_logo();
 void gui_print_options_menu();
+void gui_print_language_menu();
 
 #endif

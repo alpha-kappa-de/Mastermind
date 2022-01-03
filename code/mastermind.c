@@ -80,7 +80,7 @@ int flush_buff (void)
     return c != EOF ;
 }
 
-int player_input_mainmenu(int amount_of_menu_options)
+int player_input_menu(int amount_of_menu_options)
 {
     int input, status, c;
 
@@ -98,52 +98,87 @@ int player_input_mainmenu(int amount_of_menu_options)
     return input;
 }
 
-int mainmenu()
+void mainmenu()
 {
     int i;
     gui_print_options_menu();
-    i = player_input_mainmenu(5);
+    i = player_input_menu(5);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         printf("%s %s\n", lang_wrong_format(), lang_please_input_menu_option());
-        i = player_input_mainmenu(5);
+        i = player_input_menu(5);
     }
     
     switch (i)
     {
-    case 1:
-        lang_print_you_typed_menu_option(i);
-        /* goto menu 1 */
-        return 1;
-        break;
-    
-    case 2:
-        lang_print_you_typed_menu_option(i);
-        /* goto menu 2 */
-        return 2;
-        break;
-    
-    case 3:
-        lang_print_you_typed_menu_option(i);
-        /* goto menu 3 */
-        return 3;
-        break;
+        /* Play */
+        case 1:
+            lang_print_you_typed_menu_option(i);
+            /* goto menu 1 */
+            break;
+        
+        /* How to play */
+        case 2:
+            lang_print_you_typed_menu_option(i);
+            /* goto menu 2 */
+            break;
+        
+        /* Language */
+        case 3:
+            lang_print_you_typed_menu_option(i);
+            language_menu();
+            break;
 
-    case 4:
-        lang_print_you_typed_menu_option(i);
-        /* goto menu 4 */
-        return 4;
-        break;
+        /* Statistics */
+        case 4:
+            lang_print_you_typed_menu_option(i);
+            /* goto menu 4 */
+            break;
 
-    case 5:
-        lang_print_you_typed_menu_option(i);
-        EXIT_PROGRAM_SUCCESSFUL();
-        return 5;
-        break;
+        /* Exit */
+        case 5:
+            lang_print_you_typed_menu_option(i);
+            EXIT_PROGRAM_SUCCESSFUL();
+            break;
 
-    default:
-        break;
+        default:
+            break;
+        }
+}
+
+void language_menu()
+{
+    int i;
+    gui_print_language_menu();
+    i = player_input_menu(AMOUNT_OF_LANGUAGES);
+
+    while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        printf("%s %s\n", lang_wrong_format(), lang_please_input_menu_option());
+        i = player_input_menu(AMOUNT_OF_LANGUAGES);
     }
     
-    return INVALID_MENU_INPUT;
+    switch (i - 1) {
+    
+        case LANGUAGE_GERMAN:
+            gamelanguage = LANGUAGE_GERMAN;
+            printf("%s\n", lang_language_changed_to());
+            mainmenu();
+            break;
+        
+        case LANGUAGE_ENGLISH:
+            gamelanguage = LANGUAGE_ENGLISH;
+            printf("%s\n", lang_language_changed_to());
+            mainmenu();
+            break;
+        
+        case LANGUAGE_FRENCH:
+            gamelanguage = LANGUAGE_FRENCH;
+            printf("%s\n", lang_language_changed_to());
+            mainmenu();
+            break;
+
+        default:
+            INVALID_LANGUAGE_ERROR();
+            break;
+        }
 }

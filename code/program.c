@@ -11,7 +11,5 @@ int main()
     gui_print_mastermind_logo();
     mainmenu();
 
-
-
     exit(SUCCESS);
 }

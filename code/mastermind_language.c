@@ -214,6 +214,7 @@ void lang_print_colorcode_wrong_format_message()
 
 char *lang_menu_options(int menu_option)
 {
+    /* Please mind that every string has to be exactly 17 chars long (including \0) */
     if (menu_option == MENU_OPTION_PLAY) {
         switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
@@ -315,7 +316,7 @@ void lang_print_you_typed_menu_option(int menu_option)
         break;
 
     case LANGUAGE_GERMAN:
-        printf("Du waehltest Menueoption %i", menu_option);
+        printf("Du hast Menueoption %i ausgewaehlt", menu_option);
         break;
 
     default:
@@ -376,6 +377,47 @@ char *lang_goodbye()
 
     case LANGUAGE_GERMAN:
         return "Danke fuers Spielen. Auf Wiedersehen!";
+        break;
+
+    default:
+        INVALID_LANGUAGE_ERROR();
+    }
+}
+
+char *lang_language_name(int language)
+{
+    /* Please mind that every string has to be exactly 17 chars long (including \0) */
+    switch (language) {
+    case LANGUAGE_ENGLISH:
+        return "     ENGLISH    ";
+        break;
+
+    case LANGUAGE_FRENCH:
+        return "    FRANCAIS    ";
+        break;
+
+    case LANGUAGE_GERMAN:
+        return "     DEUTSCH    ";
+        break;
+
+    default:
+        INVALID_LANGUAGE_ERROR();
+    }
+}
+
+char *lang_language_changed_to()
+{
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "Language changed to English.";
+        break;
+
+    case LANGUAGE_FRENCH:
+        return "Langue changee en francais.";
+        break;
+
+    case LANGUAGE_GERMAN:
+        return "Sprache wurde auf Deutsch eingestellt.";
         break;
 
     default:
