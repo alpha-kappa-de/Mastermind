@@ -27,6 +27,10 @@
 #define GREEN 3
 #define PURPLE 4
 #define BROWN 5
+#define PINK 6
+#define CYAN 7
+
+#define MAX_NAME_LENGTH 13
 
 #define MENU_OPTION_PLAY 1
 #define MENU_OPTION_HOWTOPLAY 2
@@ -37,6 +41,11 @@
 int player1_colorcode[MAX_COLORCODE_LENGTH];
 int player2_colorcode[MAX_COLORCODE_LENGTH];
 int player_guess[MAX_COLORCODE_LENGTH];
+char *player1_name[MAX_NAME_LENGTH];
+char *player2_name[MAX_NAME_LENGTH];
+int player1_attempts;
+int player2_attempts;
+
 
 int colorcode_length;
 

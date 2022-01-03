@@ -16,4 +16,4 @@
 
 
 ## :busts_in_silhouette: Team
- The Team consists of [alpha-kappa-de](https://github.com/alpha-kappa-de), [Jooosy](https://github.com/Jooosy) and [JanisNoah](https://github.com/JanisNoah).
+ The Team consists of [α-kappa](https://github.com/alpha-kappa-de), [Jooosy](https://github.com/Jooosy) and [JanisNoah](https://github.com/JanisNoah).
