@@ -113,31 +113,28 @@ void mainmenu()
     {
         /* Play */
         case 1:
-            lang_print_you_typed_menu_option(i);
             /* goto menu 1 */
             break;
         
         /* How to play */
         case 2:
-            lang_print_you_typed_menu_option(i);
-            /* goto menu 2 */
+            lang_print_how_to_play();
+            mainmenu();
             break;
         
         /* Language */
         case 3:
-            lang_print_you_typed_menu_option(i);
             language_menu();
+            mainmenu();
             break;
 
         /* Statistics */
         case 4:
-            lang_print_you_typed_menu_option(i);
             /* goto menu 4 */
             break;
 
         /* Exit */
         case 5:
-            lang_print_you_typed_menu_option(i);
             EXIT_PROGRAM_SUCCESSFUL();
             break;
 
@@ -162,19 +159,16 @@ void language_menu()
         case LANGUAGE_GERMAN:
             gamelanguage = LANGUAGE_GERMAN;
             printf("%s\n", lang_language_changed_to());
-            mainmenu();
             break;
         
         case LANGUAGE_ENGLISH:
             gamelanguage = LANGUAGE_ENGLISH;
             printf("%s\n", lang_language_changed_to());
-            mainmenu();
             break;
         
         case LANGUAGE_FRENCH:
             gamelanguage = LANGUAGE_FRENCH;
             printf("%s\n", lang_language_changed_to());
-            mainmenu();
             break;
 
         default:

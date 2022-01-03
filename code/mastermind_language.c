@@ -304,26 +304,6 @@ char *lang_menu_options(int menu_option)
     INVALID_MENUOPTION_ERROR();
 }
 
-void lang_print_you_typed_menu_option(int menu_option)
-{
-    switch (gamelanguage) {
-    case LANGUAGE_ENGLISH:
-        printf("You typed menu option %i", menu_option);
-        break;
-
-    case LANGUAGE_FRENCH:
-        printf("Vous avez tape l'option de menu %i", menu_option);
-        break;
-
-    case LANGUAGE_GERMAN:
-        printf("Du hast Menueoption %i ausgewaehlt", menu_option);
-        break;
-
-    default:
-        INVALID_LANGUAGE_ERROR();
-    }
-}
-
 char *lang_wrong_format()
 {
     switch (gamelanguage) {
@@ -418,6 +398,51 @@ char *lang_language_changed_to()
 
     case LANGUAGE_GERMAN:
         return "Sprache wurde auf Deutsch eingestellt.";
+        break;
+
+    default:
+        INVALID_LANGUAGE_ERROR();
+    }
+}
+
+void lang_print_how_to_play()
+{
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        printf("_____________________________________________\nHow to play:\n_____________________________________________\n");
+        printf("At the beginning, both players secretly determine a four-digit ordered color code, which is selected from six colors.\n");
+        printf("Each color can also be used several times. The aim of the game is to find out the other player's\n");
+        printf("color code with as few moves as possible, but after a maximum of twelve attempts.\n");
+        printf("With every move you get the information how many pins (in the color code) have been correctly set\n");
+        printf("in color and position and how many pins are in the correct color but are in the wrong position.\n\nSuper mastermind:\n");
+        printf("If the Super Mastermind option is selected, the color code consists of five pins.\n");
+        printf("Instead of six colors, you can now choose from eight colors.\n");
+        printf("Here, too, you have a maximum of twelve attempts to guess the code.\n_____________________________________________\n");
+        break;
+
+    case LANGUAGE_FRENCH:
+        printf("_____________________________________________\nComment jouer:\n_____________________________________________\n");
+        printf("Au debut, les deux joueurs determinent secretement un code couleur ordonne a quatre chiffres,\n");
+        printf("qui est selectionne parmi six couleurs. Chaque couleur peut egalement etre utilisee plusieurs fois.\n");
+        printf("Le but du jeu est de decouvrir le code couleur de l'autre joueur avec le moins de coups possible,\n");
+        printf("mais apres un maximum de douze tentatives. A chaque mouvement, vous obtenez des informations sur le\n");
+        printf("nombre de broches (dans le code de couleur) qui ont ete correctement definies dans la couleur et la position\n");
+        printf("et sur le nombre de broches de la bonne couleur mais dans la mauvaise position.\n\nSuper Mastermind:\n");
+        printf("Si l'option Super Mastermind est selectionnee, le code couleur se compose de cinq broches. Au lieu de six couleurs,\n");
+        printf("vous pouvez desormais choisir parmi huit couleurs.\n");
+        printf("Ici aussi, vous disposez d'un maximum de douze tentatives pour deviner le code.\n_____________________________________________\n");
+        break;
+
+    case LANGUAGE_GERMAN:
+        printf("_____________________________________________\nWie man spielt:\n_____________________________________________\n");
+        printf("Beide Spieler legen zu Beginn verdeckt einen vierstelligen geordneten Farbcode fest, der aus sechs Farben\n");
+        printf("ausgewaehlt wird. Jede Farbe kann auch mehrmals verwendet werden. Ziel des Spieles ist es, den Farbcode des\n"); 
+        printf("anderen mit so wenig Zuegen wie moeglich, jedoch nach maximal zwoelf Versuchen, herauszufinden.\n");
+        printf("Auf jeden Zug hin bekommt man die Information, wie viele Pins (im Farbcode)\n");
+        printf("in Farbe und Position richtig gesetzt wurden und wie viele Pins zwar die richtige Farbe haben, aber an einer\n");
+        printf("falschen Position stehen.\n\nSuper Mastermind:\nWird die Option Super Mastermind ausgewaehlt besteht der Farbcode aus fuenf Pins.\n");
+        printf("Statt aus sechs Farben kann nun aus acht Farben ausgewaehlt werden.\n");
+        printf("Auch hier hat man maximal zwoelf Versuche, um den Code zu erraten.\n_____________________________________________\n");
         break;
 
     default:
