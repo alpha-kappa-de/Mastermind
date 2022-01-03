@@ -7,8 +7,9 @@
 #include "mastermind_language.h"
 #include "mastermind_gui.h"
 
-#define INVALID_LANGUAGE_ERROR() {printf("Invalid language set. Please restart the game."); exit(LANGUAGE_ERROR);}
 #define EXIT_PROGRAM_SUCCESSFUL() {printf("Game is exiting now."); exit(SUCCESS);}
+#define INVALID_LANGUAGE_ERROR() {printf("Errorcode: %i\nInvalid language set. Please contact the devs.", LANGUAGE_ERROR); exit(LANGUAGE_ERROR);}
+#define INVALID_MENUOPTION_ERROR() {printf("Errorcode: %i\nTried to print a non existant menu option. Please contact the devs.", INVALID_MENU_OPTION); exit(INVALID_MENU_OPTION);}
 #define INVALID_MENU_INPUT_ERROR() (lang_print_invalid_menu_input_message())
 
 #define LANG_PRINT_RANDOM_COLOR() (printf("%s", lang_color_name(generate_random_color())))
@@ -16,7 +17,8 @@
 #define SUCCESS 0
 #define LANGUAGE_ERROR -1
 #define BUFFER_ERROR -2
-#define INVALID_MENU_INPUT -3
+#define INVALID_MENU_OPTION -3
+#define INVALID_MENU_INPUT -4
 
 #define MAX_COLORCODE_LENGTH 8
 #define AMOUNT_OF_COLORS 6

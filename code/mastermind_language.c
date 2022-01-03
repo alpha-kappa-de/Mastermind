@@ -300,6 +300,7 @@ char *lang_menu_options(int menu_option)
             INVALID_LANGUAGE_ERROR();
         }
     }
+    INVALID_MENUOPTION_ERROR();
 }
 
 void lang_print_invalid_menu_input_message()

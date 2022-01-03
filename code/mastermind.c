@@ -85,8 +85,8 @@ int player_input_mainmenu(int amount_of_menu_options)
 {
     int input, status, c;
 
-    c = '\0 ';
-    status = scanf("%i", input);
+    c = '\0';
+    status = scanf("%i", &input);
 
     if (status == EOF)
         return BUFFER_ERROR;
@@ -98,5 +98,4 @@ int player_input_mainmenu(int amount_of_menu_options)
         return INVALID_MENU_INPUT;
     }
     return input;
-
 }

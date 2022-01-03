@@ -10,4 +10,9 @@ int main()
     /* draw main menu */
     gui_print_mastermind_logo();
     gui_print_options_menu();
+
+
+
+
+    exit(SUCCESS);
 }
