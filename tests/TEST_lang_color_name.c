@@ -1,5 +1,4 @@
-#include <stdlib.h>
-#include <stdio.h>
+#include "mastermind.h"
 #include <string.h>
 
 int number_of_guesses = 4;
@@ -9,12 +8,10 @@ int number_of_guesses = 4;
 int main() {
 	char color_input1[7], color_input2[7], color_input3[7], color_input4[7];
 	int i;
-	char color_input = color_input1;
-
+	char *color_input;
 	int *color_guess_int = malloc((number_of_guesses + 1) * sizeof(int));
-
-	scanf("%s,%s,%s,%s\n",color_input1,color_input2,color_input3,color_input4);
-
+	gamelanguage = LANGUAGE_ENGLISH;
+	scanf("%s %s %s %s",color_input1 ,color_input2 ,color_input3 ,color_input4);
 	for(i = 0; i < number_of_guesses; i++){
 
 		switch (i){
@@ -31,7 +28,6 @@ int main() {
 				color_input = color_input4;
 				break;
 			}
-
 		switch (gamelanguage){
 			case LANGUAGE_GERMAN:
 				if (strcmp(color_input,"blau") == 0){
@@ -58,7 +54,8 @@ int main() {
 					*(color_guess_int + i) = BROWN;
 					break;
 				}else {
-					printf("typo");
+					printf("typoG\n");
+					break;
 				}
 			case LANGUAGE_ENGLISH:
 				if (strcmp(color_input,"blue") == 0){
@@ -85,7 +82,8 @@ int main() {
 					*(color_guess_int + i) = BROWN;
 					break;
 				}else {
-					printf("typo");
+					printf("typoE\n");
+					break;
 				}
 			case LANGUAGE_FRENCH:
 				if (strcmp(color_input,"bleu") == 0){
@@ -112,10 +110,13 @@ int main() {
 					*(color_guess_int + i) = BROWN;
 					break;
 				}else {
-					printf("typo");
+					printf("typoF\n");
+					break;
 				}
 			}
 
 		}
+	printf("%i,%i,%i,%i",*(color_guess_int),*(color_guess_int + 1),*(color_guess_int + 2),*(color_guess_int + 3));
+	free(color_guess_int);
 	return 0;
 }
