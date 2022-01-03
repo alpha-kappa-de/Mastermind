@@ -27,5 +27,5 @@ void gui_print_options_menu()
     printf("  /      (1)       /     /      (2)       /     /      (3)       /     /      (4)       /     /      (5)       / \n");
     printf(" /%s/     /%s/     /%s/     /%s/     /%s/  \n", lang_menu_options(MENU_OPTION_PLAY), lang_menu_options(MENU_OPTION_HOWTOPLAY), lang_menu_options(MENU_OPTION_LANGUAGE), lang_menu_options(MENU_OPTION_STATS), lang_menu_options(MENU_OPTION_EXIT));
     printf("/________________/     /________________/     /________________/     /________________/     /________________/    \n");
-
+    printf("%s\n", lang_please_input_menu_option());
 }

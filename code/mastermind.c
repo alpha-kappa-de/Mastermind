@@ -80,7 +80,6 @@ int flush_buff (void)
     return c != EOF ;
 }
 
-
 int player_input_mainmenu(int amount_of_menu_options)
 {
     int input, status, c;
@@ -90,12 +89,61 @@ int player_input_mainmenu(int amount_of_menu_options)
 
     if (status == EOF)
         return BUFFER_ERROR;
-    if (status == 0 || input <= 0 || input >= amount_of_menu_options || (c = getchar()) != '\n') {
+    if (status == 0 || input <= 0 || input > amount_of_menu_options || (c = getchar()) != '\n') {
         if (c == EOF || !flush_buff()) {
             return BUFFER_ERROR;
         }
-        INVALID_MENU_INPUT_ERROR();
         return INVALID_MENU_INPUT;
     }
     return input;
+}
+
+int mainmenu()
+{
+    int i;
+    gui_print_options_menu();
+    i = player_input_mainmenu(5);
+
+    while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        printf("%s %s\n", lang_wrong_format(), lang_please_input_menu_option());
+        i = player_input_mainmenu(5);
+    }
+    
+    switch (i)
+    {
+    case 1:
+        lang_print_you_typed_menu_option(i);
+        /* goto menu 1 */
+        return 1;
+        break;
+    
+    case 2:
+        lang_print_you_typed_menu_option(i);
+        /* goto menu 2 */
+        return 2;
+        break;
+    
+    case 3:
+        lang_print_you_typed_menu_option(i);
+        /* goto menu 3 */
+        return 3;
+        break;
+
+    case 4:
+        lang_print_you_typed_menu_option(i);
+        /* goto menu 4 */
+        return 4;
+        break;
+
+    case 5:
+        lang_print_you_typed_menu_option(i);
+        EXIT_PROGRAM_SUCCESSFUL();
+        return 5;
+        break;
+
+    default:
+        break;
+    }
+    
+    return INVALID_MENU_INPUT;
 }

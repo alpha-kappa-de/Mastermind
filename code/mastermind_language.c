@@ -189,15 +189,15 @@ void lang_print_colorcode_wrong_format_message()
 
     switch (gamelanguage) {
     case LANGUAGE_ENGLISH:
-        printf("Wrong Format! Enter a colorcode consisting of %i colors. Seperate the colors with a \",\". Example:\n", colorcode_length);
+        printf("%s Enter a colorcode consisting of %i colors. Seperate the colors with a \",\". Example:\n", lang_wrong_format(), colorcode_length);
         break;
 
     case LANGUAGE_FRENCH:
-        printf("Mauvais format! Entrez un code couleur compose de %i couleurs. Separez les couleurs avec un \",\". Exemple:\n", colorcode_length);
+        printf("%s Entrez un code couleur compose de %i couleurs. Separez les couleurs avec un \",\". Exemple:\n", lang_wrong_format(), colorcode_length);
         break;
 
     case LANGUAGE_GERMAN:
-        printf("Falsches Format! Gebe einen Farbcode, bestehend aus %i Farben, ein. Trenne die Farben durch ein \",\". Beispiel:\n", colorcode_length);
+        printf("%s Gebe einen Farbcode, bestehend aus %i Farben, ein. Trenne die Farben durch ein \",\". Beispiel:\n", lang_wrong_format(), colorcode_length);
         break;
 
     default:
@@ -303,19 +303,79 @@ char *lang_menu_options(int menu_option)
     INVALID_MENUOPTION_ERROR();
 }
 
-void lang_print_invalid_menu_input_message()
+void lang_print_you_typed_menu_option(int menu_option)
 {
     switch (gamelanguage) {
     case LANGUAGE_ENGLISH:
-        printf("Wrong format! Please enter a number according to the menu option.\n");
+        printf("You typed menu option %i", menu_option);
         break;
 
     case LANGUAGE_FRENCH:
-        printf("Mauvais format! Veuillez entrer un nombre en fonction de l'option de menu.\n");
+        printf("Vous avez tape l'option de menu %i", menu_option);
         break;
 
     case LANGUAGE_GERMAN:
-        printf("Falsches Format! Bitte gebe eine Zahl entsprechend der Menueoption ein.\n");
+        printf("Du waehltest Menueoption %i", menu_option);
+        break;
+
+    default:
+        INVALID_LANGUAGE_ERROR();
+    }
+}
+
+char *lang_wrong_format()
+{
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "Wrong format!";
+        break;
+
+    case LANGUAGE_FRENCH:
+        return "Mauvais format!";
+        break;
+
+    case LANGUAGE_GERMAN:
+        return "Falsches Format!";
+        break;
+
+    default:
+        INVALID_LANGUAGE_ERROR();
+    }
+}
+
+char *lang_please_input_menu_option()
+{
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "Please enter a number according to the menu option.";
+        break;
+
+    case LANGUAGE_FRENCH:
+        return "Veuillez entrer un nombre en fonction de l'option de menu.";
+        break;
+
+    case LANGUAGE_GERMAN:
+        return "Bitte gebe eine Zahl entsprechend der Menueoption ein.";
+        break;
+
+    default:
+        INVALID_LANGUAGE_ERROR();
+    }
+}
+
+char *lang_goodbye()
+{
+    switch (gamelanguage) {
+    case LANGUAGE_ENGLISH:
+        return "Thanks for playing. Goodbye!";
+        break;
+
+    case LANGUAGE_FRENCH:
+        return "Merci d'avoir joue. Au revoir!";
+        break;
+
+    case LANGUAGE_GERMAN:
+        return "Danke fuers Spielen. Auf Wiedersehen!";
         break;
 
     default:
