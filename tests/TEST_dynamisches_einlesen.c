@@ -12,8 +12,7 @@ int main(){
 	tolower(scanf("%s",player_guess_char));
 	player_guess[0] = lang_color_name_to_number(strtok(player_guess_char,","));
 	for( i = 1 ; i < colorcode_length; ++i){
-		printf("%i",player_guess[i]);
-		player_guess[i] = lang_color_name_to_number(strtok(NULL,","));
+		player_guess[i] = lang_color_name_to_number(strtok(player_guess_char,","));
 	}
 	free(player_guess_char);
 	return 0;
