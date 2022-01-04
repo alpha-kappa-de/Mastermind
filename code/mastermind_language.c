@@ -477,57 +477,57 @@ void lang_print_how_to_play()
 int lang_color_name_to_number(char *color_string)
 {
     if (gamelanguage == LANGUAGE_GERMAN) {
-        if (strcmp(*color_string, "blau" == 0) || strcmp(*color_string, "bl" == 0)) {
+        if (strcmp(color_string, "blau") == 0 || strcmp(color_string, "bl") == 0) {
             return BLUE;
-        } else if (strcmp(*color_string, "rot" == 0) || strcmp(*color_string, "ro" == 0)) {
+        } else if (strcmp(color_string, "rot") == 0 || strcmp(color_string, "ro") == 0) {
             return RED;
-        } else if (strcmp(*color_string, "gelb" == 0) || strcmp(*color_string, "ge" == 0)) {
+        } else if (strcmp(color_string, "gelb") == 0 || strcmp(color_string, "ge") == 0) {
             return YELLOW;
-        } else if (strcmp(*color_string, "gruen" == 0) || strcmp(*color_string, "gr" == 0)) {
+        } else if (strcmp(color_string, "gruen") == 0 || strcmp(color_string, "gr") == 0) {
             return GREEN;
-        } else if (strcmp(*color_string, "lila" == 0) || strcmp(*color_string, "li" == 0)) {
+        } else if (strcmp(color_string, "lila") == 0 || strcmp(color_string, "li") == 0) {
             return PURPLE;
-        } else if (strcmp(*color_string, "braun" == 0) || strcmp(*color_string, "br" == 0)) {
+        } else if (strcmp(color_string, "braun") == 0 || strcmp(color_string, "br") == 0) {
             return BROWN;
-        } else if (strcmp(*color_string, "orange" == 0) || strcmp(*color_string, "or" == 0)) {
+        } else if (strcmp(color_string, "orange") == 0 || strcmp(color_string, "or") == 0) {
             return ORANGE;
-        } else if (strcmp(*color_string, "cyan" == 0) || strcmp(*color_string, "cy" == 0)) {
+        } else if (strcmp(color_string, "cyan") == 0 || strcmp(color_string, "cy") == 0) {
             return CYAN;
         } else return NOT_A_COLOR; 
     } else if (gamelanguage == LANGUAGE_ENGLISH) {
-        if (strcmp(*color_string, "blue" == 0) || strcmp(*color_string, "bl" == 0)) {
+        if (strcmp(color_string, "blue") == 0 || strcmp(color_string, "bl") == 0) {
             return BLUE;
-        } else if (strcmp(*color_string, "red" == 0) || strcmp(*color_string, "re" == 0)) {
+        } else if (strcmp(color_string, "red") == 0 || strcmp(color_string, "re") == 0) {
             return RED;
-        } else if (strcmp(*color_string, "yellow" == 0) || strcmp(*color_string, "ye" == 0)) {
+        } else if (strcmp(color_string, "yellow") == 0 || strcmp(color_string, "ye") == 0) {
             return YELLOW;
-        } else if (strcmp(*color_string, "green" == 0) || strcmp(*color_string, "gr" == 0)) {
+        } else if (strcmp(color_string, "green") == 0 || strcmp(color_string, "gr") == 0) {
             return GREEN;
-        } else if (strcmp(*color_string, "purple" == 0) || strcmp(*color_string, "pu" == 0)) {
+        } else if (strcmp(color_string, "purple") == 0 || strcmp(color_string, "pu") == 0) {
             return PURPLE;
-        } else if (strcmp(*color_string, "brown" == 0) || strcmp(*color_string, "br" == 0)) {
+        } else if (strcmp(color_string, "brown") == 0 || strcmp(color_string, "br") == 0) {
             return BROWN;
-        } else if (strcmp(*color_string, "orange" == 0) || strcmp(*color_string, "or" == 0)) {
+        } else if (strcmp(color_string, "orange") == 0 || strcmp(color_string, "or") == 0) {
             return ORANGE;
-        } else if (strcmp(*color_string, "cyan" == 0) || strcmp(*color_string, "cy" == 0)) {
+        } else if (strcmp(color_string, "cyan") == 0 || strcmp(color_string, "cy") == 0) {
             return CYAN;
         } else return NOT_A_COLOR; 
     } else if (gamelanguage == LANGUAGE_FRENCH) {
-        if (strcmp(*color_string, "bleu" == 0) || strcmp(*color_string, "bl" == 0)) {
+        if (strcmp(color_string, "bleu") == 0 || strcmp(color_string, "bl") == 0) {
             return BLUE;
-        } else if (strcmp(*color_string, "rouge" == 0) || strcmp(*color_string, "ro" == 0)) {
+        } else if (strcmp(color_string, "rouge") == 0 || strcmp(color_string, "ro") == 0) {
             return RED;
-        } else if (strcmp(*color_string, "jaune" == 0) || strcmp(*color_string, "ja" == 0)) {
+        } else if (strcmp(color_string, "jaune") == 0 || strcmp(color_string, "ja") == 0) {
             return YELLOW;
-        } else if (strcmp(*color_string, "vert" == 0) || strcmp(*color_string, "ve" == 0)) {
+        } else if (strcmp(color_string, "vert") == 0 || strcmp(color_string, "ve") == 0) {
             return GREEN;
-        } else if (strcmp(*color_string, "mauve" == 0) || strcmp(*color_string, "ma" == 0)) {
+        } else if (strcmp(color_string, "mauve") == 0 || strcmp(color_string, "ma") == 0) {
             return PURPLE;
-        } else if (strcmp(*color_string, "brun" == 0) || strcmp(*color_string, "br" == 0)) {
+        } else if (strcmp(color_string, "brun") == 0 || strcmp(color_string, "br") == 0) {
             return BROWN;
-        } else if (strcmp(*color_string, "orange" == 0) || strcmp(*color_string, "or" == 0)) {
+        } else if (strcmp(color_string, "orange") == 0 || strcmp(color_string, "or") == 0) {
             return ORANGE;
-        } else if (strcmp(*color_string, "cyan" == 0) || strcmp(*color_string, "cy" == 0)) {
+        } else if (strcmp(color_string, "cyan") == 0 || strcmp(color_string, "cy") == 0) {
             return CYAN;
         } else return NOT_A_COLOR; 
     } else INVALID_LANGUAGE_ERROR();
