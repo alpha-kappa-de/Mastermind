@@ -18,6 +18,7 @@
 #define BUFFER_ERROR -2
 #define INVALID_MENU_OPTION -3
 #define INVALID_MENU_INPUT -4
+#define NOT_A_COLOR -5
 
 #define MAX_COLORCODE_LENGTH 8
 #define AMOUNT_OF_COLORS 6
@@ -27,7 +28,7 @@
 #define GREEN 3
 #define PURPLE 4
 #define BROWN 5
-#define PINK 6
+#define ORANGE 6
 #define CYAN 7
 
 #define MAX_NAME_LENGTH 13

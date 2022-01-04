@@ -9,6 +9,7 @@
 #define LANGUAGE_ENGLISH 1
 #define LANGUAGE_FRENCH 2
 
+
 int gamelanguage;
 
 char *lang_color_name(int color);
@@ -24,5 +25,6 @@ char *lang_goodbye();
 char *lang_language_name(int language);
 char *lang_language_changed_to();
 void lang_print_how_to_play();
+int lang_color_name_to_number(char *color_string);
 
 #endif
