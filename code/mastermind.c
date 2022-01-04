@@ -47,7 +47,7 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
         }
         colorcode_pin_array = start_of_colorcode_pin_array;
     }
-    
+
     /* print message: input of player, amount of correct pins and correct colors */
     printf("\t\t");
     lang_print_correct_pins();
@@ -73,7 +73,7 @@ int generate_random_color()
     return (random_number % (AMOUNT_OF_COLORS));
 }
 
-int flush_buff (void) 
+int flush_buff (void)
 {
     int c;
     while ((c = getchar ()) != '\n' && c != EOF ) {}
@@ -108,20 +108,20 @@ void mainmenu()
         printf("%s %s\n", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(5);
     }
-    
+
     switch (i)
     {
         /* Play */
         case 1:
             /* goto menu 1 */
             break;
-        
+
         /* How to play */
         case 2:
             lang_print_how_to_play();
             mainmenu();
             break;
-        
+
         /* Language */
         case 3:
             language_menu();
@@ -153,19 +153,19 @@ void language_menu()
         printf("%s %s\n", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(AMOUNT_OF_LANGUAGES);
     }
-    
+
     switch (i - 1) {
-    
+
         case LANGUAGE_GERMAN:
             gamelanguage = LANGUAGE_GERMAN;
             printf("%s\n", lang_language_changed_to());
             break;
-        
+
         case LANGUAGE_ENGLISH:
             gamelanguage = LANGUAGE_ENGLISH;
             printf("%s\n", lang_language_changed_to());
             break;
-        
+
         case LANGUAGE_FRENCH:
             gamelanguage = LANGUAGE_FRENCH;
             printf("%s\n", lang_language_changed_to());
@@ -175,4 +175,16 @@ void language_menu()
             INVALID_LANGUAGE_ERROR();
             break;
         }
+}
+
+int player_guess_input(){
+	int i;
+	char *player_guess_char = malloc((colorcode_length) * 8 * sizeof(char));
+	tolower(scanf("%s",player_guess_char));
+	player_guess[0] = lang_color_name_to_number(strtok(player_guess_char,","));
+	for( i = 1 ; i < colorcode_length; ++i){
+		player_guess[i] = lang_color_name_to_number(strtok(player_guess_char,","));
+	}
+	free(player_guess_char);
+	return 0;
 }

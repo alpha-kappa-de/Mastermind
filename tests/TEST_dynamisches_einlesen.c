@@ -6,7 +6,7 @@
 #include "mastermind.h"
 
 
-int main(){
+int player_guess_input(){
 	int i;
 	char *player_guess_char = malloc((colorcode_length) * 8 * sizeof(char));
 	tolower(scanf("%s",player_guess_char));
