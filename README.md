@@ -3,7 +3,7 @@
  This is a little project we are writing for university. It's the game **Mastermind** also known as *SuperHirn*, *Super Code*, *Variablo* and *LogikTrainer*.
  The code is completely written in C according to the C89 standard and it's only using the C89 standard library.
 
-## :building_construction: Compile the game yourself. (You will need to have gcc installed)
+## :building_construction:  Compile the game yourself. (You will need to have gcc installed)
 #### Compile it yourself
 You can compile the complete game yourself. To make this task easier, you can just use the Compile Script!
 
@@ -21,7 +21,7 @@ You can compile the complete game yourself. To make this task easier, you can ju
 - Now there should be a Mastermind.exe in the *Mastermind* folder.
 - Open a Terminal window in */Mastermind* and type "*Mastermind.exe*".
 
-## :jigsaw: Easy expandability
+## :jigsaw:  Easy expandability
 
  It's quite easy to add a new language. The GUI will automatically include your added language if you follow these steps.
  1. **mastermind_language.h**
@@ -33,5 +33,5 @@ You can compile the complete game yourself. To make this task easier, you can ju
     - Add a new case into every function with your translation.
 
 
-## :busts_in_silhouette: Team
+## :busts_in_silhouette:  Team
  The Team consists of [α-kappa](https://github.com/alpha-kappa-de), [Jooosy](https://github.com/Jooosy) and [JanisNoah](https://github.com/JanisNoah).
