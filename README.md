@@ -3,6 +3,24 @@
  This is a little project we are writing for university. It's the game **Mastermind** also known as *SuperHirn*, *Super Code*, *Variablo* and *LogikTrainer*.
  The code is completely written in C according to the C89 standard and it's only using the C89 standard library.
 
+## :building_construction: Compile the game yourself. (You will need to have gcc installed)
+#### Compile it yourself
+You can compile the complete game yourself. To make this task easier, you can just use the Compile Script!
+
+#### Compile Script on *Linux* or *MacOS* 
+- Download the complete repository.
+- Unzip it.
+- Open a Terminal window in the *Mastermind* directory and type *./compile_mastermind.sh*.
+- Now there should be a Mastermind.out in the *Mastermind* directory.
+- Just open it by typing *./Mastermind.out* into the Terminal.
+
+#### Compile Script on *Windows*
+- Download the complete repository.
+- Unzip it.
+- Run the *./wincompile_mastermind.bat*.
+- Now there should be a Mastermind.exe in the *Mastermind* directory.
+- Open a Terminal window in the *Mastermind* directory and type *Mastermind.exe*.
+
 ## :jigsaw: Easy expandability
 
  It's quite easy to add a new language. The GUI will automatically include your added language if you follow these steps.
