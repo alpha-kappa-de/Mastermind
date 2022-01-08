@@ -1,5 +1,5 @@
-#include "mastermind_language.h"
 #include "mastermind.h"
+#include "mastermind_language.h"
 #include "mastermind_gui.h"
 
 int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
@@ -122,15 +122,15 @@ void mainmenu()
             mainmenu();
             break;
 
-        /* Language */
+        /* Statistics */
         case 3:
-            language_menu();
-            mainmenu();
+            /* goto menu 3 */
             break;
 
-        /* Statistics */
+        /* Settings */
         case 4:
-            /* goto menu 4 */
+            settings_menu();
+            mainmenu();
             break;
 
         /* Exit */
@@ -138,6 +138,38 @@ void mainmenu()
             EXIT_PROGRAM_SUCCESSFUL();
             break;
 
+        default:
+            break;
+        }
+}
+
+void settings_menu()
+{
+    int i;
+    gui_print_settings_menu();
+    i = player_input_menu(3);
+
+    while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        printf("%s %s\n", lang_wrong_format(), lang_please_input_menu_option());
+        i = player_input_menu(3);
+    }
+
+    switch (i)
+    {
+        /* Language */
+        case 1:
+            language_menu();
+            mainmenu();
+            break;
+        /* Nice GUI mode */
+        case 2:
+            change_gui_mode();
+            mainmenu();
+            break;
+        /* exit */
+        case 3:
+            mainmenu();
+            break;
         default:
             break;
         }
@@ -155,7 +187,6 @@ void language_menu()
     }
 
     switch (i - 1) {
-
         case LANGUAGE_GERMAN:
             gamelanguage = LANGUAGE_GERMAN;
             printf("%s\n", lang_language_changed_to());
@@ -177,7 +208,26 @@ void language_menu()
         }
 }
 
-int player_guess_input(){
+void change_gui_mode()
+{
+    int i;
+    gui_print_GUI_mode_menu();
+    i = player_input_menu(2);
+
+    while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        printf("%s %s\n", lang_wrong_format(), lang_please_input_menu_option());
+        i = player_input_menu(2);
+    }
+
+    if (i == 1) {
+        pretty_mode = FALSE;
+    } else if (i == 2) {
+        pretty_mode = TRUE;
+    }
+}
+
+int player_guess_input()
+{
 	int i;
 	char *player_guess_char = malloc((colorcode_length) * 8 * sizeof(char));
 

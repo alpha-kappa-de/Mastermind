@@ -3,6 +3,8 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "mastermind.h"
+#include "mastermind_gui.h"
 
 #define AMOUNT_OF_LANGUAGES 3
 #define LANGUAGE_GERMAN 0
@@ -26,5 +28,12 @@ char *lang_language_name(int language);
 char *lang_language_changed_to();
 void lang_print_how_to_play();
 int lang_color_name_to_number(char *color_string);
+char *lang_change_guimode_message();
+char *lang_compatible_mode_whitespaced();
+char *lang_pretty_mode_whitespaced();
+char *lang_compatible_mode();
+char *lang_pretty_mode();
+char *lang_always_safe_to_choose_comp_mode();
+char *lang_current_setting();
 
 #endif
