@@ -27,7 +27,7 @@
 #define PRETTYMODE_ERROR_CODE -6
 
 #define MAX_COLORCODE_LENGTH 8
-#define AMOUNT_OF_COLORS 6
+#define AMOUNT_OF_COLORS 8
 #define BLUE 0
 #define RED 1
 #define YELLOW 2
@@ -67,5 +67,6 @@ void settings_menu();
 void language_menu();
 void change_gui_mode();
 int player_guess_input();
+void generate_random_colorcode(int *colorcode);
 
 #endif

@@ -239,3 +239,11 @@ int player_guess_input()
 	free(player_guess_char);
 	return 0;
 }
+
+void generate_random_colorcode(int *colorcode)
+{
+    int i;
+	for (i = 0; i < colorcode_length; i++) {
+		colorcode[i] = generate_random_color();
+	}
+}
