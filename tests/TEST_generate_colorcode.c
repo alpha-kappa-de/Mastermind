@@ -11,10 +11,10 @@ void generate_colorcode(int *colorcode, int size)
 
 int main()
 {
-	int v[COLORS];
+	int v[7];
 	int i;
-	generate_colorcode(v);
-	for (i = 0; i < COLORS; i++) {
+	generate_colorcode(v, 7);
+	for (i = 0; i < 7; i++) {
 		printf("%c\n", v[i]);
 	}
 	return 0;
