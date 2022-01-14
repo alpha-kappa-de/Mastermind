@@ -17,6 +17,15 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
     /* initialize counters and allocate space for pin assignment */
     counter_correct_pins = 0;
     counter_correct_color = 0;
+
+    /* 
+    
+    
+    calloc auf Null return prüfen!!!!!!!!!!!!!!!!!!!!!!!!!!!
+    
+    
+    
+     */
     colorcode_pin_array = calloc(colorcode_length, sizeof(char));
     guess_pin_array = calloc(colorcode_length, sizeof(char));
     start_of_colorcode_pin_array = colorcode_pin_array;
@@ -226,10 +235,28 @@ void change_gui_mode()
     }
 }
 
-int player_guess_input()
+
+int player_colorcode_input(int *codearray)
 {
-	int i;
+   /*  
+    Mache später weiter
+
+	int i, status, c;
 	char *player_guess_char = malloc((colorcode_length) * 8 * sizeof(char));
+    char *input[100];
+
+    c = '\0';
+    status = scanf("%s", &input);
+
+    if (status == EOF)
+        return BUFFER_ERROR;
+    if (status == 0 || (c = getchar()) != '\n') {
+        if (c == EOF || !flush_buff()) {
+            return BUFFER_ERROR;
+        }
+        return INVALID_COLORCODE_INPUT;
+    }
+    
 
 	tolower(scanf("%s", player_guess_char));
 	player_guess[0] = lang_color_name_to_number(strtok(player_guess_char, ","));
@@ -238,7 +265,9 @@ int player_guess_input()
 	}
 	free(player_guess_char);
 	return 0;
-}
+ */
+} 
+
 
 void generate_random_colorcode(int *colorcode)
 {

@@ -25,6 +25,7 @@
 #define INVALID_MENU_INPUT -4
 #define NOT_A_COLOR -5
 #define PRETTYMODE_ERROR_CODE -6
+#define INVALID_COLORCODE_INPUT -7
 
 #define MAX_COLORCODE_LENGTH 8
 #define AMOUNT_OF_COLORS 8
@@ -55,6 +56,11 @@ char *player2_name[MAX_NAME_LENGTH];
 int player1_attempts;
 int player2_attempts;
 int pretty_mode;
+int issingleplayer;
+int amount_of_attempts;
+int gamerounds;
+int starttime;
+
 
 int colorcode_length;
 
@@ -66,7 +72,7 @@ void mainmenu();
 void settings_menu();
 void language_menu();
 void change_gui_mode();
-int player_guess_input();
+int player_colorcode_input(int *codearray);
 void generate_random_colorcode(int *colorcode);
 
 #endif
