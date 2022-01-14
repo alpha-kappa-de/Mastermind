@@ -3,6 +3,7 @@
 int main()
 {
     /* initialize some values */
+    starttime = time(NULL);
     gamelanguage = LANGUAGE_ENGLISH;
     colorcode_length = 4;
 

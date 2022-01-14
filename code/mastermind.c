@@ -259,6 +259,7 @@ int player_colorcode_input(int *codearray)
     
 
 	tolower(scanf("%s", player_guess_char));
+	// einngabefehler berücksichtigen
 	player_guess[0] = lang_color_name_to_number(strtok(player_guess_char, ","));
 	for( i = 1 ; i < colorcode_length; ++i) {
 		player_guess[i] = lang_color_name_to_number(strtok(player_guess_char, ","));
