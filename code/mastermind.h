@@ -55,6 +55,7 @@ char *player2_name[MAX_NAME_LENGTH];
 int player1_attempts;
 int player2_attempts;
 int pretty_mode;
+int starttime;
 
 int colorcode_length;
 
