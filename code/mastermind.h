@@ -12,6 +12,7 @@
 #define INVALID_LANGUAGE_ERROR() {printf("Errorcode: %i\nInvalid language set. Please contact the devs.", LANGUAGE_ERROR); exit(LANGUAGE_ERROR);}
 #define INVALID_MENUOPTION_ERROR() {printf("Errorcode: %i\nTried to print a non existant menu option. Please contact the devs.", INVALID_MENU_OPTION); exit(INVALID_MENU_OPTION);}
 #define INVALID_PRETTYMODE_ERROR() {printf("Errorcode: %i\nSomething is off with the pretty mode settings. Please contact the devs.", PRETTYMODE_ERROR_CODE); exit(PRETTYMODE_ERROR_CODE);}
+#define SPACE_ALLOCATION_ERROR() {printf("Errorcode: %i\nSpace allocation didn't work. Please check your computer or if this doesn't happen for the first time, contact the devs.", SPACE_ALLOCATION_ERROR_CODE); exit(SPACE_ALLOCATION_ERROR_CODE);}
 
 #define LANG_PRINT_RANDOM_COLOR() (printf("%s", lang_color_name(generate_random_color())))
 
@@ -26,6 +27,7 @@
 #define NOT_A_COLOR -5
 #define PRETTYMODE_ERROR_CODE -6
 #define INVALID_COLORCODE_INPUT -7
+#define SPACE_ALLOCATION_ERROR_CODE -8
 
 #define MAX_COLORCODE_LENGTH 8
 #define AMOUNT_OF_COLORS 8
@@ -38,6 +40,7 @@
 #define ORANGE 6
 #define CYAN 7
 
+#define MAX_COLOR_INPUT_LENGTH 100
 #define MAX_NAME_LENGTH 13
 
 #define MENU_OPTION_PLAY 1
@@ -66,7 +69,7 @@ int colorcode_length;
 
 int check_colorcode_and_print_correct_pins(int *colorcode, int *guess);
 int generate_random_color();
-int flush_buff (void);
+int flush_buff();
 int player_input_menu(int amount_of_menu_options);
 void mainmenu();
 void settings_menu();

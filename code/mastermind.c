@@ -18,19 +18,17 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
     counter_correct_pins = 0;
     counter_correct_color = 0;
 
-    /* 
-    
-    
-    calloc auf Null return prüfen!!!!!!!!!!!!!!!!!!!!!!!!!!!
-    
-    
-    
-     */
     colorcode_pin_array = calloc(colorcode_length, sizeof(char));
+    if (colorcode_pin_array == NULL) {
+        SPACE_ALLOCATION_ERROR();
+    }
     guess_pin_array = calloc(colorcode_length, sizeof(char));
+    if (guess_pin_array == NULL) {
+        free(colorcode_pin_array);
+        SPACE_ALLOCATION_ERROR();
+    }
     start_of_colorcode_pin_array = colorcode_pin_array;
     start_of_guess_pin_array = guess_pin_array;
-
 
     /* get amount of correct pins */
     for (i = 0; i < colorcode_length; i++) {
@@ -65,8 +63,8 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
     printf(": %i\n", counter_correct_color);
 
     /* free up space and return amount of correct pins */
-    free(colorcode_pin_array);
-    free(guess_pin_array);
+    free(start_of_colorcode_pin_array);
+    free(start_of_guess_pin_array);
     return counter_correct_pins;
 }
 
@@ -82,10 +80,10 @@ int generate_random_color()
     return (random_number % (AMOUNT_OF_COLORS));
 }
 
-int flush_buff (void)
+int flush_buff()
 {
     int c;
-    while ((c = getchar ()) != '\n' && c != EOF ) {}
+    while ((c = getchar()) != '\n' && c != EOF ) {}
     return c != EOF ;
 }
 
@@ -238,37 +236,54 @@ void change_gui_mode()
 
 int player_colorcode_input(int *codearray)
 {
-   /*  
-    Mache später weiter
+	int i, status, colorcode[MAX_COLORCODE_LENGTH];
+    char c, input[MAX_COLOR_INPUT_LENGTH], *currently_checked_color;
+    const char delim[2] = " ";
 
-	int i, status, c;
-	char *player_guess_char = malloc((colorcode_length) * 8 * sizeof(char));
-    char *input[100];
+    printf("%s", lang_type_colorcode());
 
-    c = '\0';
-    status = scanf("%s", &input);
-
-    if (status == EOF)
+    /* read player input and turn every letter into a lowercase letter. finalize string with \0 */
+    status = scanf("%c", &c);
+    if (status == EOF) {
         return BUFFER_ERROR;
-    if (status == 0 || (c = getchar()) != '\n') {
-        if (c == EOF || !flush_buff()) {
-            return BUFFER_ERROR;
+    }else if (c == '\n') {
+        return NOT_A_COLOR;
+    }
+    for (i = 0; i < MAX_COLOR_INPUT_LENGTH && c != '\n'; i++) {
+        input[i] = tolower(c);
+        if (i == (MAX_COLOR_INPUT_LENGTH - 1) && (c = getchar()) != '\n' ) {
+            if (c == EOF || flush_buff()) {
+                return BUFFER_ERROR;
+            }
         }
+        c = getchar();
+    }
+    input[i] = '\0';
+    
+    /* check first color and turn into the number, the color corresponds to */
+    currently_checked_color = strtok(input, delim);
+    if (lang_color_name_to_number(currently_checked_color) == NOT_A_COLOR) {
         return INVALID_COLORCODE_INPUT;
     }
+    colorcode[0] = lang_color_name_to_number(currently_checked_color);
     
 
-	tolower(scanf("%s", player_guess_char));
-	// einngabefehler berücksichtigen
-	player_guess[0] = lang_color_name_to_number(strtok(player_guess_char, ","));
-	for( i = 1 ; i < colorcode_length; ++i) {
-		player_guess[i] = lang_color_name_to_number(strtok(player_guess_char, ","));
-	}
-	free(player_guess_char);
-	return 0;
- */
-} 
+    /* check the other colors and turn into the number, the colors correspond to */
+    for (i = 1; i < colorcode_length; i++) {
+        currently_checked_color = strtok(NULL, delim);
+        if (currently_checked_color == NULL || lang_color_name_to_number(currently_checked_color) == NOT_A_COLOR) {
+            return INVALID_COLORCODE_INPUT;
+        }
+        colorcode[i] = lang_color_name_to_number(currently_checked_color);
+    }
+    
+    /* passing the generated colorcode into the array, given to this function  */
+    for (i = 0; i < colorcode_length; i++) {
+        codearray[i] = colorcode[i];
+    } 
 
+	return SUCCESS;
+} 
 
 void generate_random_colorcode(int *colorcode)
 {

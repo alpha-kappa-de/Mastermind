@@ -216,17 +216,17 @@ void lang_print_correct_colors()
         }
 }
 
-void lang_print_type_your_guess()
+char *lang_type_colorcode()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("Guess the colorcode");
+            return "Type in a colorcode: ";
             break;
         case LANGUAGE_FRENCH:
-            printf("Devinez le code couleur");
+            return "Tapez un code couleur:";
             break;
         case LANGUAGE_GERMAN:
-            printf("Errate den Farbcode");
+            return "Gebe einen Farbcode ein: ";
             break;
         default:
             INVALID_LANGUAGE_ERROR();
@@ -239,13 +239,13 @@ void lang_print_colorcode_wrong_format_message()
 
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("%s Enter a colorcode consisting of %i colors. Seperate the colors with a \",\". Example:\n", lang_wrong_format(), colorcode_length);
+            printf("%s Enter a colorcode consisting of %i colors. Seperate the colors with a space.\nExample: ", lang_wrong_format(), colorcode_length);
             break;
         case LANGUAGE_FRENCH:
-            printf("%s Entrez un code couleur compose de %i couleurs. Separez les couleurs avec un \",\". Exemple:\n", lang_wrong_format(), colorcode_length);
+            printf("%s Entrez un code couleur compose de %i couleurs. Separez les couleurs avec un espace \" \".\nExemple: ", lang_wrong_format(), colorcode_length);
             break;
         case LANGUAGE_GERMAN:
-            printf("%s Gebe einen Farbcode, bestehend aus %i Farben, ein. Trenne die Farben durch ein \",\". Beispiel:\n", lang_wrong_format(), colorcode_length);
+            printf("%s Gebe einen Farbcode, bestehend aus %i Farben, ein. Trenne die Farben durch ein Leerzeichen.\nBeispiel: ", lang_wrong_format(), colorcode_length);
             break;
         default:
             INVALID_LANGUAGE_ERROR();
@@ -254,9 +254,10 @@ void lang_print_colorcode_wrong_format_message()
     for (i = 0; i < colorcode_length; i++) {
         LANG_PRINT_RANDOM_COLOR();
         if (i != colorcode_length - 1) {
-            printf(", ");
+            printf(" ");
         }
     }
+    printf("\n");
 }
 
 char *lang_menu_options(int menu_option)
