@@ -259,14 +259,14 @@ int player_colorcode_input(int *codearray)
         c = getchar();
     }
     input[i] = '\0';
-    
+
     /* check first color and turn into the number, the color corresponds to */
     currently_checked_color = strtok(input, delim);
     if (lang_color_name_to_number(currently_checked_color) == NOT_A_COLOR) {
         return INVALID_COLORCODE_INPUT;
     }
     colorcode[0] = lang_color_name_to_number(currently_checked_color);
-    
+
 
     /* check the other colors and turn into the number, the colors correspond to */
     for (i = 1; i < colorcode_length; i++) {
@@ -276,14 +276,14 @@ int player_colorcode_input(int *codearray)
         }
         colorcode[i] = lang_color_name_to_number(currently_checked_color);
     }
-    
+
     /* passing the generated colorcode into the array, given to this function  */
     for (i = 0; i < colorcode_length; i++) {
         codearray[i] = colorcode[i];
-    } 
+    }
 
 	return SUCCESS;
-} 
+}
 
 void generate_random_colorcode(int *colorcode)
 {
@@ -291,4 +291,32 @@ void generate_random_colorcode(int *colorcode)
 	for (i = 0; i < colorcode_length; i++) {
 		colorcode[i] = generate_random_color();
 	}
+}
+
+char pick_random_computername() {
+	int RandomNameNumber,ComputerNamesAmount;
+	srand(time(NULL));
+	RandomNameNumber = (rand()%ComputerNamesAmount);
+	switch (RandomNameNumber){
+		case 0:
+			if ((rand() % 13) == 0){
+				return "Sheldon";
+			} else {
+				return "Penny";
+			}
+		case 1:
+			return "Brobot";
+	}
+	return 0;
+}
+int get_player_name(){
+	char PlayerName[MAX_NAME_LENGTH];
+	int i = 0;
+	while ((PlayerName[i] = getchar()) != '\0'){
+		++i;
+		if (i > 12){
+			return NAMEERROR;
+		}
+	}
+	return PlayerName;
 }
