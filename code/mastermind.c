@@ -189,17 +189,17 @@ void language_menu()
     switch (i - 1) {
         case LANGUAGE_GERMAN:
             gamelanguage = LANGUAGE_GERMAN;
-            printf("%s\n", lang_language_changed_to());
+            save_gamesettings();
             break;
 
         case LANGUAGE_ENGLISH:
             gamelanguage = LANGUAGE_ENGLISH;
-            printf("%s\n", lang_language_changed_to());
+            save_gamesettings();
             break;
 
         case LANGUAGE_FRENCH:
             gamelanguage = LANGUAGE_FRENCH;
-            printf("%s\n", lang_language_changed_to());
+            save_gamesettings();
             break;
 
         default:
@@ -221,8 +221,10 @@ void change_gui_mode()
 
     if (i == 1) {
         pretty_mode = FALSE;
+        save_gamesettings();
     } else if (i == 2) {
         pretty_mode = TRUE;
+        save_gamesettings();
     }
 }
 
@@ -494,4 +496,41 @@ void start_game()
             break;
         }
     }   
+}
+
+void read_gamesettings()
+{
+    FILE *savefile;
+    char pretty_mode_save[3], gamelanguage_save[3];
+
+    savefile = fopen("savegame.mstrmnd_sav", "r");
+
+    if (savefile == NULL) {
+        gamelanguage = LANGUAGE_ENGLISH;
+        pretty_mode = FALSE;
+        save_gamesettings();
+        fclose(savefile);
+        return;
+    }
+    
+
+    fgets(pretty_mode_save, 3, (FILE*)savefile);
+    fgets(gamelanguage_save, 3, (FILE*)savefile);
+    fclose(savefile);
+    
+    if (atoi(pretty_mode_save) != TRUE && atoi(pretty_mode_save) != FALSE) {
+        CORRUPT_SAVE_FILE_ERROR()
+    } else pretty_mode = atoi(pretty_mode_save);
+    
+    if (atoi(gamelanguage_save) < 0 || atoi(gamelanguage_save) >= AMOUNT_OF_LANGUAGES) {
+        CORRUPT_SAVE_FILE_ERROR()
+    } else gamelanguage = atoi(gamelanguage_save);
+}
+
+void save_gamesettings()
+{
+    FILE *savefile;
+    savefile = fopen("savegame.mstrmnd_sav", "w");
+    fprintf(savefile, "%i\n%i\n", pretty_mode, gamelanguage);
+    fclose(savefile);
 }

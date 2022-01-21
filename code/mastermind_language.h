@@ -25,7 +25,6 @@ char *lang_wrong_format();
 char *lang_please_input_menu_option();
 char *lang_goodbye();
 char *lang_language_name(int language);
-char *lang_language_changed_to();
 void lang_print_how_to_play();
 int lang_color_name_to_number(char *color_string);
 char *lang_change_guimode_message();

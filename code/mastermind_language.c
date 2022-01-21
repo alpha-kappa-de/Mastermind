@@ -414,20 +414,6 @@ char *lang_language_name(int language)
         }
 }
 
-char *lang_language_changed_to()
-{
-    switch (gamelanguage) {
-        case LANGUAGE_ENGLISH:
-            return "Language changed to English.";
-        case LANGUAGE_FRENCH:
-            return "Langue changee en francais.";
-        case LANGUAGE_GERMAN:
-            return "Sprache wurde auf Deutsch eingestellt.";
-        default:
-            INVALID_LANGUAGE_ERROR();
-        }
-}
-
 void lang_print_how_to_play()
 {
     switch (gamelanguage) {

@@ -13,9 +13,10 @@
 #define EXIT_PROGRAM_SUCCESSFUL() {printf("\n%s", lang_goodbye()); exit(SUCCESS);}
 #define INVALID_LANGUAGE_ERROR() {printf("Errorcode: %i\nInvalid language set. Please contact the devs.", LANGUAGE_ERROR); exit(LANGUAGE_ERROR);}
 #define INVALID_MENUOPTION_ERROR() {printf("Errorcode: %i\nTried to print a non existant menu option. Please contact the devs.", INVALID_MENU_OPTION); exit(INVALID_MENU_OPTION);}
-#define INVALID_PRETTYMODE_ERROR() {printf("Errorcode: %i\nSomething is off with the pretty mode settings. Please contact the devs.", PRETTYMODE_ERROR_CODE); exit(PRETTYMODE_ERROR_CODE);}
+#define INVALID_PRETTYMODE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the pretty mode settings. Please contact the devs.", PRETTYMODE_ERROR_CODE); exit(PRETTYMODE_ERROR_CODE);}
 #define SPACE_ALLOCATION_ERROR() {printf("Errorcode: %i\nSpace allocation didn't work. Please check your computer or if this doesn't happen for the first time, contact the devs.", SPACE_ALLOCATION_ERROR_CODE); exit(SPACE_ALLOCATION_ERROR_CODE);}
 #define INVALID_PLAYER_AMOUNT_ERROR() {printf("Errorcode: %i\nTried to print a non existant menu option. Please contact the devs.", INVALID_PLAYER_AMOUNT); exit(INVALID_PLAYER_AMOUNT);}
+#define CORRUPT_SAVE_FILE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the savefile. Delete the savefile and try again or if this doesn't happen for the first time, contact the devs.", CORRUPT_SAVE_FILE_ERROR_CODE); exit(CORRUPT_SAVE_FILE_ERROR_CODE);}
 
 /* Boolean constants */
 #define TRUE 1
@@ -33,6 +34,7 @@
 #define SPACE_ALLOCATION_ERROR_CODE -8
 #define NAME_ERROR -9
 #define INVALID_PLAYER_AMOUNT -10
+#define CORRUPT_SAVE_FILE_ERROR_CODE -11
 
 /* Mastermind constants */
 #define MASTERMIND_COLORCODE_LENGTH 4
@@ -94,5 +96,7 @@ int player_colorcode_input(int *codearray);
 void generate_random_colorcode(int *colorcode);
 int get_player_name(char *player_x_name);
 void start_game();
+void read_gamesettings();
+void save_gamesettings();
 
 #endif

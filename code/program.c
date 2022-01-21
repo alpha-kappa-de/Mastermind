@@ -4,9 +4,8 @@ int main()
 {
     /* initialize some values */
     srand(time(NULL));
-    gamelanguage = LANGUAGE_ENGLISH;
 
-    /* TODO: read savefile if exists */
+    read_gamesettings();
 
     /* draw main menu */
     gui_print_mastermind_logo();
