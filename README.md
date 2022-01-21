@@ -21,7 +21,7 @@ You can compile the complete game yourself. To make this task easier, you can ju
 - Now there should be a Mastermind.exe in the *Mastermind* folder.
 - Open a Terminal window in */Mastermind* and type "*Mastermind.exe*".
 
-## :jigsaw:  Easy expandability
+## :jigsaw:  Easily expandible
 
  It's quite easy to add a new language. The GUI will automatically include your added language if you follow these steps.
  1. **mastermind_language.h**
