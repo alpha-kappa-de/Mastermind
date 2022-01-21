@@ -252,7 +252,7 @@ void lang_print_colorcode_wrong_format_message()
         }
     
     for (i = 0; i < colorcode_length; i++) {
-        LANG_PRINT_RANDOM_COLOR();
+        printf("%s", lang_color_name(generate_random_color()));
         if (i != colorcode_length - 1) {
             printf(" ");
         }
@@ -362,13 +362,13 @@ char *lang_please_input_menu_option()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Please enter a number according to the menu option.";
+            return "Please enter a number according to the menu option";
             break;
         case LANGUAGE_FRENCH:
-            return "Veuillez entrer un nombre en fonction de l'option de menu.";
+            return "Veuillez entrer un nombre en fonction de l'option de menu";
             break;
         case LANGUAGE_GERMAN:
-            return "Bitte gebe eine Zahl entsprechend der Menueoption ein.";
+            return "Bitte gebe eine Zahl entsprechend der Menueoption ein";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -613,6 +613,37 @@ char *lang_current_setting()
             return "Parametre actuel";
         case LANGUAGE_GERMAN:
             return "Aktuelle Einstellung";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_correctly_guessed_code()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "You guessed the colorcode! Trials needed:";
+        case LANGUAGE_FRENCH:
+            return "Vous avez devine le code couleur! Essais necessaires:";
+        case LANGUAGE_GERMAN:
+            return "Du hast den Farbcode erraten! Benoetigte Versuche:";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+void lang_print_please_input_name()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            printf("Please type in a name (max. %i characters): ", (MAX_NAME_LENGTH - 1));
+            break;
+        case LANGUAGE_FRENCH:
+            printf("Veuillez saisir un nom (max. %i caracteres): ", (MAX_NAME_LENGTH - 1));
+            break;
+        case LANGUAGE_GERMAN:
+            printf("Bitte gebe einen Namen ein (max. %i Zeichen): ", (MAX_NAME_LENGTH - 1));
+            break;
         default:
             INVALID_LANGUAGE_ERROR();
         }

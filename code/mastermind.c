@@ -293,30 +293,83 @@ void generate_random_colorcode(int *colorcode)
 	}
 }
 
-char pick_random_computername() {
-	int RandomNameNumber,ComputerNamesAmount;
+char *pick_random_computername() 
+{
+	int random_name_number;
 	srand(time(NULL));
-	RandomNameNumber = (rand()%ComputerNamesAmount);
-	switch (RandomNameNumber){
+	random_name_number = (rand() % AMOUNT_OF_COMPUTER_NAMES);
+	switch (random_name_number) {
 		case 0:
-			if ((rand() % 13) == 0){
+			if ((rand() % 13) == 0) {
 				return "Sheldon";
 			} else {
 				return "Penny";
 			}
 		case 1:
 			return "Brobot";
+        default:
+            return "COMPUTER";
 	}
-	return 0;
+	return "COMPUTER";
 }
-int get_player_name(){
-	char PlayerName[MAX_NAME_LENGTH];
-	int i = 0;
-	while ((PlayerName[i] = getchar()) != '\0'){
-		++i;
-		if (i > 12){
-			return NAMEERROR;
-		}
-	}
-	return PlayerName;
+
+int get_player_name(char *player_x_name)
+{
+    int i, status;
+	char c, player_name[MAX_NAME_LENGTH];
+
+    /* read player input and check, if it's valid. finalize string with \0 */
+    status = scanf("%c", &c);
+    if (status == EOF) {
+        return BUFFER_ERROR;
+    } else if (c == '\n') {
+        return NAME_ERROR;
+    }
+    for (i = 0; i < MAX_NAME_LENGTH && c != '\n'; i++) {
+        player_name[i] = c;
+        if (i == (MAX_NAME_LENGTH - 1) && (c = getchar()) != '\n' ) {
+            if (c == EOF || flush_buff()) {
+                return BUFFER_ERROR;
+            }
+        }
+        c = getchar();
+    }
+    if (i == MAX_NAME_LENGTH) {
+        player_name[i - 1] = '\0';
+    } else player_name[i] = '\0';
+
+    /* paste player input to the passed player_x_name */
+    for (i = 0; player_name[i] != '\0'; i++) {
+        player_x_name[i] = player_name[i];
+    }
+    player_name[i] = '\0';
+    
+	return SUCCESS;
+}
+
+void start_game()
+{
+    /* initialize values */
+    player1_attempts = 0;
+    player2_attempts = 0;
+
+    /* let player input his name */
+    lang_print_please_input_name();
+    while (get_player_name(player1_name) != SUCCESS) {
+            lang_print_please_input_name();
+    }
+
+    /* let player guess the colorcode */
+    printf("%s", lang_type_colorcode());
+    while (1) {
+        while (player_colorcode_input(player_guess) != SUCCESS) {
+            lang_print_colorcode_wrong_format_message();
+        }
+
+        if (check_colorcode_and_print_correct_pins(player2_colorcode, player_guess) == colorcode_length) {
+            player1_attempts++;
+            printf("%s %i", lang_correctly_guessed_code(), player1_attempts);
+            break;
+        } else player1_attempts++;
+    }
 }

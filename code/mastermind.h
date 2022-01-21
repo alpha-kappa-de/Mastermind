@@ -14,8 +14,6 @@
 #define INVALID_PRETTYMODE_ERROR() {printf("Errorcode: %i\nSomething is off with the pretty mode settings. Please contact the devs.", PRETTYMODE_ERROR_CODE); exit(PRETTYMODE_ERROR_CODE);}
 #define SPACE_ALLOCATION_ERROR() {printf("Errorcode: %i\nSpace allocation didn't work. Please check your computer or if this doesn't happen for the first time, contact the devs.", SPACE_ALLOCATION_ERROR_CODE); exit(SPACE_ALLOCATION_ERROR_CODE);}
 
-#define LANG_PRINT_RANDOM_COLOR() (printf("%s", lang_color_name(generate_random_color())))
-
 #define TRUE 1
 #define FALSE 0
 
@@ -28,7 +26,7 @@
 #define PRETTYMODE_ERROR_CODE -6
 #define INVALID_COLORCODE_INPUT -7
 #define SPACE_ALLOCATION_ERROR_CODE -8
-#define NAMEERROR -9
+#define NAME_ERROR -9
 
 #define MAX_COLORCODE_LENGTH 8
 #define AMOUNT_OF_COLORS 8
@@ -42,7 +40,8 @@
 #define CYAN 7
 
 #define MAX_COLOR_INPUT_LENGTH 100
-#define MAX_NAME_LENGTH 13
+#define MAX_NAME_LENGTH 21
+#define AMOUNT_OF_COMPUTER_NAMES 2
 
 #define MENU_OPTION_PLAY 1
 #define MENU_OPTION_HOWTOPLAY 2
@@ -55,8 +54,8 @@
 int player1_colorcode[MAX_COLORCODE_LENGTH];
 int player2_colorcode[MAX_COLORCODE_LENGTH];
 int player_guess[MAX_COLORCODE_LENGTH];
-char *player1_name[MAX_NAME_LENGTH];
-char *player2_name[MAX_NAME_LENGTH];
+char player1_name[MAX_NAME_LENGTH];
+char player2_name[MAX_NAME_LENGTH];
 int player1_attempts;
 int player2_attempts;
 int pretty_mode;
@@ -78,5 +77,10 @@ void language_menu();
 void change_gui_mode();
 int player_colorcode_input(int *codearray);
 void generate_random_colorcode(int *colorcode);
+char *pick_random_computername();
+int get_player_name(char *player_x_name);
+void start_game();
+
+
 
 #endif

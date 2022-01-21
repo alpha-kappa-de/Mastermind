@@ -35,5 +35,7 @@ char *lang_compatible_mode();
 char *lang_pretty_mode();
 char *lang_always_safe_to_choose_comp_mode();
 char *lang_current_setting();
+char *lang_correctly_guessed_code();
+void lang_print_please_input_name();
 
 #endif
