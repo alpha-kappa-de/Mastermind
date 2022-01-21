@@ -16,8 +16,8 @@ int gamelanguage;
 
 char *lang_color_name(int color);
 void lang_print_you_typed(int *typed_code);
-void lang_print_correct_pins();
-void lang_print_correct_colors();
+char *lang_correct_pins();
+char *lang_correct_colors();
 char *lang_type_colorcode();
 void lang_print_colorcode_wrong_format_message();
 char *lang_menu_options(int menu_option);
@@ -37,5 +37,12 @@ char *lang_always_safe_to_choose_comp_mode();
 char *lang_current_setting();
 char *lang_correctly_guessed_code();
 void lang_print_please_input_name();
+char *lang_singleplayer_multiplayer(int amount_of_players);
+char *lang_player();
+char *lang_game_over();
+char *lang_right_colorcode_was();
+char *lang_what_a_pity();
+char *lang_its_your_try_nr();
+char *lang_its_your_last_try();
 
 #endif

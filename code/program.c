@@ -3,13 +3,15 @@
 int main()
 {
     /* initialize some values */
-    starttime = time(NULL);
+    srand(time(NULL));
     gamelanguage = LANGUAGE_ENGLISH;
-    colorcode_length = 4;
+
+    /* TODO: read savefile if exists */
 
     /* draw main menu */
     gui_print_mastermind_logo();
-    mainmenu();
-
+    while (TRUE) {
+        mainmenu();
+    }
     exit(SUCCESS);
 }

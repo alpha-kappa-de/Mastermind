@@ -182,34 +182,34 @@ void lang_print_you_typed(int *typed_code)
     }
 }
 
-void lang_print_correct_pins()
+char *lang_correct_pins()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("Correct pins");
+            return "Correct pins";
             break;
         case LANGUAGE_FRENCH:
-            printf("Stylos corrects");
+            return "Stylos corrects";
             break;
         case LANGUAGE_GERMAN:
-            printf("Richtige Stifte");
+            return "Richtige Stifte";
             break;
         default:
             INVALID_LANGUAGE_ERROR();
         }
 }
 
-void lang_print_correct_colors()
+char *lang_correct_colors()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("Correct colors");
+            return "Correct colors";
             break;
         case LANGUAGE_FRENCH:
-            printf("Couleurs correctes");
+            return "Couleurs correctes";
             break;
         case LANGUAGE_GERMAN:
-            printf("Richtige Farbe");
+            return "Richtige Farbe";
             break;
         default:
             INVALID_LANGUAGE_ERROR();
@@ -334,9 +334,20 @@ char *lang_menu_options(int menu_option)
             case LANGUAGE_ENGLISH:
                 return "     GUI mode   ";
             case LANGUAGE_FRENCH:
-                return "    mode GUI    ";
+                return "    Mode GUI    ";
             case LANGUAGE_GERMAN:
                 return "    GUI Modus   ";
+            default:
+                INVALID_LANGUAGE_ERROR();
+            }
+    }else if (menu_option == MENU_OPTION_BACK) {
+        switch (gamelanguage) {
+            case LANGUAGE_ENGLISH:
+                return "      Back      ";
+            case LANGUAGE_FRENCH:
+                return "     Retour     ";
+            case LANGUAGE_GERMAN:
+                return "     Zurueck    ";
             default:
                 INVALID_LANGUAGE_ERROR();
             }
@@ -473,11 +484,15 @@ int lang_color_name_to_number(char *color_string)
         } else if (strcmp(color_string, "lila") == 0 || strcmp(color_string, "li") == 0) {
             return PURPLE;
         } else if (strcmp(color_string, "braun") == 0 || strcmp(color_string, "br") == 0) {
-            return BROWN;
+            if (is_super_mastermind == TRUE) {
+                return BROWN;
+            } else return NOT_A_COLOR;
         } else if (strcmp(color_string, "orange") == 0 || strcmp(color_string, "or") == 0) {
             return ORANGE;
         } else if (strcmp(color_string, "cyan") == 0 || strcmp(color_string, "cy") == 0) {
-            return CYAN;
+            if (is_super_mastermind == TRUE) {
+                return CYAN;
+            } else return NOT_A_COLOR;
         } else return NOT_A_COLOR; 
     } else if (gamelanguage == LANGUAGE_ENGLISH) {
         if (strcmp(color_string, "blue") == 0 || strcmp(color_string, "bl") == 0) {
@@ -491,11 +506,15 @@ int lang_color_name_to_number(char *color_string)
         } else if (strcmp(color_string, "purple") == 0 || strcmp(color_string, "pu") == 0) {
             return PURPLE;
         } else if (strcmp(color_string, "brown") == 0 || strcmp(color_string, "br") == 0) {
-            return BROWN;
+            if (is_super_mastermind == TRUE) {
+                return BROWN;
+            } else return NOT_A_COLOR;
         } else if (strcmp(color_string, "orange") == 0 || strcmp(color_string, "or") == 0) {
             return ORANGE;
         } else if (strcmp(color_string, "cyan") == 0 || strcmp(color_string, "cy") == 0) {
-            return CYAN;
+            if (is_super_mastermind == TRUE) {
+                return CYAN;
+            } else return NOT_A_COLOR;
         } else return NOT_A_COLOR; 
     } else if (gamelanguage == LANGUAGE_FRENCH) {
         if (strcmp(color_string, "bleu") == 0 || strcmp(color_string, "bl") == 0) {
@@ -509,11 +528,15 @@ int lang_color_name_to_number(char *color_string)
         } else if (strcmp(color_string, "mauve") == 0 || strcmp(color_string, "ma") == 0) {
             return PURPLE;
         } else if (strcmp(color_string, "brun") == 0 || strcmp(color_string, "br") == 0) {
-            return BROWN;
+            if (is_super_mastermind == TRUE) {
+                return BROWN;
+            } else return NOT_A_COLOR;
         } else if (strcmp(color_string, "orange") == 0 || strcmp(color_string, "or") == 0) {
             return ORANGE;
         } else if (strcmp(color_string, "cyan") == 0 || strcmp(color_string, "cy") == 0) {
-            return CYAN;
+            if (is_super_mastermind == TRUE) {
+                return CYAN;
+            } else return NOT_A_COLOR;
         } else return NOT_A_COLOR; 
     } else INVALID_LANGUAGE_ERROR();
 }
@@ -522,11 +545,11 @@ char *lang_change_guimode_message()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Do you really want to change the GUI mode?\nChanging this option may make the game unplayable, if your OS doesn't accept it.\nIf the pretty mode looks weird, don't choose it!\n\n";
+            return "_____________________________________________\nGUI mode:\n_____________________________________________\nDo you really want to change the GUI mode?\nChanging this option may make the game unplayable, if your OS doesn't accept it.\nIf the pretty mode looks weird, don't choose it!\n\n";
         case LANGUAGE_FRENCH:
-            return "Voulez-vous vraiment changer le mode GUI?\nChanger cette option peut rendre le jeu injouable, si votre systeme operateur ne l'accepte pas.\nSi le mode jolie a l'air bizarre, ne le choisissez pas!\n\n";
+            return "_____________________________________________\nMode GUI:\n_____________________________________________\nVoulez-vous vraiment changer le mode GUI?\nChanger cette option peut rendre le jeu injouable, si votre systeme operateur ne l'accepte pas.\nSi le mode jolie a l'air bizarre, ne le choisissez pas!\n\n";
         case LANGUAGE_GERMAN:
-            return "Moechten Sie den GUI-Modus wirklich aendern?\nDas Aendern dieser Option kann das Spiel unspielbar machen, wenn Ihr Betriebssystem dies nicht akzeptiert.\nWenn der schoene Modus komisch aussieht, waehle ihn nicht aus!\n\n";
+            return "_____________________________________________\nGUI Modus:\n_____________________________________________\nMoechten Sie den GUI Modus wirklich aendern?\nDas Aendern dieser Option kann das Spiel unspielbar machen, wenn Ihr Betriebssystem dies nicht akzeptiert.\nWenn der schoene Modus komisch aussieht, waehle ihn nicht aus!\n\n";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -622,11 +645,11 @@ char *lang_correctly_guessed_code()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "You guessed the colorcode! Trials needed:";
+            return "you guessed the colorcode! Trials needed:";
         case LANGUAGE_FRENCH:
-            return "Vous avez devine le code couleur! Essais necessaires:";
+            return "t'avez devine le code couleur! Essais necessaires:";
         case LANGUAGE_GERMAN:
-            return "Du hast den Farbcode erraten! Benoetigte Versuche:";
+            return "du hast den Farbcode erraten! Benoetigte Versuche:";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -636,14 +659,135 @@ void lang_print_please_input_name()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("Please type in a name (max. %i characters): ", (MAX_NAME_LENGTH - 1));
+            printf("please type in your name (max. %i characters): ", (MAX_NAME_LENGTH - 1));
             break;
         case LANGUAGE_FRENCH:
-            printf("Veuillez saisir un nom (max. %i caracteres): ", (MAX_NAME_LENGTH - 1));
+            printf("s'il vous plait entre ton nom (max. %i caracteres): ", (MAX_NAME_LENGTH - 1));
             break;
         case LANGUAGE_GERMAN:
-            printf("Bitte gebe einen Namen ein (max. %i Zeichen): ", (MAX_NAME_LENGTH - 1));
+            printf("bitte gebe deinen Namen ein (max. %i Zeichen): ", (MAX_NAME_LENGTH - 1));
             break;
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_singleplayer_multiplayer(int amount_of_players)
+{
+    /* Please mind that every string has to be exactly 17 chars long (including \0) */
+    switch (amount_of_players) {
+        case 1:
+            switch (gamelanguage) {
+                case LANGUAGE_ENGLISH:
+                    return "  Singleplayer  ";
+                    break;
+                case LANGUAGE_FRENCH:
+                    return "      Solo      ";
+                    break;
+                case LANGUAGE_GERMAN:
+                    return "  Einzelspieler ";
+                    break;
+                default:
+                    INVALID_LANGUAGE_ERROR();
+        }
+        case 2:
+            switch (gamelanguage) {
+                case LANGUAGE_ENGLISH:
+                    return "   Multiplayer  ";
+                    break;
+                case LANGUAGE_FRENCH:
+                    return "   Multijoueur  ";
+                    break;
+                case LANGUAGE_GERMAN:
+                    return "   Mehrspieler  ";
+                    break;
+                default:
+                    INVALID_LANGUAGE_ERROR();
+        }
+        default:
+            INVALID_MENUOPTION_ERROR();
+        }
+}
+
+char *lang_player()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "Player";
+        case LANGUAGE_FRENCH:
+            return "Joueur";
+        case LANGUAGE_GERMAN:
+            return "Spieler";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_game_over()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "Game over! You couldn't guess the colorcode.";
+        case LANGUAGE_FRENCH:
+            return "Jeu termine! Vous ne pouviez pas deviner le code couleur.";
+        case LANGUAGE_GERMAN:
+            return "Verloren! Du konntest den Farbcode nicht erraten.";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_right_colorcode_was()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "The right colorcode was";
+        case LANGUAGE_FRENCH:
+            return "Le code couleur correct etait";
+        case LANGUAGE_GERMAN:
+            return "Der richtige Farbcode war";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_what_a_pity()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "What a pity";
+        case LANGUAGE_FRENCH:
+            return "Quel dommage";
+        case LANGUAGE_GERMAN:
+            return "Wie Schade";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_its_your_try_nr()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "It's your try #";
+        case LANGUAGE_FRENCH:
+            return "C'est ta tentative #";
+        case LANGUAGE_GERMAN:
+            return "Es ist dein Versuch #";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_its_your_last_try()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "It's your last try";
+        case LANGUAGE_FRENCH:
+            return "C'est ta derniere tentative";
+        case LANGUAGE_GERMAN:
+            return "Es ist dein letzter Versuch";
         default:
             INVALID_LANGUAGE_ERROR();
         }
