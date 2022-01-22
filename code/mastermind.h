@@ -87,6 +87,7 @@ int player2_starttime;
 int check_colorcode_and_print_correct_pins(int *colorcode, int *guess);
 int generate_random_color();
 int flush_buff();
+int get_timeplayed(int start);
 int player_input_menu(int amount_of_menu_options);
 void mainmenu();
 void settings_menu();

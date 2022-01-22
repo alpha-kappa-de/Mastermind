@@ -46,7 +46,7 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
         free(start_of_guess_pin_array);
         return counter_correct_pins;
     }
-    
+
 
     /* get amount of correct colors */
     colorcode_pin_array = start_of_colorcode_pin_array;
@@ -287,7 +287,7 @@ int player_colorcode_input(int *codearray)
 
 void generate_random_colorcode(int *colorcode)
 {
-    
+
     int i;
 	for (i = 0; i < colorcode_length; i++) {
 		colorcode[i] = generate_random_color();
@@ -324,7 +324,7 @@ int get_player_name(char *player_x_name)
         player_x_name[i] = player_name[i];
     }
     player_name[i] = '\0';
-    
+
 	return SUCCESS;
 }
 
@@ -383,7 +383,7 @@ void start_game()
         /* ... let player2 input his name */
         printf("%s %i ", lang_player(), 2);
         lang_print_please_input_name();
-        
+
         while (get_player_name(player2_name) != SUCCESS) {
             printf("%s %i ", lang_player(), 2);
             lang_print_please_input_name();
@@ -411,7 +411,7 @@ void start_game()
         /*  */printf("\n");                                                 /*  */
         /* TODO: delete this block, it's for debugging only *//*  */ /*  */ /*  */
     }
-    
+
 
     /* actual start of the game. lets player guess the colorcode and breaks if colorcode is guessed or took to many attempts */
     player1_starttime = time(NULL);
@@ -424,8 +424,8 @@ void start_game()
             if (player1_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
                 if (pretty_mode == TRUE) {
                     printf("%s%s, %s. %s", COLORMODE_RED, lang_its_your_last_try(), player1_name, COLORMODE_RESET);
-                } else printf("%s, %s. ", lang_its_your_last_try(), player1_name); 
-            } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player1_attempts + 1) , player1_name); 
+                } else printf("%s, %s. ", lang_its_your_last_try(), player1_name);
+            } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player1_attempts + 1) , player1_name);
 
             while (player_colorcode_input(player_guess) != SUCCESS) {
                 lang_print_colorcode_wrong_format_message();
@@ -448,16 +448,16 @@ void start_game()
                 }
             }
         }
-        
+
         /* player 2 turn */
         if (player2_guessed_or_lost == FALSE) {
             /* let player 2 guess */
             if (player2_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
                 if (pretty_mode == TRUE) {
                     printf("%s%s, %s. %s", COLORMODE_RED, lang_its_your_last_try(), player2_name, COLORMODE_RESET);
-                } else printf("%s, %s. ", lang_its_your_last_try(), player2_name); 
-            } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player2_attempts + 1) , player2_name);           
-            
+                } else printf("%s, %s. ", lang_its_your_last_try(), player2_name);
+            } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player2_attempts + 1) , player2_name);
+
             while (player_colorcode_input(player_guess) != SUCCESS) {
                 lang_print_colorcode_wrong_format_message();
             }
@@ -482,8 +482,8 @@ void start_game()
 
         /* when both players are done */
         if (player1_guessed_or_lost == TRUE && player2_guessed_or_lost == TRUE) {
-            
-            
+
+
             /* TODO: write savegame */
 
             for (i = 0; i < MAX_NAME_LENGTH; i++) {
@@ -492,10 +492,10 @@ void start_game()
             }
             player1_attempts = 0;
             player2_attempts = 0;
-            
+
             break;
         }
-    }   
+    }
 }
 
 void read_gamesettings()
@@ -512,16 +512,16 @@ void read_gamesettings()
         fclose(savefile);
         return;
     }
-    
+
 
     fgets(pretty_mode_save, 3, (FILE*)savefile);
     fgets(gamelanguage_save, 3, (FILE*)savefile);
     fclose(savefile);
-    
+
     if (atoi(pretty_mode_save) != TRUE && atoi(pretty_mode_save) != FALSE) {
         CORRUPT_SAVE_FILE_ERROR()
     } else pretty_mode = atoi(pretty_mode_save);
-    
+
     if (atoi(gamelanguage_save) < 0 || atoi(gamelanguage_save) >= AMOUNT_OF_LANGUAGES) {
         CORRUPT_SAVE_FILE_ERROR()
     } else gamelanguage = atoi(gamelanguage_save);
@@ -533,4 +533,9 @@ void save_gamesettings()
     savefile = fopen("savegame.mstrmnd_sav", "w");
     fprintf(savefile, "%i\n%i\n", pretty_mode, gamelanguage);
     fclose(savefile);
+}
+
+int get_timeplayed(int start)
+{
+        return (int) time(NULL) - start;
 }
