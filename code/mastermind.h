@@ -17,6 +17,8 @@
 #define SPACE_ALLOCATION_ERROR() {printf("Errorcode: %i\nSpace allocation didn't work. Please check your computer or if this doesn't happen for the first time, contact the devs.", SPACE_ALLOCATION_ERROR_CODE); exit(SPACE_ALLOCATION_ERROR_CODE);}
 #define INVALID_PLAYER_AMOUNT_ERROR() {printf("Errorcode: %i\nTried to print a non existant menu option. Please contact the devs.", INVALID_PLAYER_AMOUNT); exit(INVALID_PLAYER_AMOUNT);}
 #define CORRUPT_SAVE_FILE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the savefile. Delete the savefile and try again or if this doesn't happen for the first time, contact the devs.", CORRUPT_SAVE_FILE_ERROR_CODE); exit(CORRUPT_SAVE_FILE_ERROR_CODE);}
+#define WRONG_PLAYER_TO_SAVE_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", WRONG_PLAYER_TO_SAVE_ERROR_CODE); exit(WRONG_PLAYER_TO_SAVE_ERROR_CODE);}
+#define DELETE_TEMP_SAVE_FILE_ERROR() {printf("Errorcode: %i\nDeleting temp savefile didn't work. Please contact the devs.", DELETE_TEMP_SAVE_FILE_ERROR_CODE); exit(DELETE_TEMP_SAVE_FILE_ERROR_CODE);}
 
 /* Boolean constants */
 #define TRUE 1
@@ -35,6 +37,8 @@
 #define NAME_ERROR -9
 #define INVALID_PLAYER_AMOUNT -10
 #define CORRUPT_SAVE_FILE_ERROR_CODE -11
+#define WRONG_PLAYER_TO_SAVE_ERROR_CODE -12
+#define DELETE_TEMP_SAVE_FILE_ERROR_CODE -13
 
 /* Mastermind constants */
 #define MASTERMIND_COLORCODE_LENGTH 4
@@ -59,6 +63,11 @@
 #define MAX_COLOR_INPUT_LENGTH 100
 #define MAX_NAME_LENGTH 21
 #define MAX_ATTEMPTS_TO_GUESS_CODE 12
+#define SAVEFILE_SCORE_LINE_LENGTH 50
+#define SAVEFILE_SETTINGS_ONLY -1
+#define GENERATE_NEW_SAVEFILE -2
+#define ONE_HOUR_IN_SECONDS 3600
+#define PLAYER_NOT_IN_SAVEFILE -1
 
 /* variables for gamedata */
 int player1_colorcode[SUPER_MASTERMIND_COLORCODE_LENGTH];
@@ -68,28 +77,33 @@ char player1_name[MAX_NAME_LENGTH];
 char player2_name[MAX_NAME_LENGTH];
 int player1_attempts;
 int player2_attempts;
-int player1_guessed_or_lost;
-int player2_guessed_or_lost;
-
-/* variables for options */
+int player1_won;
+int player2_won;
+int player1_game_over;
+int player2_game_over;
 int colorcode_length;
 int pretty_mode;
 int is_singleplayer;
 int is_super_mastermind;
-
+time_t game_starttime;
 
 /* variables for savefile */
-/* TODO: add variables */
-int player1_starttime;
-int player2_starttime;
+char savefile_score_line_name[MAX_NAME_LENGTH];
+int savefile_score_line_total_time_played;
+int savefile_score_line_total_played_games;
+int savefile_score_line_lost_games;
+int savefile_score_line_won_games;
+int savefile_score_line_total_attempts;
+int savefile_line_of_player_1;
+int savefile_line_of_player_2;
 
 /* function prototypes */
 int check_colorcode_and_print_correct_pins(int *colorcode, int *guess);
 int generate_random_color();
 int flush_buff();
-int get_timeplayed(int start);
 int player_input_menu(int amount_of_menu_options);
 void mainmenu();
+void statistics_menu();
 void settings_menu();
 void language_menu();
 void change_gui_mode();
@@ -97,7 +111,13 @@ int player_colorcode_input(int *codearray);
 void generate_random_colorcode(int *colorcode);
 int get_player_name(char *player_x_name);
 void start_game();
-void read_gamesettings();
-void save_gamesettings();
+int calc_seconds_played();
+void read_game_savefile(int line_to_scan);
+void save_game_savefile();
+void copy_temp_savefile_to_original_and_delete_temp();
+int name_length();
+void clear_savefile_variables();
+void get_savefile_line_of_player(int player_number);
+int compare_player_names(char *name1, char *name2);
 
 #endif

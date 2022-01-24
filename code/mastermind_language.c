@@ -778,3 +778,206 @@ char *lang_its_your_last_try()
             INVALID_LANGUAGE_ERROR();
         }
 }
+
+char *lang_please_type_one_to_go_back()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "Please type \"1\" to go back";
+        case LANGUAGE_FRENCH:
+            return "Veuillez saisir \"1\" pour revenir en arriere";
+        case LANGUAGE_GERMAN:
+            return "Bitte gib \"1\" ein, um zurueck zu gehen";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_stat_player_name(int line)
+{
+    /* Please mind that every string has to be exactly 23 chars long (including \0) */
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            if (line == 1) {
+                return "        PLAYER        ";
+            } else if (line == 2) {
+                return "         NAME         ";
+            } else return "";
+        case LANGUAGE_FRENCH:
+            if (line == 1) {
+                return "        NOM DE        ";
+            } else if (line == 2) {
+                return "        JOUEUR        ";
+            } else return "";
+        case LANGUAGE_GERMAN:
+            if (line == 1) {
+                return "        SPIELER       ";
+            } else if (line == 2) {
+                return "         NAME         ";
+            } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_stat_game_time(int line)
+{
+    /* Please mind that every string has to be exactly 15 chars long (including \0) */
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            if (line == 1) {
+                return "   GAME TIME  ";
+            } else if (line == 2) {
+                return "  (IN HOURS)  ";
+            } else return "";
+        case LANGUAGE_FRENCH:
+            if (line == 1) {
+                return " TEMPS DE JEU ";
+            } else if (line == 2) {
+                return "  (EN HEURES) ";
+            } else return "";
+        case LANGUAGE_GERMAN:
+            if (line == 1) {
+                return "   SPIELZEIT  ";
+            } else if (line == 2) {
+                return " (IN STUNDEN) ";
+            } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_stat_total_games_played(int line)
+{
+    /* Please mind that every string has to be exactly 15 chars long (including \0) */
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            if (line == 1) {
+                return " TOTAL GAMES  ";
+            } else if (line == 2) {
+                return "    PLAYED    ";
+            } else return "";
+        case LANGUAGE_FRENCH:
+            if (line == 1) {
+                return "  TOTAL DES   ";
+            } else if (line == 2) {
+                return "  JEUX JOUES  ";
+            } else return "";
+        case LANGUAGE_GERMAN:
+            if (line == 1) {
+                return "INSGESAMT GE- ";
+            } else if (line == 2) {
+                return "SPIELTE SPIELE";
+            } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_stat_lost_games(int line)
+{
+    /* Please mind that every string has to be exactly 15 chars long (including \0) */
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            if (line == 1) {
+                return "     LOST     ";
+            } else if (line == 2) {
+                return "    GAMES     ";
+            } else return "";
+        case LANGUAGE_FRENCH:
+            if (line == 1) {
+                return "     JEUX     ";
+            } else if (line == 2) {
+                return "    PERDUS    ";
+            } else return "";
+        case LANGUAGE_GERMAN:
+            if (line == 1) {
+                return "  VERLORENE   ";
+            } else if (line == 2) {
+                return "    SPIELE    ";
+            } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_stat_won_games(int line)
+{
+    /* Please mind that every string has to be exactly 15 chars long (including \0) */
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            if (line == 1) {
+                return "     WON      ";
+            } else if (line == 2) {
+                return "    GAMES     ";
+            } else return "";
+        case LANGUAGE_FRENCH:
+            if (line == 1) {
+                return "     JEUX     ";
+            } else if (line == 2) {
+                return "    GAGNES    ";
+            } else return "";
+        case LANGUAGE_GERMAN:
+            if (line == 1) {
+                return "  GEWONNENE   ";
+            } else if (line == 2) {
+                return "    SPIELE    ";
+            } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_stat_win_rate(int line)
+{
+    /* Please mind that every string has to be exactly 15 chars long (including \0) */
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            if (line == 1) {
+                return "     WIN-     ";
+            } else if (line == 2) {
+                return "     RATE     ";
+            } else return "";
+        case LANGUAGE_FRENCH:
+            if (line == 1) {
+                return "   TAUX DE    ";
+            } else if (line == 2) {
+                return "   REUSSITE   ";
+            } else return "";
+        case LANGUAGE_GERMAN:
+            if (line == 1) {
+                return "   GEWINN-    ";
+            } else if (line == 2) {
+                return "     RATE     ";
+            } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_stat_average_tries(int line)
+{
+    /* Please mind that every string has to be exactly 15 chars long (including \0) */
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            if (line == 1) {
+                return "   AVERAGE    ";
+            } else if (line == 2) {
+                return "    TRIES     ";
+            } else return "";
+        case LANGUAGE_FRENCH:
+            if (line == 1) {
+                return "    ESSAIS    ";
+            } else if (line == 2) {
+                return "    MOYENS    ";
+            } else return "";
+        case LANGUAGE_GERMAN:
+            if (line == 1) {
+                return "DURCHSCHNITT- ";
+            } else if (line == 2) {
+                return "LICHE VERSUCHE";
+            } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}

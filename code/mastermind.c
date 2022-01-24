@@ -117,33 +117,36 @@ void mainmenu()
 
     switch (i)
     {
-        /* Play */
         case 1:
             start_game();
             break;
-
-        /* How to play */
         case 2:
             lang_print_how_to_play();
             break;
-
-        /* Statistics */
         case 3:
-            /* goto menu 3 */
+            statistics_menu();
             break;
-
-        /* Settings */
         case 4:
             settings_menu();
             break;
-
-        /* Exit */
         case 5:
             EXIT_PROGRAM_SUCCESSFUL();
-
         default:
             break;
         }
+}
+
+void statistics_menu()
+{
+    int i;
+    gui_print_stats();
+    
+    printf("%s: ", lang_please_type_one_to_go_back());
+    i = player_input_menu(1);
+    while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        printf("%s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
+        i = player_input_menu(1);
+    }
 }
 
 void settings_menu()
@@ -159,15 +162,12 @@ void settings_menu()
 
     switch (i)
     {
-        /* Language */
         case 1:
             language_menu();
             break;
-        /* Nice GUI mode */
         case 2:
             change_gui_mode();
             break;
-        /* exit */
         case 3:
             break;
         default:
@@ -189,23 +189,18 @@ void language_menu()
     switch (i - 1) {
         case LANGUAGE_GERMAN:
             gamelanguage = LANGUAGE_GERMAN;
-            save_gamesettings();
             break;
-
         case LANGUAGE_ENGLISH:
             gamelanguage = LANGUAGE_ENGLISH;
-            save_gamesettings();
             break;
-
         case LANGUAGE_FRENCH:
             gamelanguage = LANGUAGE_FRENCH;
-            save_gamesettings();
             break;
-
         default:
             INVALID_LANGUAGE_ERROR();
             break;
-        }
+    }
+    save_game_savefile(SAVEFILE_SETTINGS_ONLY);
 }
 
 void change_gui_mode()
@@ -221,10 +216,10 @@ void change_gui_mode()
 
     if (i == 1) {
         pretty_mode = FALSE;
-        save_gamesettings();
+        save_game_savefile(SAVEFILE_SETTINGS_ONLY);
     } else if (i == 2) {
         pretty_mode = TRUE;
-        save_gamesettings();
+        save_game_savefile(SAVEFILE_SETTINGS_ONLY);
     }
 }
 
@@ -367,8 +362,10 @@ void start_game()
     /* initialize players values */
     player1_attempts = 0;
     player2_attempts = 0;
-    player1_guessed_or_lost = FALSE;
-    player2_guessed_or_lost = FALSE;
+    player1_game_over = FALSE;
+    player2_game_over = FALSE;
+    savefile_line_of_player_1 = PLAYER_NOT_IN_SAVEFILE;
+    savefile_line_of_player_2 = PLAYER_NOT_IN_SAVEFILE;
 
     /* let player1 input his name */
     printf("%s %i ", lang_player(), 1);
@@ -377,6 +374,7 @@ void start_game()
             printf("%s %i ", lang_player(), 1);
             lang_print_please_input_name();
     }
+    get_savefile_line_of_player(1);
 
     /* If Multiplayer... */
     if (is_singleplayer == FALSE) {
@@ -388,6 +386,7 @@ void start_game()
             printf("%s %i ", lang_player(), 2);
             lang_print_please_input_name();
         }
+        get_savefile_line_of_player(2);
 
         /* ... let player1 input his colorcode */
         printf("%s: ", player1_name);
@@ -401,7 +400,7 @@ void start_game()
         }
     } else /* if singleplayer, don't ask for player2 name and generate random colorcode */ {
         generate_random_colorcode(player2_colorcode);
-        player2_guessed_or_lost = TRUE;
+        player2_game_over = TRUE;
 
         /* TODO: delete this block, it's for debugging only *//*  */ /*  */ /*  */
         /*  */printf("FOR DEBUGGING ONLY. COMPUTERS COLORCODE IS: ");       /*  */
@@ -414,12 +413,11 @@ void start_game()
 
 
     /* actual start of the game. lets player guess the colorcode and breaks if colorcode is guessed or took to many attempts */
-    player1_starttime = time(NULL);
-    player2_starttime = time(NULL);
+    game_starttime = time(NULL);
 
     while (TRUE) {
         /* player 1 turn */
-        if (player1_guessed_or_lost == FALSE) {
+        if (player1_game_over == FALSE) {
             /* let player 1 guess */
             if (player1_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
                 if (pretty_mode == TRUE) {
@@ -434,7 +432,9 @@ void start_game()
             if (check_colorcode_and_print_correct_pins(player2_colorcode, player_guess) == colorcode_length) {
                 player1_attempts++;
                 printf("%s, %s %i\n", player1_name, lang_correctly_guessed_code(), player1_attempts);
-                player1_guessed_or_lost = TRUE;
+                player1_game_over = TRUE;
+                player1_won = TRUE;
+                save_game_savefile(1);
             /* if guessed wrong, increment attempts and check, if max. attempts are reached */
             } else {
                 player1_attempts++;
@@ -444,13 +444,15 @@ void start_game()
                         printf("%s ", lang_color_name(player2_colorcode[i]));
                     }
                     printf("\n");
-                    player1_guessed_or_lost = TRUE;
+                    player1_game_over = TRUE;
+                    player1_won = FALSE;
+                    save_game_savefile(1);
                 }
             }
         }
 
         /* player 2 turn */
-        if (player2_guessed_or_lost == FALSE) {
+        if (player2_game_over == FALSE) {
             /* let player 2 guess */
             if (player2_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
                 if (pretty_mode == TRUE) {
@@ -465,7 +467,9 @@ void start_game()
             if (check_colorcode_and_print_correct_pins(player1_colorcode, player_guess) == colorcode_length) {
                 player1_attempts++;
                 printf("%s, %s %i\n", player2_name, lang_correctly_guessed_code(), player2_attempts);
-                player2_guessed_or_lost = TRUE;
+                player2_game_over = TRUE;
+                player2_won = TRUE;
+                save_game_savefile(2);
             /* if guessed wrong, increment attempts and check, if max. attempts are reached */
             } else {
                 player2_attempts++;
@@ -475,13 +479,15 @@ void start_game()
                         printf("%s ", lang_color_name(player1_colorcode[i]));
                     }
                     printf("\n");
-                    player2_guessed_or_lost = TRUE;
+                    player2_game_over = TRUE;
+                    player2_won = FALSE;
+                    save_game_savefile(2);
                 }
             }
         }
 
         /* when both players are done */
-        if (player1_guessed_or_lost == TRUE && player2_guessed_or_lost == TRUE) {
+        if (player1_game_over == TRUE && player2_game_over == TRUE) {
 
 
             /* TODO: write savegame */
@@ -498,44 +504,357 @@ void start_game()
     }
 }
 
-void read_gamesettings()
+int calc_seconds_played()
+{
+        return (int)(time(NULL) - game_starttime);
+}
+
+void read_game_savefile(int line_to_scan)
 {
     FILE *savefile;
-    char pretty_mode_save[3], gamelanguage_save[3];
+    int i, j;
+    char pretty_mode_save[3], gamelanguage_save[3], savefile_score_line[SAVEFILE_SCORE_LINE_LENGTH], *token;
+    const char delim[2] = ";";
 
     savefile = fopen("savegame.mstrmnd_sav", "r");
 
+    /* if there is no savefile, it generates a new savefile with the standard gamesettings */
     if (savefile == NULL) {
-        gamelanguage = LANGUAGE_ENGLISH;
-        pretty_mode = FALSE;
-        save_gamesettings();
+        save_game_savefile(GENERATE_NEW_SAVEFILE);
         fclose(savefile);
         return;
     }
 
+    clear_savefile_variables();
 
-    fgets(pretty_mode_save, 3, (FILE*)savefile);
-    fgets(gamelanguage_save, 3, (FILE*)savefile);
-    fclose(savefile);
+    /* get gamesettings from savefile */
+    if (fgets(pretty_mode_save, 3, (FILE*)savefile) == NULL) {
+        fclose(savefile);
+        CORRUPT_SAVE_FILE_ERROR();
+    }
+    if (fgets(gamelanguage_save, 3, (FILE*)savefile) == NULL) {
+        fclose(savefile);
+        CORRUPT_SAVE_FILE_ERROR();
+    }
 
+    /* check pretty_mode setting from savefile and apply if it's ok */
     if (atoi(pretty_mode_save) != TRUE && atoi(pretty_mode_save) != FALSE) {
-        CORRUPT_SAVE_FILE_ERROR()
+        fclose(savefile);
+        CORRUPT_SAVE_FILE_ERROR();
     } else pretty_mode = atoi(pretty_mode_save);
 
+    /* check gamelanguage setting from savefile and apply if it's ok */
     if (atoi(gamelanguage_save) < 0 || atoi(gamelanguage_save) >= AMOUNT_OF_LANGUAGES) {
-        CORRUPT_SAVE_FILE_ERROR()
+        fclose(savefile);
+        CORRUPT_SAVE_FILE_ERROR();
     } else gamelanguage = atoi(gamelanguage_save);
-}
 
-void save_gamesettings()
-{
-    FILE *savefile;
-    savefile = fopen("savegame.mstrmnd_sav", "w");
-    fprintf(savefile, "%i\n%i\n", pretty_mode, gamelanguage);
+    /* if function was called with SAVEFILE_SETTINGS_ONLY it quits now */
+    if (line_to_scan == SAVEFILE_SETTINGS_ONLY) {
+        fclose(savefile);
+        return;
+    }
+
+    /* get line_to_scan from savefile (in the savefile, line 0 begins where the first score is saved (line 3 in file)) */
+    for (i = 0; i < (line_to_scan + 1); i++) {
+        for (j = 0; j < SAVEFILE_SCORE_LINE_LENGTH; j++) {
+            savefile_score_line[j] = '\0';
+        }
+        if (fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile) == NULL) {
+            fclose(savefile);
+            return;
+        }
+    }
+
+    /* close savefile again */
     fclose(savefile);
+
+    /* save scanned name to savefile_score_line_name */
+    token = strtok(savefile_score_line, delim);
+    if (token == NULL) {
+        CORRUPT_SAVE_FILE_ERROR();
+    }
+    for (i = 0; token[i] != '\0'; i++) {
+        savefile_score_line_name[i] = token[i];
+    }
+    savefile_score_line_name[i] = '\0';
+
+    /* save total time played to savefile_score_line_total_time_played */
+    token = strtok(NULL, delim);
+    if (token == NULL) {
+        CORRUPT_SAVE_FILE_ERROR();
+    }
+    savefile_score_line_total_time_played = atoi(token);
+    
+    /* save total played games to savefile_score_line_total_played_games */
+    token = strtok(NULL, delim);
+    if (token == NULL) {
+        CORRUPT_SAVE_FILE_ERROR();
+    }
+    savefile_score_line_total_played_games = atoi(token);
+
+    /* save lost games to savefile_score_line_lost_games */
+    token = strtok(NULL, delim);
+    if (token == NULL) {
+        CORRUPT_SAVE_FILE_ERROR();
+    }
+    savefile_score_line_lost_games = atoi(token);
+
+    /* save won games to savefile_score_line_won_games */
+    token = strtok(NULL, delim);
+    if (token == NULL) {
+        CORRUPT_SAVE_FILE_ERROR();
+    }
+    savefile_score_line_won_games = atoi(token);
+
+    /* save total attempts to savefile_score_line_total_attempts */
+    token = strtok(NULL, delim);
+    if (token == NULL) {
+        CORRUPT_SAVE_FILE_ERROR();
+    }
+    savefile_score_line_total_attempts = atoi(token);
 }
 
-int get_timeplayed(int start)
+void save_game_savefile(int player_number)
 {
-        return (int) time(NULL) - start;
+    FILE *savefile, *savefile_temp;
+    char savefile_score_line[SAVEFILE_SCORE_LINE_LENGTH], buf[3];
+    int i, j;
+    
+    /* if player_number is GENERATE_NEW_SAVEFILE then it generates a new savefile and quits */
+    if (player_number == GENERATE_NEW_SAVEFILE) {
+        savefile = fopen("savegame.mstrmnd_sav", "w");
+        gamelanguage = LANGUAGE_ENGLISH;
+        pretty_mode = FALSE;
+        fprintf(savefile, "%i\n%i\n", pretty_mode, gamelanguage);
+        fclose(savefile);
+        return;
+    }
+
+    /* if player_number is SAVEFILE_SETTINGS_ONLY then it only saves gamesettings */
+    if (player_number == SAVEFILE_SETTINGS_ONLY) {
+        savefile = fopen("savegame.mstrmnd_sav", "r");
+        savefile_temp = fopen(".savegame.mstrmnd_sav.temp", "w");
+
+        /* ignore old gamesettings, stored in savefile */
+        fgets(buf, 3, (FILE*)savefile);
+        fgets(buf, 3, (FILE*)savefile);
+
+        /* write the new settings into the temp file */
+        fprintf(savefile_temp, "%i\n%i\n", pretty_mode, gamelanguage);
+
+        /* copy all lines from the savefile to the temp file. then copy everything back from the temp file to the original and delete the temp file */        
+        while (TRUE) {
+            for (i = 0; i < SAVEFILE_SCORE_LINE_LENGTH; i++) {
+                savefile_score_line[i] = '\0';
+            }
+            if (fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile) == NULL) {
+                fclose(savefile);
+                fclose(savefile_temp);
+                copy_temp_savefile_to_original_and_delete_temp();
+                return;
+            }
+            fprintf(savefile_temp, "%s", savefile_score_line);
+        }
+    }
+
+    /* if players are not in savefile, it just appends their score to the savefile. If they are, it replaces their lines with the new data */
+    if (player_number == 1 && savefile_line_of_player_1 == PLAYER_NOT_IN_SAVEFILE) {
+        savefile = fopen("savegame.mstrmnd_sav", "a");
+            if (player1_won == TRUE ) {
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player1_name, calc_seconds_played(), 1, 0, 1,  player1_attempts);
+            } else {
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player1_name, calc_seconds_played(), 1, 1, 0,  player1_attempts);
+            }
+            fclose(savefile);
+            return;
+    } else if (player_number == 2 && savefile_line_of_player_2 == PLAYER_NOT_IN_SAVEFILE) {
+        savefile = fopen("savegame.mstrmnd_sav", "a");
+            if (player1_won == TRUE ) {
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player2_name, calc_seconds_played(), 1, 0, 1,  player2_attempts);
+            } else {
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player2_name, calc_seconds_played(), 1, 1, 0,  player2_attempts);
+            }
+            fclose(savefile);
+            return;
+    } else if (player_number == 1 && savefile_line_of_player_1 != PLAYER_NOT_IN_SAVEFILE) {
+        savefile = fopen("savegame.mstrmnd_sav", "r");
+        savefile_temp = fopen(".savegame.mstrmnd_sav.temp", "w");
+
+        /* ignore old gamesettings, stored in savefile */
+        fgets(buf, 3, (FILE*)savefile);
+        fgets(buf, 3, (FILE*)savefile);
+
+        /* write the new settings into the temp file */
+        fprintf(savefile_temp, "%i\n%i\n", pretty_mode, gamelanguage);
+        
+        /* write all lines, which do not contain data of the current player, to the temp file */
+        for (i = 0; i < savefile_line_of_player_1; i++) {
+            for (j = 0; j < SAVEFILE_SCORE_LINE_LENGTH; j++) {
+                savefile_score_line[j] = '\0';
+            }
+            fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile);
+            fprintf(savefile_temp, "%s", savefile_score_line);
+        }
+
+        /* get the line of the player in the savefile  */
+        for (j = 0; j < SAVEFILE_SCORE_LINE_LENGTH; j++) {
+                savefile_score_line[j] = '\0';
+            }
+        fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile);
+        
+        /* now the new data for this player is written to the savefile temp */
+        if (player1_won == TRUE) {
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player1_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), savefile_score_line_lost_games, (savefile_score_line_won_games + 1), (savefile_score_line_total_attempts + player1_attempts));
+        } else {
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player1_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), (savefile_score_line_lost_games + 1), savefile_score_line_won_games, (savefile_score_line_total_attempts + player1_attempts));
+        }
+
+        /* write rest to the temp file, then write the hole temp file to the original file and delete the temp file */
+        while (TRUE) {
+            for (i = 0; i < SAVEFILE_SCORE_LINE_LENGTH; i++) {
+                savefile_score_line[i] = '\0';
+            }
+            if (fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile) == NULL) {
+                fclose(savefile);
+                fclose(savefile_temp);
+                copy_temp_savefile_to_original_and_delete_temp();
+                return;
+            } 
+            fprintf(savefile_temp, "%s", savefile_score_line);
+        }
+    } else if (player_number == 2 && savefile_line_of_player_2 != PLAYER_NOT_IN_SAVEFILE) {
+        savefile = fopen("savegame.mstrmnd_sav", "r");
+        savefile_temp = fopen(".savegame.mstrmnd_sav.temp", "w");
+
+        /* ignore old gamesettings, stored in savefile */
+        fgets(buf, 3, (FILE*)savefile);
+        fgets(buf, 3, (FILE*)savefile);
+
+        /* write the new settings into the temp file */
+        fprintf(savefile_temp, "%i\n%i\n", pretty_mode, gamelanguage);
+        
+        /* write all lines, which do not contain data of the current player, to the temp file */
+        for (i = 0; i < savefile_line_of_player_2; i++) {
+            for (j = 0; j < SAVEFILE_SCORE_LINE_LENGTH; j++) {
+                savefile_score_line[j] = '\0';
+            }
+            fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile);
+            fprintf(savefile_temp, "%s", savefile_score_line);
+        }
+
+        /* get the line of the player in the savefile  */
+        for (j = 0; j < SAVEFILE_SCORE_LINE_LENGTH; j++) {
+                savefile_score_line[j] = '\0';
+            }
+        fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile);
+        
+        /* now the new data for this player is written to the savefile temp */
+        if (player2_won == TRUE) {
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player2_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), savefile_score_line_lost_games, (savefile_score_line_won_games + 1), (savefile_score_line_total_attempts + player2_attempts));
+        } else {
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player2_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), (savefile_score_line_lost_games + 1), savefile_score_line_won_games, (savefile_score_line_total_attempts + player2_attempts));
+        }
+
+        /* write rest to the temp file, then write the hole temp file to the original file and delete the temp file */
+        while (TRUE) {
+            for (i = 0; i < SAVEFILE_SCORE_LINE_LENGTH; i++) {
+                savefile_score_line[i] = '\0';
+            }
+            if (fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile) == NULL) {
+                fclose(savefile);
+                fclose(savefile_temp);
+                copy_temp_savefile_to_original_and_delete_temp();
+                return;
+            } 
+            fprintf(savefile_temp, "%s", savefile_score_line);
+        }
+    } else {
+        WRONG_PLAYER_TO_SAVE_ERROR();
+    }
+}
+
+void copy_temp_savefile_to_original_and_delete_temp()
+{
+    FILE *savefile, *savefile_temp;
+    char savefile_score_line[SAVEFILE_SCORE_LINE_LENGTH];
+    int i;
+
+    savefile = fopen("savegame.mstrmnd_sav", "w");
+    savefile_temp = fopen(".savegame.mstrmnd_sav.temp", "r");
+
+    while (TRUE) {
+        for (i = 0; i < SAVEFILE_SCORE_LINE_LENGTH; i++) {
+            savefile_score_line[i] = '\0';
+        }
+        if (fgets(savefile_score_line, SAVEFILE_SCORE_LINE_LENGTH, (FILE*)savefile_temp) == NULL) {
+            fclose(savefile);
+            fclose(savefile_temp);
+            if (remove(".savegame.mstrmnd_sav.temp") != 0) {
+                DELETE_TEMP_SAVE_FILE_ERROR()
+            }
+            return;
+        } 
+        fprintf(savefile, "%s", savefile_score_line);
+    }
+}
+
+int name_length(char *name)
+{
+    int i;
+    for (i = 0; name[i] != '\0'; i++) {}
+    return i;
+}
+
+void clear_savefile_variables()
+{
+    int i;
+    for (i = 0; i < MAX_NAME_LENGTH; i++) {
+        savefile_score_line_name[i] = '\0';
+    }        
+    savefile_score_line_total_time_played = 0;
+    savefile_score_line_total_played_games = 0;
+    savefile_score_line_lost_games = 0;
+    savefile_score_line_won_games = 0;
+    savefile_score_line_total_attempts = 0;
+}
+
+void get_savefile_line_of_player(int player_number)
+{
+    int i;
+
+    read_game_savefile(0);
+    for (i = 0; savefile_score_line_name[0] != '\0'; i++ ) {
+        read_game_savefile(i);
+        if (player_number != 1 && player_number != 2) {
+            clear_savefile_variables();
+            WRONG_PLAYER_TO_SAVE_ERROR();
+        } else if (player_number == 1 && compare_player_names(player1_name, savefile_score_line_name)) {
+            savefile_line_of_player_1 = i;
+            return;
+        } else if (player_number == 2 && compare_player_names(player2_name, savefile_score_line_name)) {
+            savefile_line_of_player_2 = i;
+            return;
+        }
+    }
+
+    clear_savefile_variables();
+    if (player_number == 1) {
+        savefile_line_of_player_1 = PLAYER_NOT_IN_SAVEFILE;
+    } else if (player_number == 2) {
+        savefile_line_of_player_2 = PLAYER_NOT_IN_SAVEFILE;
+    } else {
+        WRONG_PLAYER_TO_SAVE_ERROR();
+    }
+}
+
+int compare_player_names(char *name1, char *name2)
+{
+    int i;
+    for (i = 0; i < MAX_NAME_LENGTH; i++) {
+        if (name1[i] != name2[i]) {
+            return FALSE;
+        }
+    }
+    return TRUE;
 }

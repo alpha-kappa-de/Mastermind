@@ -43,5 +43,13 @@ char *lang_right_colorcode_was();
 char *lang_what_a_pity();
 char *lang_its_your_try_nr();
 char *lang_its_your_last_try();
+char *lang_please_type_one_to_go_back();
+char *lang_stat_player_name(int line);
+char *lang_stat_game_time(int line);
+char *lang_stat_total_games_played(int line);
+char *lang_stat_lost_games(int line);
+char *lang_stat_won_games(int line);
+char *lang_stat_win_rate(int line);
+char *lang_stat_average_tries(int line);
 
 #endif

@@ -30,8 +30,12 @@ void gui_print_options_menu();
 void gui_print_settings_menu();
 void gui_print_gamemode_menu();
 void gui_print_single_or_multiplayer_menu();
+void gui_print_back_only();
 void gui_print_language_menu();
 void gui_print_GUI_mode_menu();
 char *gui_write_in_random_color();
+void gui_print_stats();
+void gui_print_stat_lines_right_justified(int value);
+void gui_print_stat_line_winrate_right_justified();
 
 #endif

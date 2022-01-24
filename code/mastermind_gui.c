@@ -72,6 +72,18 @@ void gui_print_single_or_multiplayer_menu()
     printf("%s: ", lang_please_input_menu_option());
 }
 
+void gui_print_back_only()
+{
+    printf("   _________________\n");
+    printf("  /      (1)       /");
+    
+    if (pretty_mode == TRUE) {
+        printf(" /%s%s%s/\n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
+    } else printf(" /%s/\n", lang_menu_options(MENU_OPTION_BACK));
+
+    printf("/________________/\n");
+}
+
 void gui_print_language_menu()
 {
     int i;
@@ -175,4 +187,81 @@ char *gui_write_in_random_color()
             return COLORMODE_RESET;
     }
     return COLORMODE_RESET;
+}
+
+void gui_print_stats()
+{
+    int i,j;
+
+    /* print header */
+    printf("__________________________________________________________________________________________________________________\n");
+    printf("|                      |              |              |              |              |              |              |\n");
+    printf("|%s|%s|%s|%s|%s|%s|%s|\n", lang_stat_player_name(1), lang_stat_game_time(1), lang_stat_total_games_played(1), lang_stat_lost_games(1), lang_stat_won_games(1), lang_stat_win_rate(1), lang_stat_average_tries(1));
+    printf("|%s|%s|%s|%s|%s|%s|%s|\n", lang_stat_player_name(2), lang_stat_game_time(2), lang_stat_total_games_played(2), lang_stat_lost_games(2), lang_stat_won_games(2), lang_stat_win_rate(2), lang_stat_average_tries(2));
+    printf("|______________________|______________|______________|______________|______________|______________|______________|\n");
+    printf("|                      |              |              |              |              |              |              |\n");
+    
+    /* print stat lines */
+    i = 0;
+    while (TRUE) {
+        read_game_savefile(i);
+        if (savefile_score_line_name[0] == '\0') {
+            break;
+        } else {
+            printf("| %s", savefile_score_line_name);
+            for (j = 0; j < (MAX_NAME_LENGTH - name_length(savefile_score_line_name)); j++) {
+                printf(" ");
+            }
+            gui_print_stat_lines_right_justified(savefile_score_line_total_time_played / ONE_HOUR_IN_SECONDS);
+            gui_print_stat_lines_right_justified(savefile_score_line_total_played_games);
+            gui_print_stat_lines_right_justified(savefile_score_line_lost_games);
+            gui_print_stat_lines_right_justified(savefile_score_line_won_games);
+            gui_print_stat_line_winrate_right_justified();
+            gui_print_stat_lines_right_justified((savefile_score_line_total_attempts / savefile_score_line_total_played_games));
+
+            printf("|\n");
+            i++;
+        }
+    }
+
+    /* print footer */
+    printf("|______________________|______________|______________|______________|______________|______________|______________|\n");
+
+    clear_savefile_variables();
+}
+
+void gui_print_stat_lines_right_justified(int value)
+{
+    if (value >= 0 && value <= 9) {
+        printf("|            %i ", value);
+    } else if (value >= 10 && value <= 99) {
+        printf("|           %i ", value);
+    } else if (value >= 100 && value <= 999) {
+        printf("|          %i ", value);
+    } else if (value >= 1000 && value <= 9999) {
+        printf("|         %i ", value);
+    } else if (value >= 10000 && value <= 99999) {
+        printf("|        %i ", value);
+    } else if (value >= 100000 && value <= 999999) {
+        printf("|       %i ", value);
+    } else if (value < 0 || value > 999999) {
+        printf("|      >999999 ");
+    } else {
+        printf("|              ");
+    }
+}
+
+void gui_print_stat_line_winrate_right_justified()
+{
+    double percentage;
+    percentage = (savefile_score_line_won_games / savefile_score_line_total_played_games);
+    if (percentage >= 0.000 && percentage <= 0.099) {
+        printf("|         %.1f%% ", (percentage * 100));
+    } else if (percentage >= 0.100 && percentage <= 0.999) {
+        printf("|        %.1f%% ", (percentage * 100));
+    } else if (percentage == 1.000) {
+        printf("|       %.1f%% ", (percentage * 100));
+    } else {
+        printf("|              ");
+    }
 }
