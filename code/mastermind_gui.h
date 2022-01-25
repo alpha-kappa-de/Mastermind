@@ -25,7 +25,7 @@
 #define MENU_OPTION_BACK 8
 
 #define DELETE_LAST_LINES_GAMELOGO 22
-#define DELETE_LAST_LINES_MENUOPTION 8
+#define DELETE_LAST_LINES_MENUOPTION 5
 #define DELETE_LAST_LINES_GUI_MENU 23
 #define DELETE_LAST_LINES_ONE_LINE 1
 #define DELETE_LAST_LINES_HOW_TO_PLAY 20
@@ -43,6 +43,7 @@ void gui_print_back_only();
 void gui_print_language_menu();
 void gui_print_GUI_mode_menu();
 char *gui_write_in_random_color();
+void gui_print_string_colorful(char *string_to_write_colorful);
 void gui_print_stats();
 void gui_print_stat_lines_right_justified(int value);
 void gui_print_stat_line_winrate_right_justified();

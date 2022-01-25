@@ -2,8 +2,6 @@
 #include "mastermind_language.h"
 #include "mastermind_gui.h"
 
-/* TODO: change EXIT option to BACK, except for mainmenu */
-
 void gui_print_mastermind_logo()
 {
     printf("\n\n\n\n\n");
@@ -81,7 +79,7 @@ void gui_print_single_or_multiplayer_menu()
 void gui_print_back_only()
 {
     printf("   _________________\n");
-    printf("  /      (1)       /");
+    printf("  /      (1)       /\n");
 
     if (pretty_mode == TRUE) {
         printf(" /%s%s%s/\n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
@@ -195,6 +193,16 @@ char *gui_write_in_random_color()
     return COLORMODE_RESET;
 }
 
+void gui_print_string_colorful(char *string_to_write_colorful)
+{
+    int i;
+    for (i = 0; string_to_write_colorful[i] != '\0'; i++) {
+        printf("%s", gui_write_in_random_color());
+        printf("%c", string_to_write_colorful[i]);
+        printf("%s", COLORMODE_RESET);
+    }
+}
+
 void gui_print_stats()
 {
     int i,j;
@@ -281,7 +289,7 @@ void delete_last_lines_and_go_there(int amount_of_lines)
             clear_savefile_variables();
             read_game_savefile(i);
             if (savefile_score_line_name[0] == '\0') {
-                amount_of_lines = i + 8;
+                amount_of_lines = i + 12;
                 clear_savefile_variables();
                 break;
             }

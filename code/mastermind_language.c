@@ -156,28 +156,45 @@ char *lang_color_name(int color)
     INVALID_LANGUAGE_ERROR();
 }
 
-void lang_print_you_typed(int *typed_code)
+void lang_print_name_you_typed_guess(int player_number)
 {
     int i;
+    if (player_number != 1 && player_number != 2) {
+        INVALID_PLAYER_NUMBER_ERROR();
+    }
 
-    switch (gamelanguage) {
-        case LANGUAGE_ENGLISH:
-            printf("You typed");
-            break;
-        case LANGUAGE_FRENCH:
-            printf("Votre entree");
-            break;
-        case LANGUAGE_GERMAN:
-            printf("Deine Eingabe");
-            break;
-        default:
-            INVALID_LANGUAGE_ERROR();
-        }
+    if (pretty_mode == TRUE) {
+        switch (gamelanguage) {
+            case LANGUAGE_ENGLISH:
+                if (player_number == 1) {
+                    printf("%s. You typed: ", player1_name);
+                } else if (player_number == 2) {
+                    printf("%s. You typed: ", player2_name);
+                }
+                break;
+            case LANGUAGE_FRENCH:
+                if (player_number == 1) {
+                    printf("%s. Votre entree: ", player1_name);
+                } else if (player_number == 2) {
+                    printf("%s. Votre entree: ", player2_name);
+                }
+                break;
+            case LANGUAGE_GERMAN:
+            if (player_number == 1) {
+                    printf("%s. Deine Eingabe: ", player1_name);
+                } else if (player_number == 2) {
+                    printf("%s. Deine Eingabe: ", player2_name);
+                }
+                break;
+            default:
+                INVALID_LANGUAGE_ERROR();
+            }
 
-    for (i = 0; i < colorcode_length; i++) {
-        printf("%s", lang_color_name(typed_code[i]));
-        if (i != (colorcode_length - 1)) {
-            printf(", ");
+        for (i = 0; i < colorcode_length; i++) {
+            printf("%s", lang_color_name(player_guess[i]));
+            if (i != (colorcode_length - 1)) {
+                printf(", ");
+            }
         }
     }
 }
@@ -239,13 +256,13 @@ void lang_print_colorcode_wrong_format_message()
 
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("%s Enter a colorcode consisting of %i colors. Seperate the colors with a space.\nExample: ", lang_wrong_format(), colorcode_length);
+            printf("%s Seperate the %i colors with a space. Example: ", lang_wrong_format(), colorcode_length);
             break;
         case LANGUAGE_FRENCH:
-            printf("%s Entrez un code couleur compose de %i couleurs. Separez les couleurs avec un espace \" \".\nExemple: ", lang_wrong_format(), colorcode_length);
+            printf("%s Separez les %i couleurs avec un espace. Exemple: ", lang_wrong_format(), colorcode_length);
             break;
         case LANGUAGE_GERMAN:
-            printf("%s Gebe einen Farbcode, bestehend aus %i Farben, ein. Trenne die Farben durch ein Leerzeichen.\nBeispiel: ", lang_wrong_format(), colorcode_length);
+            printf("%s Trenne die %i Farben durch ein Leerzeichen. Beispiel: ", lang_wrong_format(), colorcode_length);
             break;
         default:
             INVALID_LANGUAGE_ERROR();
@@ -425,6 +442,7 @@ char *lang_language_name(int language)
 
 void lang_print_how_to_play()
 {
+    /* TODO: make the new version of how to play */
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
             printf("_____________________________________________\nHow to play:\n_____________________________________________\n");
