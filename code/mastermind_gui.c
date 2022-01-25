@@ -23,7 +23,7 @@ void gui_print_mastermind_logo()
     printf("                                                         by alpha-kappa-de, Jooosy and JanisNoah \n\n");
 
     if (pretty_mode == TRUE) {
-        wait(3);
+        wait_seconds(3);
         delete_last_lines_and_go_there(DELETE_LAST_LINES_GAMELOGO);
     }    
 }
@@ -297,7 +297,7 @@ void delete_last_lines_and_go_there(int amount_of_lines)
     }
 }
 
-void wait(int seconds)
+void wait_seconds(int seconds)
 {
     time_t starttime;
 
