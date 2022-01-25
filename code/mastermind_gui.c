@@ -25,7 +25,7 @@ void gui_print_mastermind_logo()
     if (pretty_mode == TRUE) {
         wait_seconds(3);
         delete_last_lines_and_go_there(DELETE_LAST_LINES_GAMELOGO);
-    }    
+    }
 }
 
 void gui_print_options_menu()
@@ -56,7 +56,7 @@ void gui_print_gamemode_menu()
 {
     printf("   _________________      _________________      _________________ \n");
     printf("  /      (1)       /     /      (2)       /     /      (3)       / \n");
-    
+
     if (pretty_mode == TRUE) {
         printf(" /%s   Mastermind   %s/     /%sSuper Mastermind%s/     /%s%s%s/  \n", gui_write_in_random_color(), COLORMODE_RESET, gui_write_in_random_color(), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
     } else printf(" /   Mastermind   /     /Super Mastermind/     /%s/  \n", lang_menu_options(MENU_OPTION_BACK));
@@ -69,7 +69,7 @@ void gui_print_single_or_multiplayer_menu()
 {
     printf("   _________________      _________________      _________________ \n");
     printf("  /      (1)       /     /      (2)       /     /      (3)       / \n");
-    
+
     if (pretty_mode == TRUE) {
         printf(" /%s%s%s/     /%s%s%s/     /%s%s%s/  \n", gui_write_in_random_color(), lang_singleplayer_multiplayer(1), COLORMODE_RESET, gui_write_in_random_color(), lang_singleplayer_multiplayer(2), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
     } else printf(" /%s/     /%s/     /%s/  \n", lang_singleplayer_multiplayer(1), lang_singleplayer_multiplayer(2), lang_menu_options(MENU_OPTION_BACK));
@@ -82,7 +82,7 @@ void gui_print_back_only()
 {
     printf("   _________________\n");
     printf("  /      (1)       /");
-    
+
     if (pretty_mode == TRUE) {
         printf(" /%s%s%s/\n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
     } else printf(" /%s/\n", lang_menu_options(MENU_OPTION_BACK));
@@ -96,7 +96,7 @@ void gui_print_language_menu()
     /* 1. Row: Head */
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
         printf("   _________________");
-        
+
         if (i != (AMOUNT_OF_LANGUAGES - 1)) {
             printf("   ");
         } else printf("\n");
@@ -105,19 +105,19 @@ void gui_print_language_menu()
     /* 2. Row: Number */
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
         printf("  /      (%i)       /", i + 1);
-        
+
         if (i != (AMOUNT_OF_LANGUAGES - 1)) {
             printf("   ");
         } else printf("\n");
     }
-    
+
     /* 3. Row: Language name */
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
 
         if (pretty_mode == TRUE) {
             printf(" /%s%s%s/", gui_write_in_random_color(), lang_language_name(i), COLORMODE_RESET);
         } else printf(" /%s/", lang_language_name(i));
-        
+
         if (i != (AMOUNT_OF_LANGUAGES - 1)) {
             printf("    ");
         } else printf("\n");
@@ -126,7 +126,7 @@ void gui_print_language_menu()
     /* 4. Row: Bottom */
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
         printf("/________________/");
-        
+
         if (i != (AMOUNT_OF_LANGUAGES - 1)) {
             printf("     ");
         } else printf("\n");
@@ -153,10 +153,10 @@ void gui_print_GUI_mode_menu()
     printf("%s\t\t\t\t|%s%s%s\n", lang_color_name(BROWN), COLORMODE_BROWN, lang_color_name(BROWN), COLORMODE_RESET);
     printf("%s\t\t\t\t|%s%s%s\n", lang_color_name(CYAN), COLORMODE_CYAN, lang_color_name(CYAN), COLORMODE_RESET);
     printf("________________________________|________________________________\n");
-    
+
     if (current_pretty_mode_setting != pretty_mode) {
         pretty_mode = current_pretty_mode_setting;
-    } 
+    }
 
     printf("%s: ", lang_current_setting());
     if (pretty_mode == FALSE) {
@@ -164,8 +164,8 @@ void gui_print_GUI_mode_menu()
     } else if (pretty_mode == TRUE) {
         printf("%s\n", lang_pretty_mode());
     } else INVALID_PRETTYMODE_ERROR();
-    
-    
+
+
     printf("%s\n", lang_always_safe_to_choose_comp_mode());
     printf("%s: ", lang_please_input_menu_option());
 }
@@ -206,7 +206,7 @@ void gui_print_stats()
     printf("|%s|%s|%s|%s|%s|%s|%s|\n", lang_stat_player_name(2), lang_stat_game_time(2), lang_stat_total_games_played(2), lang_stat_lost_games(2), lang_stat_won_games(2), lang_stat_win_rate(2), lang_stat_average_tries(2));
     printf("|______________________|______________|______________|______________|______________|______________|______________|\n");
     printf("|                      |              |              |              |              |              |              |\n");
-    
+
     /* print stat lines */
     i = 0;
     while (TRUE) {
@@ -260,7 +260,7 @@ void gui_print_stat_lines_right_justified(int value)
 void gui_print_stat_line_winrate_right_justified()
 {
     double percentage;
-    percentage = (savefile_score_line_won_games / savefile_score_line_total_played_games);
+    percentage = ((double)savefile_score_line_won_games / (double)savefile_score_line_total_played_games);
     if (percentage >= 0.000 && percentage <= 0.099) {
         printf("|         %.1f%% ", (percentage * 100));
     } else if (percentage >= 0.100 && percentage <= 0.999) {
@@ -287,7 +287,7 @@ void delete_last_lines_and_go_there(int amount_of_lines)
             }
         }
     }
-    
+
     if (pretty_mode == TRUE) {
         printf("\n");
         for (i = 0; i < amount_of_lines + 1; i++) {
