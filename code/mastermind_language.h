@@ -51,5 +51,6 @@ char *lang_stat_lost_games(int line);
 char *lang_stat_won_games(int line);
 char *lang_stat_win_rate(int line);
 char *lang_stat_average_tries(int line);
+char *lang_please_restart_to_apply_changes();
 
 #endif

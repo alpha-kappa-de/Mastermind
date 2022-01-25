@@ -118,15 +118,19 @@ void mainmenu()
     switch (i)
     {
         case 1:
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             start_game();
             break;
         case 2:
-            lang_print_how_to_play();
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+            how_to_play_menu();
             break;
         case 3:
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             statistics_menu();
             break;
         case 4:
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             settings_menu();
             break;
         case 5:
@@ -134,6 +138,21 @@ void mainmenu()
         default:
             break;
         }
+}
+
+void how_to_play_menu()
+{
+    int i;
+    lang_print_how_to_play();
+    
+    printf("%s: ", lang_please_type_one_to_go_back());
+    i = player_input_menu(1);
+    while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        printf("%s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
+        i = player_input_menu(1);
+    }
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_HOW_TO_PLAY);
 }
 
 void statistics_menu()
@@ -144,9 +163,11 @@ void statistics_menu()
     printf("%s: ", lang_please_type_one_to_go_back());
     i = player_input_menu(1);
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("%s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
         i = player_input_menu(1);
     }
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_STATS);
 }
 
 void settings_menu()
@@ -156,6 +177,7 @@ void settings_menu()
     i = player_input_menu(3);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
@@ -163,9 +185,11 @@ void settings_menu()
     switch (i)
     {
         case 1:
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             language_menu();
             break;
         case 2:
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             change_gui_mode();
             break;
         case 3:
@@ -182,6 +206,7 @@ void language_menu()
     i = player_input_menu(AMOUNT_OF_LANGUAGES);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(AMOUNT_OF_LANGUAGES);
     }
@@ -201,6 +226,7 @@ void language_menu()
             break;
     }
     save_game_savefile(SAVEFILE_SETTINGS_ONLY);
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 }
 
 void change_gui_mode()
@@ -210,17 +236,24 @@ void change_gui_mode()
     i = player_input_menu(2);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(2);
     }
 
     if (i == 1) {
         pretty_mode = FALSE;
-        save_game_savefile(SAVEFILE_SETTINGS_ONLY);
     } else if (i == 2) {
-        pretty_mode = TRUE;
-        save_game_savefile(SAVEFILE_SETTINGS_ONLY);
+        if (pretty_mode == FALSE) {
+            pretty_mode = TRUE;
+            save_game_savefile(SAVEFILE_SETTINGS_ONLY);
+            PLEASE_RESTART_THE_GAME_TO_APPLY_CHANGES();
+        } else {
+            pretty_mode = TRUE;
+            save_game_savefile(SAVEFILE_SETTINGS_ONLY);
+        }
     }
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_GUI_MENU);
 }
 
 int player_colorcode_input(int *codearray)
@@ -332,6 +365,7 @@ void start_game()
     i = player_input_menu(3);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
@@ -342,13 +376,19 @@ void start_game()
     } else if (i == 2) {
         is_super_mastermind = TRUE;
         colorcode_length = SUPER_MASTERMIND_COLORCODE_LENGTH;
-    } else return;
+    } else {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+        return;
+    }
+
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 
     /* single or multiplayer selection */
     gui_print_single_or_multiplayer_menu();
     i = player_input_menu(3);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
@@ -358,6 +398,8 @@ void start_game()
     } else if (i == 2) {
         is_singleplayer = FALSE;
     } else return;
+
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 
     /* initialize players values */
     player1_attempts = 0;
@@ -371,10 +413,13 @@ void start_game()
     printf("%s %i ", lang_player(), 1);
     lang_print_please_input_name();
     while (get_player_name(player1_name) != SUCCESS) {
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             printf("%s %i ", lang_player(), 1);
             lang_print_please_input_name();
     }
     get_savefile_line_of_player(1);
+
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
 
     /* If Multiplayer... */
     if (is_singleplayer == FALSE) {
@@ -391,24 +436,20 @@ void start_game()
         /* ... let player1 input his colorcode */
         printf("%s: ", player1_name);
         while (player_colorcode_input(player1_colorcode) != SUCCESS) {
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
         }
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         /* ... let player2 input his colorcode */
         printf("%s: ", player2_name);
         while (player_colorcode_input(player2_colorcode) != SUCCESS) {
+            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
         }
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
     } else /* if singleplayer, don't ask for player2 name and generate random colorcode */ {
         generate_random_colorcode(player2_colorcode);
         player2_game_over = TRUE;
-
-        /* TODO: delete this block, it's for debugging only *//*  */ /*  */ /*  */
-        /*  */printf("FOR DEBUGGING ONLY. COMPUTERS COLORCODE IS: ");       /*  */
-        /*  */    for (i = 0; i < colorcode_length; i++) {                  /*  */
-        /*  */        printf("%s ", lang_color_name(player2_colorcode[i])); /*  */
-        /*  */    }                                                         /*  */
-        /*  */printf("\n");                                                 /*  */
-        /* TODO: delete this block, it's for debugging only *//*  */ /*  */ /*  */
     }
 
 
@@ -419,6 +460,15 @@ void start_game()
         /* player 1 turn */
         if (player1_game_over == FALSE) {
             /* let player 1 guess */
+
+            /* TODO: delete this block, it's for debugging only *//*  */ /*  */ /*  */
+            /*  */printf("FOR DEBUGGING ONLY. COMPUTERS COLORCODE IS: ");       /*  */
+            /*  */    for (i = 0; i < colorcode_length; i++) {                  /*  */
+            /*  */        printf("%s ", lang_color_name(player2_colorcode[i])); /*  */
+            /*  */    }                                                         /*  */
+            /*  */printf("\n");                                                 /*  */
+            /* TODO: delete this block, it's for debugging only *//*  */ /*  */ /*  */
+
             if (player1_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
                 if (pretty_mode == TRUE) {
                     printf("%s%s, %s. %s", COLORMODE_RED, lang_its_your_last_try(), player1_name, COLORMODE_RESET);
@@ -426,6 +476,7 @@ void start_game()
             } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player1_attempts + 1) , player1_name);
 
             while (player_colorcode_input(player_guess) != SUCCESS) {
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 lang_print_colorcode_wrong_format_message();
             }
             /* if guessed right */
@@ -461,6 +512,7 @@ void start_game()
             } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player2_attempts + 1) , player2_name);
 
             while (player_colorcode_input(player_guess) != SUCCESS) {
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 lang_print_colorcode_wrong_format_message();
             }
             /* if guessed right */
@@ -502,6 +554,7 @@ void start_game()
             break;
         }
     }
+    delete_last_lines_and_go_there(DELETE_LAST_LINES_GAME);
 }
 
 int calc_seconds_played()
@@ -662,18 +715,18 @@ void save_game_savefile(int player_number)
     if (player_number == 1 && savefile_line_of_player_1 == PLAYER_NOT_IN_SAVEFILE) {
         savefile = fopen("savegame.mstrmnd_sav", "a");
             if (player1_won == TRUE ) {
-                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player1_name, calc_seconds_played(), 1, 0, 1,  player1_attempts);
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i\n", player1_name, calc_seconds_played(), 1, 0, 1,  player1_attempts);
             } else {
-                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player1_name, calc_seconds_played(), 1, 1, 0,  player1_attempts);
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i\n", player1_name, calc_seconds_played(), 1, 1, 0,  player1_attempts);
             }
             fclose(savefile);
             return;
     } else if (player_number == 2 && savefile_line_of_player_2 == PLAYER_NOT_IN_SAVEFILE) {
         savefile = fopen("savegame.mstrmnd_sav", "a");
             if (player1_won == TRUE ) {
-                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player2_name, calc_seconds_played(), 1, 0, 1,  player2_attempts);
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i\n", player2_name, calc_seconds_played(), 1, 0, 1,  player2_attempts);
             } else {
-                fprintf(savefile, "%s;%i;%i;%i;%i;%i", player2_name, calc_seconds_played(), 1, 1, 0,  player2_attempts);
+                fprintf(savefile, "%s;%i;%i;%i;%i;%i\n", player2_name, calc_seconds_played(), 1, 1, 0,  player2_attempts);
             }
             fclose(savefile);
             return;
@@ -705,9 +758,9 @@ void save_game_savefile(int player_number)
         
         /* now the new data for this player is written to the savefile temp */
         if (player1_won == TRUE) {
-            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player1_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), savefile_score_line_lost_games, (savefile_score_line_won_games + 1), (savefile_score_line_total_attempts + player1_attempts));
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i\n", player1_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), savefile_score_line_lost_games, (savefile_score_line_won_games + 1), (savefile_score_line_total_attempts + player1_attempts));
         } else {
-            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player1_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), (savefile_score_line_lost_games + 1), savefile_score_line_won_games, (savefile_score_line_total_attempts + player1_attempts));
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i\n", player1_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), (savefile_score_line_lost_games + 1), savefile_score_line_won_games, (savefile_score_line_total_attempts + player1_attempts));
         }
 
         /* write rest to the temp file, then write the hole temp file to the original file and delete the temp file */
@@ -751,9 +804,9 @@ void save_game_savefile(int player_number)
         
         /* now the new data for this player is written to the savefile temp */
         if (player2_won == TRUE) {
-            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player2_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), savefile_score_line_lost_games, (savefile_score_line_won_games + 1), (savefile_score_line_total_attempts + player2_attempts));
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i\n", player2_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), savefile_score_line_lost_games, (savefile_score_line_won_games + 1), (savefile_score_line_total_attempts + player2_attempts));
         } else {
-            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i", player2_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), (savefile_score_line_lost_games + 1), savefile_score_line_won_games, (savefile_score_line_total_attempts + player2_attempts));
+            fprintf(savefile_temp, "%s;%i;%i;%i;%i;%i\n", player2_name, (savefile_score_line_total_time_played + calc_seconds_played()), (savefile_score_line_total_played_games + 1), (savefile_score_line_lost_games + 1), savefile_score_line_won_games, (savefile_score_line_total_attempts + player2_attempts));
         }
 
         /* write rest to the temp file, then write the hole temp file to the original file and delete the temp file */

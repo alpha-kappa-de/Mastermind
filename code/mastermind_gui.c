@@ -6,20 +6,26 @@
 
 void gui_print_mastermind_logo()
 {
-    printf(" __          __         _                                       _           \n");
-    printf(" \\ \\        / /        | |                                     | |          \n");
-    printf("  \\ \\  /\\  / /    ___  | |   ___    ___    _ __ ___     ___    | |_    ___  \n");
-    printf("   \\ \\/  \\/ /    / _ \\ | |  / __|  / _ \\  | '_ ` _ \\   / _ \\   | __|  / _ \\ \n");
-    printf("    \\  /\\  /    |  __/ | | | (__  | (_) | | | | | | | |  __/   | |_  | (_) |\n");
-    printf("     \\/  \\/      \\___| |_|  \\___|  \\___/  |_| |_| |_|  \\___|    \\__|  \\___/ \n");
+    printf("\n\n\n\n\n");
+    printf("                    __          __         _                                       _           \n");
+    printf("                    \\ \\        / /        | |                                     | |          \n");
+    printf("                     \\ \\  /\\  / /    ___  | |   ___    ___    _ __ ___     ___    | |_    ___  \n");
+    printf("                      \\ \\/  \\/ /    / _ \\ | |  / __|  / _ \\  | '_ ` _ \\   / _ \\   | __|  / _ \\ \n");
+    printf("                       \\  /\\  /    |  __/ | | | (__  | (_) | | | | | | | |  __/   | |_  | (_) |\n");
+    printf("                        \\/  \\/      \\___| |_|  \\___|  \\___/  |_| |_| |_|  \\___|    \\__|  \\___/ \n");
     printf("\n\n");
-    printf("       __  __                 _                               _               _  \n");
-    printf("      |  \\/  |               | |                             (_)             | | \n");
-    printf("      | \\  / |   __ _   ___  | |_    ___   _ __   _ __ ___    _   _ __     __| | \n");
-    printf("      | |\\/| |  / _` | / __| | __|  / _ \\ | '__| | '_ ` _ \\  | | | '_ \\   / _` | \n");
-    printf("      | |  | | | (_| | \\__ \\ | |_  |  __/ | |    | | | | | | | | | | | | | (_| | \n");
-    printf("      |_|  |_|  \\__,_| |___/  \\__|  \\___| |_|    |_| |_| |_| |_| |_| |_|  \\__,_| \n");
-    printf("                                      by alpha-kappa-de, Jooosy and JanisNoah \n\n");
+    printf("                          __  __                 _                               _               _  \n");
+    printf("                         |  \\/  |               | |                             (_)             | | \n");
+    printf("                         | \\  / |   __ _   ___  | |_    ___   _ __   _ __ ___    _   _ __     __| | \n");
+    printf("                         | |\\/| |  / _` | / __| | __|  / _ \\ | '__| | '_ ` _ \\  | | | '_ \\   / _` | \n");
+    printf("                         | |  | | | (_| | \\__ \\ | |_  |  __/ | |    | | | | | | | | | | | | | (_| | \n");
+    printf("                         |_|  |_|  \\__,_| |___/  \\__|  \\___| |_|    |_| |_| |_| |_| |_| |_|  \\__,_| \n");
+    printf("                                                         by alpha-kappa-de, Jooosy and JanisNoah \n\n");
+
+    if (pretty_mode == TRUE) {
+        wait(3);
+        delete_last_lines_and_go_there(DELETE_LAST_LINES_GAMELOGO);
+    }    
 }
 
 void gui_print_options_menu()
@@ -264,4 +270,37 @@ void gui_print_stat_line_winrate_right_justified()
     } else {
         printf("|              ");
     }
+}
+
+void delete_last_lines_and_go_there(int amount_of_lines)
+{
+    int i;
+
+    if (amount_of_lines == DELETE_LAST_LINES_STATS) {
+        for (i = 0; TRUE; i++) {
+            clear_savefile_variables();
+            read_game_savefile(i);
+            if (savefile_score_line_name[0] == '\0') {
+                amount_of_lines = i + 8;
+                clear_savefile_variables();
+                break;
+            }
+        }
+    }
+    
+    if (pretty_mode == TRUE) {
+        printf("\n");
+        for (i = 0; i < amount_of_lines + 1; i++) {
+            printf("\033[1A");
+            printf("\033[2K");
+        }
+    }
+}
+
+void wait(int seconds)
+{
+    time_t starttime;
+
+    starttime = time(NULL);
+    while ((starttime + seconds) > time(NULL)) {}
 }

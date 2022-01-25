@@ -6,3 +6,5 @@
 *.exe
 *.out
 *.lnk
+*.mstrmnd_sav
+*.temp

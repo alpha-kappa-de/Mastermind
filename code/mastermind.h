@@ -19,6 +19,7 @@
 #define CORRUPT_SAVE_FILE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the savefile. Delete the savefile and try again or if this doesn't happen for the first time, contact the devs.", CORRUPT_SAVE_FILE_ERROR_CODE); exit(CORRUPT_SAVE_FILE_ERROR_CODE);}
 #define WRONG_PLAYER_TO_SAVE_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", WRONG_PLAYER_TO_SAVE_ERROR_CODE); exit(WRONG_PLAYER_TO_SAVE_ERROR_CODE);}
 #define DELETE_TEMP_SAVE_FILE_ERROR() {printf("Errorcode: %i\nDeleting temp savefile didn't work. Please contact the devs.", DELETE_TEMP_SAVE_FILE_ERROR_CODE); exit(DELETE_TEMP_SAVE_FILE_ERROR_CODE);}
+#define PLEASE_RESTART_THE_GAME_TO_APPLY_CHANGES() {printf("%s", lang_please_restart_to_apply_changes()); wait(3); exit(SUCCESS);}
 
 /* Boolean constants */
 #define TRUE 1
@@ -103,6 +104,7 @@ int generate_random_color();
 int flush_buff();
 int player_input_menu(int amount_of_menu_options);
 void mainmenu();
+void how_to_play_menu();
 void statistics_menu();
 void settings_menu();
 void language_menu();

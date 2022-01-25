@@ -359,10 +359,19 @@ char *lang_wrong_format()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
+            if (pretty_mode == TRUE) {
+                return "\033[38;5;1mWrong format!\033[0m";
+            }
             return "Wrong format!";
         case LANGUAGE_FRENCH:
+            if (pretty_mode == TRUE) {
+                return "\033[38;5;1mMauvais format!\033[0m";
+            }
             return "Mauvais format!";
         case LANGUAGE_GERMAN:
+            if (pretty_mode == TRUE) {
+                return "\033[38;5;1mFalsches Format!\033[0m";
+            }
             return "Falsches Format!";
         default:
             INVALID_LANGUAGE_ERROR();
@@ -977,6 +986,20 @@ char *lang_stat_average_tries(int line)
             } else if (line == 2) {
                 return "LICHE VERSUCHE";
             } else return "";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *lang_please_restart_to_apply_changes()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "Please restart the game to apply changes.";
+        case LANGUAGE_FRENCH:
+            return "Veuillez redemarrer le jeu pour appliquer les modifications.";
+        case LANGUAGE_GERMAN:
+            return "Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen";
         default:
             INVALID_LANGUAGE_ERROR();
         }

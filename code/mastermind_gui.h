@@ -24,6 +24,15 @@
 #define MENU_OPTION_GUIMODE 7
 #define MENU_OPTION_BACK 8
 
+#define DELETE_LAST_LINES_GAMELOGO 22
+#define DELETE_LAST_LINES_MENUOPTION 8
+#define DELETE_LAST_LINES_GUI_MENU 23
+#define DELETE_LAST_LINES_ONE_LINE 1
+#define DELETE_LAST_LINES_HOW_TO_PLAY 20
+#define DELETE_LAST_LINES_STATS -1
+#define DELETE_LAST_LINES_GAME 100
+
+
 
 void gui_print_mastermind_logo();
 void gui_print_options_menu();
@@ -37,5 +46,7 @@ char *gui_write_in_random_color();
 void gui_print_stats();
 void gui_print_stat_lines_right_justified(int value);
 void gui_print_stat_line_winrate_right_justified();
+void delete_last_lines_and_go_there(int amount_of_lines);
+void wait(int seconds);
 
 #endif
