@@ -11,7 +11,7 @@ char *lang_color_name(int color)
     \033[   ->  ANSI ESC sequence starts
     38      ->  Foreground color
     5       ->  Lets choose 8 bit color
-    4       ->  Decimal of colorcode, here 4 stands for blue (other colors: red=1, yellow=226, green=10, purple=5, brown=94, orange=166, cyan=14)
+    4       ->  Decimal of colorcode, here 4 stands for blue (other colors: red=1, yellow=226, green=10, purple=57, brown=94, orange=166, cyan=14)
     m       ->  End of sequence
 
     To reset colors to normal you use "\033[0m". 0 removes all effects
@@ -41,7 +41,7 @@ char *lang_color_name(int color)
                 return "gruen";
             case PURPLE:
                 if (pretty_mode == TRUE) {
-                    return "\033[38;5;5mlila\033[0m";
+                    return "\033[38;5;57mlila\033[0m";
                 }
                 return "lila";
             case BROWN:
@@ -86,7 +86,7 @@ char *lang_color_name(int color)
                 return "green";
             case PURPLE:
                 if (pretty_mode == TRUE) {
-                    return "\033[38;5;5mpurple\033[0m";
+                    return "\033[38;5;57mpurple\033[0m";
                 }
                 return "purple";
             case BROWN:
@@ -131,7 +131,7 @@ char *lang_color_name(int color)
                 return "vert";
             case PURPLE:
                 if (pretty_mode == TRUE) {
-                    return "\033[38;5;5mmauve\033[0m";
+                    return "\033[38;5;57mmauve\033[0m";
                 }
                 return "mauve";
             case BROWN:
@@ -156,7 +156,7 @@ char *lang_color_name(int color)
     INVALID_LANGUAGE_ERROR();
 }
 
-void lang_print_name_you_typed_guess(int player_number)
+void lang_print_name_your_guess_was(int player_number)
 {
     int i;
     if (player_number != 1 && player_number != 2) {
@@ -167,23 +167,23 @@ void lang_print_name_you_typed_guess(int player_number)
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
                 if (player_number == 1) {
-                    printf("%s. You typed: ", player1_name);
+                    printf("%s. Guess #%i: ", player1_name, (player1_attempts + 1));
                 } else if (player_number == 2) {
-                    printf("%s. You typed: ", player2_name);
+                    printf("%s. Guess #%i: ", player2_name, (player2_attempts + 1));
                 }
                 break;
             case LANGUAGE_FRENCH:
                 if (player_number == 1) {
-                    printf("%s. Votre entree: ", player1_name);
+                    printf("%s. Entree #%i: ", player1_name, (player1_attempts + 1));
                 } else if (player_number == 2) {
-                    printf("%s. Votre entree: ", player2_name);
+                    printf("%s. Entree #%i: ", player2_name, (player2_attempts + 1));
                 }
                 break;
             case LANGUAGE_GERMAN:
             if (player_number == 1) {
-                    printf("%s. Deine Eingabe: ", player1_name);
+                    printf("%s. Eingabe #%i: ", player1_name, (player1_attempts + 1));
                 } else if (player_number == 2) {
-                    printf("%s. Deine Eingabe: ", player2_name);
+                    printf("%s. Eingabe #%i: ", player2_name, (player2_attempts + 1));
                 }
                 break;
             default:
@@ -200,11 +200,11 @@ char *lang_correct_pins()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Correct pins";
+            return "Pins";
         case LANGUAGE_FRENCH:
-            return "Stylos corrects";
+            return "Stylos";
         case LANGUAGE_GERMAN:
-            return "Richtige Stifte";
+            return "Stifte";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -214,11 +214,11 @@ char *lang_correct_colors()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Correct colors";
+            return "Colors";
         case LANGUAGE_FRENCH:
-            return "Couleurs correctes";
+            return "Couleurs";
         case LANGUAGE_GERMAN:
-            return "Richtige Farbe";
+            return "Farben";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -387,11 +387,11 @@ char *lang_please_input_menu_option()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Please enter a number according to the menu option";
+            return "    Please enter a number according to the menu option";
         case LANGUAGE_FRENCH:
-            return "Veuillez entrer un nombre en fonction de l'option de menu";
+            return "    Veuillez entrer un nombre en fonction de l'option de menu";
         case LANGUAGE_GERMAN:
-            return "Bitte gebe eine Zahl entsprechend der Menueoption ein";
+            return "    Bitte gebe eine Zahl entsprechend der Menueoption ein";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -854,11 +854,11 @@ char *lang_please_type_one_to_go_back()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Please type \"1\" to go back";
+            return "    Please type \"1\" to go back";
         case LANGUAGE_FRENCH:
-            return "Veuillez saisir \"1\" pour revenir en arriere";
+            return "    Veuillez saisir \"1\" pour revenir en arriere";
         case LANGUAGE_GERMAN:
-            return "Bitte gib \"1\" ein, um zurueck zu gehen";
+            return "    Bitte gib \"1\" ein, um zurueck zu gehen";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -1057,11 +1057,11 @@ char *lang_please_restart_to_apply_changes()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Please restart the game to apply changes. Game exits in three seconds.";
+            return "Please restart the game to apply changes.";
         case LANGUAGE_FRENCH:
-            return "Veuillez redemarrer le jeu pour appliquer les modifications. Le jeu se termine dans trois secondes.";
+            return "Veuillez redemarrer le jeu pour appliquer les modifications.";
         case LANGUAGE_GERMAN:
-            return "Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen. Das Spiel wird in drei Sekunden beendet.";
+            return "Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen.";
         default:
             INVALID_LANGUAGE_ERROR();
         }

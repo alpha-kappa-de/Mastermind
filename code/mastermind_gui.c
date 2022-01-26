@@ -28,69 +28,70 @@ void gui_print_mastermind_logo()
 
 void gui_print_options_menu()
 {
-    printf("   _________________      _________________      _________________      _________________      _________________ \n");
-    printf("  /      (1)       /     /      (2)       /     /      (3)       /     /      (4)       /     /      (5)       / \n");
+    printf("       _________________      _________________      _________________      _________________      _________________ \n");
+    printf("      /      (1)       /     /      (2)       /     /      (3)       /     /      (4)       /     /      (5)       / \n");
     if (pretty_mode == TRUE) {
-        printf(" /%s%s%s/     /%s%s%s/     /%s%s%s/     /%s%s%s/     /%s%s%s/  \n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_PLAY), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_HOWTOPLAY), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_STATS), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_SETTINGS), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_EXIT), COLORMODE_RESET);
-    } else printf(" /%s/     /%s/     /%s/     /%s/     /%s/  \n", lang_menu_options(MENU_OPTION_PLAY), lang_menu_options(MENU_OPTION_HOWTOPLAY), lang_menu_options(MENU_OPTION_STATS), lang_menu_options(MENU_OPTION_SETTINGS), lang_menu_options(MENU_OPTION_EXIT));
-    printf("/________________/     /________________/     /________________/     /________________/     /________________/    \n");
+        printf("     /%s%s%s/     /%s%s%s/     /%s%s%s/     /%s%s%s/     /%s%s%s/  \n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_PLAY), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_HOWTOPLAY), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_STATS), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_SETTINGS), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_EXIT), COLORMODE_RESET);
+    } else printf("     /%s/     /%s/     /%s/     /%s/     /%s/  \n", lang_menu_options(MENU_OPTION_PLAY), lang_menu_options(MENU_OPTION_HOWTOPLAY), lang_menu_options(MENU_OPTION_STATS), lang_menu_options(MENU_OPTION_SETTINGS), lang_menu_options(MENU_OPTION_EXIT));
+    printf("    /________________/     /________________/     /________________/     /________________/     /________________/    \n");
     printf("%s: ", lang_please_input_menu_option());
 }
 
 void gui_print_settings_menu()
 {
-    printf("   _________________      _________________      _________________ \n");
-    printf("  /      (1)       /     /      (2)       /     /      (3)       / \n");
+    printf("       _________________      _________________      _________________ \n");
+    printf("      /      (1)       /     /      (2)       /     /      (3)       / \n");
 
     if (pretty_mode == TRUE) {
-        printf(" /%s%s%s/     /%s%s%s/     /%s%s%s/  \n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_LANGUAGE), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_GUIMODE), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
-    } else printf(" /%s/     /%s/     /%s/  \n", lang_menu_options(MENU_OPTION_LANGUAGE), lang_menu_options(MENU_OPTION_GUIMODE), lang_menu_options(MENU_OPTION_BACK));
+        printf("     /%s%s%s/     /%s%s%s/     /%s%s%s/  \n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_LANGUAGE), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_GUIMODE), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
+    } else printf("     /%s/     /%s/     /%s/  \n", lang_menu_options(MENU_OPTION_LANGUAGE), lang_menu_options(MENU_OPTION_GUIMODE), lang_menu_options(MENU_OPTION_BACK));
 
-    printf("/________________/     /________________/     /________________/    \n");
+    printf("    /________________/     /________________/     /________________/    \n");
     printf("%s: ", lang_please_input_menu_option());
 }
 
 void gui_print_gamemode_menu()
 {
-    printf("   _________________      _________________      _________________ \n");
-    printf("  /      (1)       /     /      (2)       /     /      (3)       / \n");
+    printf("       _________________      _________________      _________________ \n");
+    printf("      /      (1)       /     /      (2)       /     /      (3)       / \n");
 
     if (pretty_mode == TRUE) {
-        printf(" /%s   Mastermind   %s/     /%sSuper Mastermind%s/     /%s%s%s/  \n", gui_write_in_random_color(), COLORMODE_RESET, gui_write_in_random_color(), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
-    } else printf(" /   Mastermind   /     /Super Mastermind/     /%s/  \n", lang_menu_options(MENU_OPTION_BACK));
+        printf("     /%s   Mastermind   %s/     /%sSuper Mastermind%s/     /%s%s%s/  \n", gui_write_in_random_color(), COLORMODE_RESET, gui_write_in_random_color(), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
+    } else printf("     /   Mastermind   /     /Super Mastermind/     /%s/  \n", lang_menu_options(MENU_OPTION_BACK));
 
-    printf("/________________/     /________________/     /________________/    \n");
+    printf("    /________________/     /________________/     /________________/    \n");
     printf("%s: ", lang_please_input_menu_option());
 }
 
 void gui_print_single_or_multiplayer_menu()
 {
-    printf("   _________________      _________________      _________________ \n");
-    printf("  /      (1)       /     /      (2)       /     /      (3)       / \n");
+    printf("       _________________      _________________      _________________ \n");
+    printf("      /      (1)       /     /      (2)       /     /      (3)       / \n");
 
     if (pretty_mode == TRUE) {
-        printf(" /%s%s%s/     /%s%s%s/     /%s%s%s/  \n", gui_write_in_random_color(), lang_singleplayer_multiplayer(1), COLORMODE_RESET, gui_write_in_random_color(), lang_singleplayer_multiplayer(2), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
-    } else printf(" /%s/     /%s/     /%s/  \n", lang_singleplayer_multiplayer(1), lang_singleplayer_multiplayer(2), lang_menu_options(MENU_OPTION_BACK));
+        printf("     /%s%s%s/     /%s%s%s/     /%s%s%s/  \n", gui_write_in_random_color(), lang_singleplayer_multiplayer(1), COLORMODE_RESET, gui_write_in_random_color(), lang_singleplayer_multiplayer(2), COLORMODE_RESET, gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
+    } else printf("     /%s/     /%s/     /%s/  \n", lang_singleplayer_multiplayer(1), lang_singleplayer_multiplayer(2), lang_menu_options(MENU_OPTION_BACK));
 
-    printf("/________________/     /________________/     /________________/    \n");
+    printf("    /________________/     /________________/     /________________/    \n");
     printf("%s: ", lang_please_input_menu_option());
 }
 
 void gui_print_back_only()
 {
-    printf("   _________________\n");
-    printf("  /      (1)       /\n");
+    printf("       _________________\n");
+    printf("      /      (1)       /\n");
 
     if (pretty_mode == TRUE) {
-        printf(" /%s%s%s/\n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
-    } else printf(" /%s/\n", lang_menu_options(MENU_OPTION_BACK));
+        printf("     /%s%s%s/\n", gui_write_in_random_color(), lang_menu_options(MENU_OPTION_BACK), COLORMODE_RESET);
+    } else printf("     /%s/\n", lang_menu_options(MENU_OPTION_BACK));
 
-    printf("/________________/\n");
+    printf("    /________________/\n");
 }
 
 void gui_print_language_menu()
 {
     int i;
+    printf("    ");
     /* 1. Row: Head */
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
         printf("   _________________");
@@ -101,6 +102,7 @@ void gui_print_language_menu()
     }
 
     /* 2. Row: Number */
+    printf("    ");
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
         printf("  /      (%i)       /", i + 1);
 
@@ -110,6 +112,7 @@ void gui_print_language_menu()
     }
 
     /* 3. Row: Language name */
+    printf("    ");
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
 
         if (pretty_mode == TRUE) {
@@ -122,6 +125,7 @@ void gui_print_language_menu()
     }
 
     /* 4. Row: Bottom */
+    printf("    ");
     for (i = 0; i < AMOUNT_OF_LANGUAGES; i++) {
         printf("/________________/");
 

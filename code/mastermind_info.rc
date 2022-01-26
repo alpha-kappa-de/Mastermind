@@ -1,0 +1,23 @@
+0 ICON "mastermind_icon.ico"
+1 VERSIONINFO
+FILEVERSION     1,0,0,0
+PRODUCTVERSION  1,0,0,0
+BEGIN
+  BLOCK "StringFileInfo"
+  BEGIN
+    BLOCK "040904E4"
+    BEGIN
+      VALUE "FileDescription", "This is a little game project we were writing for university. It's the game Mastermind."
+      VALUE "FileVersion", "1.0"
+      VALUE "InternalName", "Mastermind"
+      VALUE "LegalCopyright", "alpha-kappa-de, Jooosy and JanisNoah"
+      VALUE "OriginalFilename", "Mastermind.exe"
+      VALUE "ProductName", "Mastermind"
+      VALUE "ProductVersion", "1.0"
+    END
+  END
+  BLOCK "VarFileInfo"
+  BEGIN
+    VALUE "Translation", 0x409, 1252
+  END
+END

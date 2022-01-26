@@ -64,8 +64,12 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
     }
 
     /* print amount of correct pins and correct colors */
-    printf("\t\t%s: %i\t%s: %i\n", lang_correct_pins(), counter_correct_pins, lang_correct_colors(), counter_correct_color);
-
+    if (pretty_mode == TRUE) {
+        printf("\t\t%s%s: %i %s%s: %i%s\n", COLORMODE_BRIGHTGREEN, lang_correct_pins(), counter_correct_pins, COLORMODE_BRIGHTRED ,lang_correct_colors(), counter_correct_color, COLORMODE_RESET);
+    } else {
+        printf("\t\t%s: %i %s: %i\n", lang_correct_pins(), counter_correct_pins, lang_correct_colors(), counter_correct_color);
+    }
+    
     /* free up space and return amount of correct pins */
     free(start_of_colorcode_pin_array);
     free(start_of_guess_pin_array);
@@ -141,12 +145,9 @@ void mainmenu()
         }
 }
 
-void how_to_play_menu()
+void please_press_one_to_go_back()
 {
     int i;
-    gui_print_back_only();
-    lang_print_how_to_play();
-
     printf("%s: ", lang_please_type_one_to_go_back());
     i = player_input_menu(1);
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
@@ -154,22 +155,21 @@ void how_to_play_menu()
         printf("%s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
         i = player_input_menu(1);
     }
+}
+
+void how_to_play_menu()
+{
+    gui_print_back_only();
+    lang_print_how_to_play();
+    please_press_one_to_go_back();
     delete_last_lines_and_go_there(DELETE_LAST_LINES_HOW_TO_PLAY);
 }
 
 void statistics_menu()
 {
-    int i;
     gui_print_back_only();
     gui_print_stats();
-
-    printf("%s: ", lang_please_type_one_to_go_back());
-    i = player_input_menu(1);
-    while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
-        i = player_input_menu(1);
-    }
+    please_press_one_to_go_back();
     delete_last_lines_and_go_there(DELETE_LAST_LINES_STATS);
 }
 
@@ -464,7 +464,7 @@ void player_turn(int player_number)
         }
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         move_cursor(UP, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) + (MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player1_attempts));
-        lang_print_name_you_typed_guess(player_number);
+        lang_print_name_your_guess_was(player_number);
         /* if guessed right */
         if (check_colorcode_and_print_correct_pins(player2_colorcode, player_guess) == colorcode_length) {
             player1_attempts++;
@@ -490,13 +490,16 @@ void player_turn(int player_number)
                     }
                 
                 for (i = 0; i < colorcode_length; i++) {
-                    printf("\t%s", lang_color_name(player2_colorcode[i]));
+                    printf("%s", lang_color_name(player2_colorcode[i]));
+                    if (i != colorcode_length - 1) {
+                            printf(", ");
+                        }
                 }
-                printf("\n");
                 
                 player1_game_over = TRUE;
                 player1_won = FALSE;
                 save_game_savefile(player_number);
+                move_cursor(UP, 1);
             }
             move_cursor(DOWN, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) + (MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player1_attempts));
         }
@@ -525,7 +528,7 @@ void player_turn(int player_number)
             }
             delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             move_cursor(UP, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player2_attempts));
-            lang_print_name_you_typed_guess(player_number);
+            lang_print_name_your_guess_was(player_number);
             /* if guessed right */
             if (check_colorcode_and_print_correct_pins(player1_colorcode, player_guess) == colorcode_length) {
                 player2_attempts++;
@@ -551,13 +554,17 @@ void player_turn(int player_number)
                     }
             
                     for (i = 0; i < colorcode_length; i++) {
-                        printf("\t%s", lang_color_name(player1_colorcode[i]));
+                        printf("%s", lang_color_name(player1_colorcode[i]));
+                        if (i != colorcode_length - 1) {
+                            printf(", ");
+                        }
+                        
                     }
-                    printf("\n");
 
                     player2_game_over = TRUE;
                     player2_won = FALSE;
                     save_game_savefile(player_number);
+                    move_cursor(UP, 1);
                 }
                 move_cursor(DOWN, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player2_attempts));
             }
@@ -653,10 +660,10 @@ void start_game()
             }
             player1_attempts = 0;
             player2_attempts = 0;
-            wait_seconds(WAIT_5_SECONDS);
             break;
         }
     }
+    please_press_one_to_go_back();
     delete_last_lines_and_go_there(DELETE_LAST_LINES_GAME);
 }
 
