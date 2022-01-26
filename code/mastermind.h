@@ -20,6 +20,7 @@
 #define WRONG_PLAYER_TO_SAVE_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", WRONG_PLAYER_TO_SAVE_ERROR_CODE); exit(WRONG_PLAYER_TO_SAVE_ERROR_CODE);}
 #define DELETE_TEMP_SAVE_FILE_ERROR() {printf("Errorcode: %i\nDeleting temp savefile didn't work. Please contact the devs.", DELETE_TEMP_SAVE_FILE_ERROR_CODE); exit(DELETE_TEMP_SAVE_FILE_ERROR_CODE);}
 #define PLEASE_RESTART_THE_GAME_TO_APPLY_CHANGES() {printf("%s", lang_please_restart_to_apply_changes()); wait_seconds(WAIT_3_SECONDS); exit(SUCCESS);}
+#define MOVE_CURSOR_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", MOVE_CURSOR_ERROR_CODE); exit(MOVE_CURSOR_ERROR_CODE);}
 
 /* Boolean constants */
 #define TRUE 1
@@ -40,6 +41,7 @@
 #define CORRUPT_SAVE_FILE_ERROR_CODE -11
 #define WRONG_PLAYER_TO_SAVE_ERROR_CODE -12
 #define DELETE_TEMP_SAVE_FILE_ERROR_CODE -13
+#define MOVE_CURSOR_ERROR_CODE -14
 
 /* Mastermind constants */
 #define MASTERMIND_COLORCODE_LENGTH 4
@@ -62,6 +64,7 @@
 
 /* Misc. constants */
 #define MAX_COLOR_INPUT_LENGTH 100
+#define MAX_NAME_INPUT_LENGTH 100
 #define MAX_NAME_LENGTH 21
 #define MAX_ATTEMPTS_TO_GUESS_CODE 12
 #define SAVEFILE_SCORE_LINE_LENGTH 50
@@ -70,6 +73,7 @@
 #define ONE_HOUR_IN_SECONDS 3600
 #define PLAYER_NOT_IN_SAVEFILE -1
 #define WAIT_3_SECONDS 3
+#define WAIT_5_SECONDS 5
 
 /* variables for gamedata */
 int player1_colorcode[SUPER_MASTERMIND_COLORCODE_LENGTH];

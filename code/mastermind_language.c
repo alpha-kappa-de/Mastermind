@@ -191,10 +191,7 @@ void lang_print_name_you_typed_guess(int player_number)
             }
 
         for (i = 0; i < colorcode_length; i++) {
-            printf("%s", lang_color_name(player_guess[i]));
-            if (i != (colorcode_length - 1)) {
-                printf(", ");
-            }
+            printf("\t%s", lang_color_name(player_guess[i]));
         }
     }
 }
@@ -204,13 +201,10 @@ char *lang_correct_pins()
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
             return "Correct pins";
-            break;
         case LANGUAGE_FRENCH:
             return "Stylos corrects";
-            break;
         case LANGUAGE_GERMAN:
             return "Richtige Stifte";
-            break;
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -221,13 +215,10 @@ char *lang_correct_colors()
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
             return "Correct colors";
-            break;
         case LANGUAGE_FRENCH:
             return "Couleurs correctes";
-            break;
         case LANGUAGE_GERMAN:
             return "Richtige Farbe";
-            break;
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -238,13 +229,10 @@ char *lang_type_colorcode()
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
             return "Type in a colorcode: ";
-            break;
         case LANGUAGE_FRENCH:
             return "Tapez un code couleur:";
-            break;
         case LANGUAGE_GERMAN:
             return "Gebe einen Farbcode ein: ";
-            break;
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -400,10 +388,8 @@ char *lang_please_input_menu_option()
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
             return "Please enter a number according to the menu option";
-            break;
         case LANGUAGE_FRENCH:
             return "Veuillez entrer un nombre en fonction de l'option de menu";
-            break;
         case LANGUAGE_GERMAN:
             return "Bitte gebe eine Zahl entsprechend der Menueoption ein";
         default:
@@ -442,40 +428,76 @@ char *lang_language_name(int language)
 
 void lang_print_how_to_play()
 {
-    /* TODO: make the new version of how to play */
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
             printf("_____________________________________________\nHow to play:\n_____________________________________________\n");
+            if (pretty_mode == TRUE) {
+                printf("%sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+            } else {
+                printf("Mastermind:\n");
+            }
             printf("At the beginning, both players secretly determine a four-digit ordered color code, which is selected from six colors.\n");
+            printf("The possible colors in this mode are: %s, %s, %s, %s, %s and %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
             printf("Each color can also be used several times. The aim of the game is to find out the other player's\n");
             printf("color code with as few moves as possible, but after a maximum of twelve attempts.\n");
             printf("With every move you get the information how many pins (in the color code) have been correctly set\n");
-            printf("in color and position and how many pins are in the correct color but are in the wrong position.\n\nSuper mastermind:\n");
+            printf("in color and position and how many pins are in the correct color but are in the wrong position.\n");
+            if (pretty_mode == TRUE) {
+                printf("%s\nSuper Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+            } else {
+                printf("\n Super Mastermind:\n");
+            }
             printf("If the Super Mastermind option is selected, the color code consists of five pins.\n");
             printf("Instead of six colors, you can now choose from eight colors.\n");
+            printf("In addition to the colors from Mastermind there are: %s and %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
             printf("Here, too, you have a maximum of twelve attempts to guess the code.\n_____________________________________________\n");
             break;
         case LANGUAGE_FRENCH:
             printf("_____________________________________________\nComment jouer:\n_____________________________________________\n");
-            printf("Au debut, les deux joueurs determinent secretement un code couleur ordonne a quatre chiffres,\n");
-            printf("qui est selectionne parmi six couleurs. Chaque couleur peut egalement etre utilisee plusieurs fois.\n");
+            if (pretty_mode == TRUE) {
+                printf("%sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+            } else {
+                printf("Mastermind:\n");
+            }
+            printf("Au debut, les deux joueurs determinent secretement un code couleur ordonne a quatre chiffres, qui est\n");
+            printf("selectionne parmi six couleurs. Les couleurs possibles dans ce mode sont: %s, %s, %s, %s, %s et %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
+            printf("Chaque couleur peut egalement etre utilisee plusieurs fois.\n");
             printf("Le but du jeu est de decouvrir le code couleur de l'autre joueur avec le moins de coups possible,\n");
             printf("mais apres un maximum de douze tentatives. A chaque mouvement, vous obtenez des informations sur le\n");
             printf("nombre de broches (dans le code de couleur) qui ont ete correctement definies dans la couleur et la position\n");
-            printf("et sur le nombre de broches de la bonne couleur mais dans la mauvaise position.\n\nSuper Mastermind:\n");
+            printf("et sur le nombre de broches de la bonne couleur mais dans la mauvaise position.\n");
+            if (pretty_mode == TRUE) {
+                printf("%s\nSuper Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+            } else {
+                printf("\n Super Mastermind:\n");
+            }
             printf("Si l'option Super Mastermind est selectionnee, le code couleur se compose de cinq broches. Au lieu de six couleurs,\n");
             printf("vous pouvez desormais choisir parmi huit couleurs.\n");
+            printf("En plus des couleurs de Mastermind, il y a: %s et %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
             printf("Ici aussi, vous disposez d'un maximum de douze tentatives pour deviner le code.\n_____________________________________________\n");
             break;
         case LANGUAGE_GERMAN:
             printf("_____________________________________________\nWie man spielt:\n_____________________________________________\n");
+            if (pretty_mode == TRUE) {
+                printf("%sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+            } else {
+                printf("Mastermind:\n");
+            }
             printf("Beide Spieler legen zu Beginn verdeckt einen vierstelligen geordneten Farbcode fest, der aus sechs Farben\n");
-            printf("ausgewaehlt wird. Jede Farbe kann auch mehrmals verwendet werden. Ziel des Spieles ist es, den Farbcode des\n"); 
+            printf("ausgewaehlt wird. Moegliche Farben in diesem Modus sind: %s, %s, %s, %s, %s und %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
+            printf("Jede Farbe kann auch mehrmals verwendet werden. Ziel des Spieles ist es, den Farbcode des\n"); 
             printf("anderen mit so wenig Zuegen wie moeglich, jedoch nach maximal zwoelf Versuchen, herauszufinden.\n");
             printf("Auf jeden Zug hin bekommt man die Information, wie viele Pins (im Farbcode)\n");
             printf("in Farbe und Position richtig gesetzt wurden und wie viele Pins zwar die richtige Farbe haben, aber an einer\n");
-            printf("falschen Position stehen.\n\nSuper Mastermind:\nWird die Option Super Mastermind ausgewaehlt besteht der Farbcode aus fuenf Pins.\n");
+            printf("falschen Position stehen.\n");
+            if (pretty_mode == TRUE) {
+                printf("%s\nSuper Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+            } else {
+                printf("\n Super Mastermind:\n");
+            }
+            printf("Wird die Option Super Mastermind ausgewaehlt besteht der Farbcode aus fuenf Pins.\n");
             printf("Statt aus sechs Farben kann nun aus acht Farben ausgewaehlt werden.\n");
+            printf("Zusaetzlich zu den Farben aus Mastermind gibt es noch: %s und %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
             printf("Auch hier hat man maximal zwoelf Versuche, um den Code zu erraten.\n_____________________________________________\n");
             break;
         default:
@@ -658,11 +680,25 @@ char *lang_correctly_guessed_code()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "you guessed the colorcode! Trials needed:";
+            return "you guessed the colorcode!";
         case LANGUAGE_FRENCH:
-            return "t'avez devine le code couleur! Essais necessaires:";
+            return "t'avez devine le code couleur!";
         case LANGUAGE_GERMAN:
-            return "du hast den Farbcode erraten! Benoetigte Versuche:";
+            return "du hast den Farbcode erraten!";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
+char *trials_needed()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "Trials needed:";
+        case LANGUAGE_FRENCH:
+            return "Essais necessaires:";
+        case LANGUAGE_GERMAN:
+            return "Benoetigte Versuche:";
         default:
             INVALID_LANGUAGE_ERROR();
         }
@@ -685,6 +721,20 @@ void lang_print_please_input_name()
         }
 }
 
+char *you_cant_have_the_same_name()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            return "You can't have both the same name!";
+        case LANGUAGE_FRENCH:
+            return "Vous ne pouvez pas avoir les deux le meme nom!";
+        case LANGUAGE_GERMAN:
+            return "Ihr koennt nicht beide den gleichen Namen haben!";
+        default:
+            INVALID_LANGUAGE_ERROR();
+        }
+}
+
 char *lang_singleplayer_multiplayer(int amount_of_players)
 {
     /* Please mind that every string has to be exactly 17 chars long (including \0) */
@@ -693,13 +743,10 @@ char *lang_singleplayer_multiplayer(int amount_of_players)
             switch (gamelanguage) {
                 case LANGUAGE_ENGLISH:
                     return "  Singleplayer  ";
-                    break;
                 case LANGUAGE_FRENCH:
                     return "      Solo      ";
-                    break;
                 case LANGUAGE_GERMAN:
                     return "  Einzelspieler ";
-                    break;
                 default:
                     INVALID_LANGUAGE_ERROR();
         }
@@ -707,13 +754,10 @@ char *lang_singleplayer_multiplayer(int amount_of_players)
             switch (gamelanguage) {
                 case LANGUAGE_ENGLISH:
                     return "   Multiplayer  ";
-                    break;
                 case LANGUAGE_FRENCH:
                     return "   Multijoueur  ";
-                    break;
                 case LANGUAGE_GERMAN:
                     return "   Mehrspieler  ";
-                    break;
                 default:
                     INVALID_LANGUAGE_ERROR();
         }
@@ -1013,11 +1057,11 @@ char *lang_please_restart_to_apply_changes()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Please restart the game to apply changes.";
+            return "Please restart the game to apply changes. Game exits in three seconds.";
         case LANGUAGE_FRENCH:
-            return "Veuillez redemarrer le jeu pour appliquer les modifications.";
+            return "Veuillez redemarrer le jeu pour appliquer les modifications. Le jeu se termine dans trois secondes.";
         case LANGUAGE_GERMAN:
-            return "Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen";
+            return "Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen. Das Spiel wird in drei Sekunden beendet.";
         default:
             INVALID_LANGUAGE_ERROR();
         }

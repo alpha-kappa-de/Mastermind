@@ -28,9 +28,13 @@
 #define DELETE_LAST_LINES_MENUOPTION 5
 #define DELETE_LAST_LINES_GUI_MENU 23
 #define DELETE_LAST_LINES_ONE_LINE 1
-#define DELETE_LAST_LINES_HOW_TO_PLAY 20
+#define DELETE_LAST_LINES_HOW_TO_PLAY 28
 #define DELETE_LAST_LINES_STATS -1
-#define DELETE_LAST_LINES_GAME 100
+#define DELETE_LAST_LINES_GAME 29
+
+#define GO_LINES_DOWN_TO_INPUTLINE 28
+#define UP 'A'
+#define DOWN 'B'
 
 
 
@@ -43,11 +47,11 @@ void gui_print_back_only();
 void gui_print_language_menu();
 void gui_print_GUI_mode_menu();
 char *gui_write_in_random_color();
-void gui_print_string_colorful(char *string_to_write_colorful);
 void gui_print_stats();
 void gui_print_stat_lines_right_justified(int value);
 void gui_print_stat_line_winrate_right_justified();
 void delete_last_lines_and_go_there(int amount_of_lines);
+void move_cursor(char up_or_down, int amount_of_lines);
 void wait_seconds(int seconds);
 
 #endif

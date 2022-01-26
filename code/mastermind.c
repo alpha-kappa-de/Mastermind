@@ -329,7 +329,7 @@ void generate_random_colorcode(int *colorcode)
 int get_player_name(char *player_x_name)
 {
     int i, status;
-	char c, player_name[MAX_NAME_LENGTH];
+	char c, player_name[MAX_NAME_INPUT_LENGTH];
 
     /* read player input and check, if it's valid. finalize string with \0 */
     status = scanf("%c", &c);
@@ -338,25 +338,27 @@ int get_player_name(char *player_x_name)
     } else if (c == '\n') {
         return NAME_ERROR;
     }
-    for (i = 0; i < MAX_NAME_LENGTH && c != '\n'; i++) {
+    for (i = 0; i < MAX_NAME_INPUT_LENGTH && c != '\n'; i++) {
         player_name[i] = c;
-        if (i == (MAX_NAME_LENGTH - 1) && (c = getchar()) != '\n' ) {
+        if (i == (MAX_NAME_INPUT_LENGTH - 1) && (c = getchar()) != '\n' ) {
             if (c == EOF || flush_buff()) {
                 return BUFFER_ERROR;
             }
         }
         c = getchar();
     }
-    if (i == MAX_NAME_LENGTH) {
-        player_name[i - 1] = '\0';
-    } else player_name[i] = '\0';
-
-    /* paste player input to the passed player_x_name */
-    for (i = 0; player_name[i] != '\0'; i++) {
-        player_x_name[i] = player_name[i];
-    }
     player_name[i] = '\0';
 
+    /* paste player input to the passed player_x_name */
+    for (i = 0; i < (MAX_NAME_LENGTH - 1) && player_name[i] != '\0'; i++) {
+        player_x_name[i] = player_name[i];
+    }
+    if (i != 20 || player_name[20] == '\0') {
+        player_name[i] = '\0';
+    } else {
+        return NAME_ERROR;
+    }
+    
 	return SUCCESS;
 }
 
@@ -371,14 +373,27 @@ void ask_player_for_name(int player_number)
     if (player_number == 1) {
         while (get_player_name(player1_name) != SUCCESS) {
             delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-            printf("%s %i ", lang_player(), player_number);
+            printf("%s %s %i ", lang_wrong_format(), lang_player(), player_number);
             lang_print_please_input_name();
         }
     } else if (player_number == 2) {
-        while (get_player_name(player2_name) != SUCCESS) {
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-            printf("%s %i ", lang_player(), player_number);
-            lang_print_please_input_name();
+        while (get_player_name(player2_name) != SUCCESS || compare_player_names(player1_name, player2_name)) {
+            if (compare_player_names(player1_name, player2_name)) {
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                if (pretty_mode == TRUE) {
+                    printf("%s%s%s\n", COLORMODE_RED, you_cant_have_the_same_name(), COLORMODE_RESET);
+                } else {
+                    printf("%s\n", you_cant_have_the_same_name());
+                }
+                wait_seconds(WAIT_3_SECONDS);
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                printf("%s %i ", lang_player(), player_number);
+                lang_print_please_input_name();
+            } else {
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                printf("%s %s %i ", lang_wrong_format(), lang_player(), player_number);
+                lang_print_please_input_name();
+            }
         }
     }
 
@@ -397,12 +412,22 @@ void ask_player_for_colorcode(int player_number)
         while (player_colorcode_input(player1_colorcode) != SUCCESS) {
             delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
+            if (pretty_mode == TRUE) {
+                wait_seconds(WAIT_3_SECONDS);
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                printf("%s. ", player1_name);
+            }
         }
     } else if (player_number == 2) {
         printf("%s. ", player2_name);
         while (player_colorcode_input(player2_colorcode) != SUCCESS) {
             delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
+            if (pretty_mode == TRUE) {
+                wait_seconds(WAIT_3_SECONDS);
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                printf("%s. ", player2_name);
+            }
         }
     }
     delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
@@ -427,38 +452,45 @@ void player_turn(int player_number)
         while (player_colorcode_input(player_guess) != SUCCESS) {
             delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
+            if (pretty_mode == TRUE) {
+                wait_seconds(WAIT_3_SECONDS);
+                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+            }
+            if (player1_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
+                if (pretty_mode == TRUE) {
+                    printf("%s%s, %s. %s", COLORMODE_RED, lang_its_your_last_try(), player1_name, COLORMODE_RESET);
+                } else printf("%s, %s. ", lang_its_your_last_try(), player1_name);
+            } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player1_attempts + 1) , player1_name);
         }
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        move_cursor(UP, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) + (MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player1_attempts));
         lang_print_name_you_typed_guess(player_number);
         /* if guessed right */
         if (check_colorcode_and_print_correct_pins(player2_colorcode, player_guess) == colorcode_length) {
             player1_attempts++;
 
             if (pretty_mode == TRUE) {
-                printf("\n");
-                gui_print_string_colorful(player1_name);
-                printf(", ");
-                gui_print_string_colorful(lang_correctly_guessed_code());
-                printf("%i\n", player1_attempts);
+                printf("\n%s%s, %s %s %i.%s\n", COLORMODE_GREEN, player1_name, lang_correctly_guessed_code(), trials_needed(), player1_attempts, COLORMODE_RESET);
             } else {
-                printf("\n%s, %s %i\n", player1_name, lang_correctly_guessed_code(), player1_attempts);
+                printf("\n%s, %s %s %i.\n", player1_name, lang_correctly_guessed_code(), trials_needed(), player1_attempts);
             }
 
             player1_game_over = TRUE;
             player1_won = TRUE;
             save_game_savefile(player_number);
+            move_cursor(DOWN, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) + (MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player1_attempts - 1));
         /* if guessed wrong, increment attempts and check if max. attempts are reached */
         } else {
             player1_attempts++;
             if (player1_attempts == MAX_ATTEMPTS_TO_GUESS_CODE) {
                 if (pretty_mode == TRUE) {
-                        printf("%s%s %s... %s\n%s:%s ", COLORMODE_RED, lang_what_a_pity(), player1_name, lang_game_over(), lang_right_colorcode_was(), COLORMODE_RESET);
+                        printf("%s%s %s... %s\n%s: %s ", COLORMODE_RED, lang_what_a_pity(), player1_name, lang_game_over(), lang_right_colorcode_was(), COLORMODE_RESET);
                     } else {
                         printf("%s %s... %s\n%s: ", lang_what_a_pity(), player1_name, lang_game_over(), lang_right_colorcode_was());
                     }
                 
                 for (i = 0; i < colorcode_length; i++) {
-                    printf("%s ", lang_color_name(player2_colorcode[i]));
+                    printf("\t%s", lang_color_name(player2_colorcode[i]));
                 }
                 printf("\n");
                 
@@ -466,6 +498,7 @@ void player_turn(int player_number)
                 player1_won = FALSE;
                 save_game_savefile(player_number);
             }
+            move_cursor(DOWN, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) + (MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player1_attempts));
         }
     }
     } else if (player_number == 2) {
@@ -480,26 +513,33 @@ void player_turn(int player_number)
             while (player_colorcode_input(player_guess) != SUCCESS) {
                 delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 lang_print_colorcode_wrong_format_message();
+                if (pretty_mode == TRUE) {
+                    wait_seconds(WAIT_3_SECONDS);
+                    delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                }
+                if (player2_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
+                    if (pretty_mode == TRUE) {
+                        printf("%s%s, %s. %s", COLORMODE_RED, lang_its_your_last_try(), player2_name, COLORMODE_RESET);
+                    } else printf("%s, %s. ", lang_its_your_last_try(), player2_name);
+                } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player2_attempts + 1) , player2_name);
             }
             delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+            move_cursor(UP, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player2_attempts));
             lang_print_name_you_typed_guess(player_number);
             /* if guessed right */
             if (check_colorcode_and_print_correct_pins(player1_colorcode, player_guess) == colorcode_length) {
                 player2_attempts++;
 
                 if (pretty_mode == TRUE) {
-                    printf("\n");
-                    gui_print_string_colorful(player2_name);
-                    printf(", ");
-                    gui_print_string_colorful(lang_correctly_guessed_code());
-                    printf("%i\n", player2_attempts);
+                    printf("\n%s%s, %s %s %i.%s\n", COLORMODE_GREEN, player2_name, lang_correctly_guessed_code(), trials_needed(), player2_attempts, COLORMODE_RESET);
                 } else {
-                    printf("\n%s, %s %i\n", player2_name, lang_correctly_guessed_code(), player2_attempts);
-            }
+                    printf("\n%s, %s %s %i.\n", player2_name, lang_correctly_guessed_code(), trials_needed(), player2_attempts);
+                }
 
                 player2_game_over = TRUE;
                 player2_won = TRUE;
                 save_game_savefile(player_number);
+                move_cursor(DOWN, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player2_attempts - 1));
             /* if guessed wrong, increment attempts and check, if max. attempts are reached */
             } else {
                 player2_attempts++;
@@ -511,7 +551,7 @@ void player_turn(int player_number)
                     }
             
                     for (i = 0; i < colorcode_length; i++) {
-                        printf("%s ", lang_color_name(player1_colorcode[i]));
+                        printf("\t%s", lang_color_name(player1_colorcode[i]));
                     }
                     printf("\n");
 
@@ -519,6 +559,7 @@ void player_turn(int player_number)
                     player2_won = FALSE;
                     save_game_savefile(player_number);
                 }
+                move_cursor(DOWN, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player2_attempts));
             }
         }
     }
@@ -582,6 +623,7 @@ void start_game()
     savefile_line_of_player_1 = PLAYER_NOT_IN_SAVEFILE;
     savefile_line_of_player_2 = PLAYER_NOT_IN_SAVEFILE;
 
+    move_cursor(DOWN, GO_LINES_DOWN_TO_INPUTLINE);
     /* let player1 input his name */
     ask_player_for_name(1);
 
@@ -611,7 +653,7 @@ void start_game()
             }
             player1_attempts = 0;
             player2_attempts = 0;
-            wait_seconds(3);
+            wait_seconds(WAIT_5_SECONDS);
             break;
         }
     }

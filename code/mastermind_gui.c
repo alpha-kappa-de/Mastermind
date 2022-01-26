@@ -21,7 +21,7 @@ void gui_print_mastermind_logo()
     printf("                                                         by alpha-kappa-de, Jooosy and JanisNoah \n\n");
 
     if (pretty_mode == TRUE) {
-        wait_seconds(3);
+        wait_seconds(WAIT_3_SECONDS);
         delete_last_lines_and_go_there(DELETE_LAST_LINES_GAMELOGO);
     }
 }
@@ -193,16 +193,6 @@ char *gui_write_in_random_color()
     return COLORMODE_RESET;
 }
 
-void gui_print_string_colorful(char *string_to_write_colorful)
-{
-    int i;
-    for (i = 0; string_to_write_colorful[i] != '\0'; i++) {
-        printf("%s", gui_write_in_random_color());
-        printf("%c", string_to_write_colorful[i]);
-        printf("%s", COLORMODE_RESET);
-    }
-}
-
 void gui_print_stats()
 {
     int i,j;
@@ -297,11 +287,28 @@ void delete_last_lines_and_go_there(int amount_of_lines)
     }
 
     if (pretty_mode == TRUE) {
-        printf("\n");
-        for (i = 0; i < amount_of_lines + 1; i++) {
+        printf("\033[200D");
+        for (i = 0; i < amount_of_lines; i++) {
             printf("\033[1A");
             printf("\033[2K");
         }
+    }
+}
+
+void move_cursor(char up_or_down, int amount_of_lines)
+{
+    if (amount_of_lines < 1 || (up_or_down != UP && up_or_down != DOWN)) {
+        MOVE_CURSOR_ERROR()
+    }
+    if (up_or_down == DOWN) {
+        amount_of_lines -= 1;
+    } else if (up_or_down == UP) {
+        amount_of_lines += 1;
+    }
+    
+    if (pretty_mode == TRUE) {
+        printf("\n");
+        printf("\033[%i%c", amount_of_lines, up_or_down);
     }
 }
 
