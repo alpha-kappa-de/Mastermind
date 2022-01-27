@@ -10,9 +10,7 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
     int counter_correct_color;
 
     char *colorcode_pin_array;
-    char *start_of_colorcode_pin_array;
     char *guess_pin_array;
-    char *start_of_guess_pin_array;
 
     /* initialize counters and allocate space for pin assignment */
     counter_correct_pins = 0;
@@ -28,35 +26,29 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
         SPACE_ALLOCATION_ERROR();
     }
 
-    start_of_colorcode_pin_array = colorcode_pin_array;
-    start_of_guess_pin_array = guess_pin_array;
-
     /* get amount of correct pins */
-    for (i = 0; i < colorcode_length; i++, colorcode_pin_array++, guess_pin_array++) {
+    for (i = 0; i < colorcode_length; i++) {
         if (colorcode[i] == guess[i]) {
-            *colorcode_pin_array = 'B';
-            *guess_pin_array = 'B';
+            colorcode_pin_array[i] = 'B';
+            guess_pin_array[i] = 'B';
             counter_correct_pins++;
         }
     }
 
     /* if all colors are correct, doesn't need to check rest */
     if (counter_correct_pins == colorcode_length) {
-        free(start_of_colorcode_pin_array);
-        free(start_of_guess_pin_array);
+        free(colorcode_pin_array);
+        free(guess_pin_array);
         return counter_correct_pins;
     }
 
-
     /* get amount of correct colors */
-    colorcode_pin_array = start_of_colorcode_pin_array;
-    guess_pin_array = start_of_guess_pin_array;
     for (i = 0; i < colorcode_length; i++) {
-        if (*(guess_pin_array + i) != 'B') {
+        if (guess_pin_array[i] != 'B') {
             for (j = 0; j < colorcode_length; j++) {
-                if (colorcode[i] == guess[j] && *(guess_pin_array + j) != 'B' && *(guess_pin_array + j) != 'W') {
-                    *(colorcode_pin_array + i) = 'W';
-                    *(guess_pin_array + j) = 'W';
+                if (guess[i] == colorcode[j] && colorcode_pin_array[j] != 'B' && colorcode_pin_array[j] != 'W') {
+                    colorcode_pin_array[j] = 'W';
+                    guess_pin_array[i] = 'W';
                     counter_correct_color++;
                 }
             }
@@ -71,8 +63,8 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
     }
     
     /* free up space and return amount of correct pins */
-    free(start_of_colorcode_pin_array);
-    free(start_of_guess_pin_array);
+    free(colorcode_pin_array);
+    free(guess_pin_array);
     return counter_correct_pins;
 }
 
