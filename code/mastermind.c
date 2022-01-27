@@ -96,7 +96,7 @@ int player_input_menu(int amount_of_menu_options)
 
     c = '\0';
     status = scanf("%i", &input);
-
+    
     if (status == EOF)
         return BUFFER_ERROR;
     if (status == 0 || input <= 0 || input > amount_of_menu_options || (c = getchar()) != '\n') {
@@ -247,6 +247,7 @@ void change_gui_mode()
 
     if (i == 1) {
         pretty_mode = FALSE;
+        save_game_savefile(SAVEFILE_SETTINGS_ONLY);
     } else if (i == 2) {
         if (pretty_mode == FALSE) {
             pretty_mode = TRUE;
@@ -663,7 +664,7 @@ void start_game()
             break;
         }
     }
-    please_press_one_to_go_back();
+    lang_print_please_press_enter_to_go_back();
     delete_last_lines_and_go_there(DELETE_LAST_LINES_GAME);
 }
 

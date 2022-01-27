@@ -46,6 +46,8 @@ char *lang_what_a_pity();
 char *lang_its_your_try_nr();
 char *lang_its_your_last_try();
 char *lang_please_type_one_to_go_back();
+void lang_print_please_press_enter_to_go_back();
+void lang_print_please_press_enter_to_exit();
 char *lang_stat_player_name(int line);
 char *lang_stat_game_time(int line);
 char *lang_stat_total_games_played(int line);

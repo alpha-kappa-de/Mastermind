@@ -167,28 +167,52 @@ void lang_print_name_your_guess_was(int player_number)
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
                 if (player_number == 1) {
-                    printf("%s. Guess #%i: ", player1_name, (player1_attempts + 1));
+                    if ((player1_attempts + 1) < 10) {
+                        printf("%s. Guess #%i: \t", player1_name, (player1_attempts + 1));
+                    } else {
+                        printf("%s. Guess #%i:\t", player1_name, (player1_attempts + 1));
+                    }
                 } else if (player_number == 2) {
-                    printf("%s. Guess #%i: ", player2_name, (player2_attempts + 1));
+                    if ((player2_attempts + 1) < 10) {
+                        printf("%s. Guess #%i :\t", player2_name, (player2_attempts + 1));
+                    } else {
+                        printf("%s. Guess #%i:\t", player2_name, (player2_attempts + 1));
+                    }
                 }
                 break;
             case LANGUAGE_FRENCH:
                 if (player_number == 1) {
-                    printf("%s. Entree #%i: ", player1_name, (player1_attempts + 1));
+                    if ((player1_attempts + 1) < 10) {
+                        printf("%s. Entree #%i :\t", player1_name, (player1_attempts + 1));
+                    } else {
+                        printf("%s. Entree #%i:\t", player1_name, (player1_attempts + 1));
+                    }
                 } else if (player_number == 2) {
-                    printf("%s. Entree #%i: ", player2_name, (player2_attempts + 1));
+                    if ((player2_attempts + 1) < 10) {
+                        printf("%s. Entree #%i :\t", player2_name, (player2_attempts + 1));
+                    } else {
+                        printf("%s. Entree #%i:\t", player2_name, (player2_attempts + 1));
+                    }
                 }
                 break;
             case LANGUAGE_GERMAN:
             if (player_number == 1) {
-                    printf("%s. Eingabe #%i: ", player1_name, (player1_attempts + 1));
+                    if ((player1_attempts + 1) < 10) {
+                        printf("%s. Eingabe #%i :\t", player1_name, (player1_attempts + 1));
+                    } else {
+                        printf("%s. Eingabe #%i:\t", player1_name, (player1_attempts + 1));
+                    }
                 } else if (player_number == 2) {
-                    printf("%s. Eingabe #%i: ", player2_name, (player2_attempts + 1));
+                    if ((player2_attempts + 1) < 10) {
+                        printf("%s. Eingabe #%i :\t", player2_name, (player2_attempts + 1));
+                    } else {
+                        printf("%s. Eingabe #%i:\t", player2_name, (player2_attempts + 1));
+                    }
                 }
                 break;
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
 
         for (i = 0; i < colorcode_length; i++) {
             printf("\t%s", lang_color_name(player_guess[i]));
@@ -207,7 +231,7 @@ char *lang_correct_pins()
             return "Stifte";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_correct_colors()
@@ -221,7 +245,7 @@ char *lang_correct_colors()
             return "Farben";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_type_colorcode()
@@ -235,7 +259,7 @@ char *lang_type_colorcode()
             return "Gebe einen Farbcode ein: ";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 void lang_print_colorcode_wrong_format_message()
@@ -254,7 +278,7 @@ void lang_print_colorcode_wrong_format_message()
             break;
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
     
     for (i = 0; i < colorcode_length; i++) {
         printf("%s", lang_color_name(generate_random_color()));
@@ -278,7 +302,7 @@ char *lang_menu_options(int menu_option)
                 return "    Spielen     ";
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
     }else if (menu_option == MENU_OPTION_HOWTOPLAY) {
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
@@ -289,7 +313,7 @@ char *lang_menu_options(int menu_option)
                 return " Wie man spielt ";
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
     }else if (menu_option == MENU_OPTION_STATS) {
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
@@ -300,7 +324,7 @@ char *lang_menu_options(int menu_option)
                 return "   Statistiken  ";
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
     }else if (menu_option == MENU_OPTION_EXIT) {
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
@@ -311,7 +335,7 @@ char *lang_menu_options(int menu_option)
                 return "    Beenden     ";
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
     }else if (menu_option == MENU_OPTION_SETTINGS) {
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
@@ -333,7 +357,7 @@ char *lang_menu_options(int menu_option)
                 return "    Sprache     ";
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
     }else if (menu_option == MENU_OPTION_GUIMODE) {
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
@@ -344,7 +368,7 @@ char *lang_menu_options(int menu_option)
                 return "    GUI Modus   ";
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
     }else if (menu_option == MENU_OPTION_BACK) {
         switch (gamelanguage) {
             case LANGUAGE_ENGLISH:
@@ -355,7 +379,7 @@ char *lang_menu_options(int menu_option)
                 return "     Zurueck    ";
             default:
                 INVALID_LANGUAGE_ERROR();
-            }
+        }
     }
     INVALID_MENUOPTION_ERROR();
 }
@@ -380,7 +404,7 @@ char *lang_wrong_format()
             return "Falsches Format!";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_please_input_menu_option()
@@ -394,21 +418,21 @@ char *lang_please_input_menu_option()
             return "    Bitte gebe eine Zahl entsprechend der Menueoption ein";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_goodbye()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Thanks for playing. Goodbye!";
+            return "Thanks for playing. Goodbye! ";
         case LANGUAGE_FRENCH:
-            return "Merci d'avoir joue. Au revoir!";
+            return "Merci d'avoir joue. Au revoir! ";
         case LANGUAGE_GERMAN:
-            return "Danke fuers Spielen. Auf Wiedersehen!";
+            return "Danke fuers Spielen. Auf Wiedersehen! ";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_language_name(int language)
@@ -423,7 +447,7 @@ char *lang_language_name(int language)
             return "     DEUTSCH    ";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 void lang_print_how_to_play()
@@ -502,7 +526,7 @@ void lang_print_how_to_play()
             break;
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 int lang_color_name_to_number(char *color_string)
@@ -587,7 +611,7 @@ char *lang_change_guimode_message()
             return "_____________________________________________\nGUI Modus:\n_____________________________________________\nMoechten Sie den GUI Modus wirklich aendern?\nDas Aendern dieser Option kann das Spiel unspielbar machen, wenn Ihr Betriebssystem dies nicht akzeptiert.\nWenn der schoene Modus komisch aussieht, waehle ihn nicht aus!\n\n";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_compatible_mode_whitespaced()
@@ -602,7 +626,7 @@ char *lang_compatible_mode_whitespaced()
             return "       Kompatibler Modus        ";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_pretty_mode_whitespaced()
@@ -617,7 +641,7 @@ char *lang_pretty_mode_whitespaced()
             return "        Schoener Modus          ";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_compatible_mode()
@@ -631,7 +655,7 @@ char *lang_compatible_mode()
             return "Kompatibler Modus";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_pretty_mode()
@@ -645,7 +669,7 @@ char *lang_pretty_mode()
             return "Schoener Modus";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_always_safe_to_choose_comp_mode()
@@ -659,7 +683,7 @@ char *lang_always_safe_to_choose_comp_mode()
             return "Es ist immer sicher den kompatiblen Modus (1) zu waehlen.";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_current_setting()
@@ -673,7 +697,7 @@ char *lang_current_setting()
             return "Aktuelle Einstellung";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_correctly_guessed_code()
@@ -687,7 +711,7 @@ char *lang_correctly_guessed_code()
             return "du hast den Farbcode erraten!";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *trials_needed()
@@ -701,7 +725,7 @@ char *trials_needed()
             return "Benoetigte Versuche:";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 void lang_print_please_input_name()
@@ -718,7 +742,7 @@ void lang_print_please_input_name()
             break;
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *you_cant_have_the_same_name()
@@ -732,7 +756,7 @@ char *you_cant_have_the_same_name()
             return "Ihr koennt nicht beide den gleichen Namen haben!";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_singleplayer_multiplayer(int amount_of_players)
@@ -763,7 +787,7 @@ char *lang_singleplayer_multiplayer(int amount_of_players)
         }
         default:
             INVALID_MENUOPTION_ERROR();
-        }
+    }
 }
 
 char *lang_player()
@@ -777,7 +801,7 @@ char *lang_player()
             return "Spieler";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_game_over()
@@ -791,7 +815,7 @@ char *lang_game_over()
             return "Verloren! Du konntest den Farbcode nicht erraten.";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_right_colorcode_was()
@@ -805,7 +829,7 @@ char *lang_right_colorcode_was()
             return "Der richtige Farbcode war";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_what_a_pity()
@@ -819,7 +843,7 @@ char *lang_what_a_pity()
             return "Wie Schade";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_its_your_try_nr()
@@ -833,7 +857,7 @@ char *lang_its_your_try_nr()
             return "Es ist dein Versuch #";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_its_your_last_try()
@@ -847,7 +871,7 @@ char *lang_its_your_last_try()
             return "Es ist dein letzter Versuch";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_please_type_one_to_go_back()
@@ -861,7 +885,47 @@ char *lang_please_type_one_to_go_back()
             return "    Bitte gib \"1\" ein, um zurueck zu gehen";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
+}
+
+void lang_print_please_press_enter_to_go_back()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            printf("Please press enter to go back. ");
+            flush_buff();
+            break;
+        case LANGUAGE_FRENCH:
+            printf("Veuillez appuyer sur Entree pour revenir en arriere. ");
+            flush_buff();
+            break;
+        case LANGUAGE_GERMAN:
+            printf("Bitte dreucke Enter um zurueck zu gehen. ");
+            flush_buff();
+            break;
+        default:
+            INVALID_LANGUAGE_ERROR();
+    }
+}
+
+void lang_print_please_press_enter_to_exit()
+{
+    switch (gamelanguage) {
+        case LANGUAGE_ENGLISH:
+            printf("Please press enter to exit. ");
+            flush_buff();
+            break;
+        case LANGUAGE_FRENCH:
+            printf("Veuillez appuyer sur Entree pour quitter. ");
+            flush_buff();
+            break;
+        case LANGUAGE_GERMAN:
+            printf("Bitte dreucke Enter zum Beenden. ");
+            flush_buff();
+            break;
+        default:
+            INVALID_LANGUAGE_ERROR();
+    }
 }
 
 char *lang_stat_player_name(int line)
@@ -888,7 +952,7 @@ char *lang_stat_player_name(int line)
             } else return "";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_stat_game_time(int line)
@@ -915,7 +979,7 @@ char *lang_stat_game_time(int line)
             } else return "";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_stat_total_games_played(int line)
@@ -942,7 +1006,7 @@ char *lang_stat_total_games_played(int line)
             } else return "";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_stat_lost_games(int line)
@@ -969,7 +1033,7 @@ char *lang_stat_lost_games(int line)
             } else return "";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_stat_won_games(int line)
@@ -996,7 +1060,7 @@ char *lang_stat_won_games(int line)
             } else return "";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_stat_win_rate(int line)
@@ -1023,7 +1087,7 @@ char *lang_stat_win_rate(int line)
             } else return "";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_stat_average_tries(int line)
@@ -1050,7 +1114,7 @@ char *lang_stat_average_tries(int line)
             } else return "";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }
 
 char *lang_please_restart_to_apply_changes()
@@ -1064,5 +1128,5 @@ char *lang_please_restart_to_apply_changes()
             return "Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen.";
         default:
             INVALID_LANGUAGE_ERROR();
-        }
+    }
 }

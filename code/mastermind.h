@@ -10,18 +10,17 @@
 #include "mastermind_gui.h"
 
 /* Macros */
-#define EXIT_PROGRAM_SUCCESSFUL() {printf("\n%s", lang_goodbye()); wait_seconds(WAIT_3_SECONDS); exit(SUCCESS);}
-#define INVALID_LANGUAGE_ERROR() {printf("Errorcode: %i\nInvalid language set. Please contact the devs.", LANGUAGE_ERROR); PRESS_ENTER_TO_QUIT(); exit(LANGUAGE_ERROR);}
-#define INVALID_MENUOPTION_ERROR() {printf("Errorcode: %i\nTried to print a non existant menu option. Please contact the devs.", INVALID_MENU_OPTION); PRESS_ENTER_TO_QUIT(); exit(INVALID_MENU_OPTION);}
-#define INVALID_PRETTYMODE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the pretty mode settings. Please contact the devs.", PRETTYMODE_ERROR_CODE); PRESS_ENTER_TO_QUIT(); exit(PRETTYMODE_ERROR_CODE);}
-#define SPACE_ALLOCATION_ERROR() {printf("Errorcode: %i\nSpace allocation didn't work. Please check your computer or if this doesn't happen for the first time, contact the devs.", SPACE_ALLOCATION_ERROR_CODE); PRESS_ENTER_TO_QUIT(); exit(SPACE_ALLOCATION_ERROR_CODE);}
-#define INVALID_PLAYER_NUMBER_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", INVALID_PLAYER_NUMBER); PRESS_ENTER_TO_QUIT(); exit(INVALID_PLAYER_NUMBER);}
-#define CORRUPT_SAVE_FILE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the savefile. Delete the savefile and try again or if this doesn't happen for the first time, contact the devs.", CORRUPT_SAVE_FILE_ERROR_CODE); PRESS_ENTER_TO_QUIT(); exit(CORRUPT_SAVE_FILE_ERROR_CODE);}
-#define WRONG_PLAYER_TO_SAVE_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", WRONG_PLAYER_TO_SAVE_ERROR_CODE); PRESS_ENTER_TO_QUIT(); exit(WRONG_PLAYER_TO_SAVE_ERROR_CODE);}
-#define DELETE_TEMP_SAVE_FILE_ERROR() {printf("Errorcode: %i\nDeleting temp savefile didn't work. Please contact the devs.", DELETE_TEMP_SAVE_FILE_ERROR_CODE); PRESS_ENTER_TO_QUIT(); exit(DELETE_TEMP_SAVE_FILE_ERROR_CODE);}
-#define PLEASE_RESTART_THE_GAME_TO_APPLY_CHANGES() {printf("%s", lang_please_restart_to_apply_changes()); PRESS_ENTER_TO_QUIT(); exit(SUCCESS);}
-#define MOVE_CURSOR_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", MOVE_CURSOR_ERROR_CODE); PRESS_ENTER_TO_QUIT(); exit(MOVE_CURSOR_ERROR_CODE);}
-#define PRESS_ENTER_TO_QUIT() {printf("\nPlease press \"Enter\" to quit"); getchar();}
+#define EXIT_PROGRAM_SUCCESSFUL() {printf("\n%s", lang_goodbye()); lang_print_please_press_enter_to_exit(); exit(SUCCESS);}
+#define INVALID_LANGUAGE_ERROR() {printf("Errorcode: %i\nInvalid language set. Please contact the devs.", LANGUAGE_ERROR); lang_print_please_press_enter_to_exit(); exit(LANGUAGE_ERROR);}
+#define INVALID_MENUOPTION_ERROR() {printf("Errorcode: %i\nTried to print a non existant menu option. Please contact the devs.", INVALID_MENU_OPTION); lang_print_please_press_enter_to_exit(); exit(INVALID_MENU_OPTION);}
+#define INVALID_PRETTYMODE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the pretty mode settings. Please contact the devs.", PRETTYMODE_ERROR_CODE); lang_print_please_press_enter_to_exit(); exit(PRETTYMODE_ERROR_CODE);}
+#define SPACE_ALLOCATION_ERROR() {printf("Errorcode: %i\nSpace allocation didn't work. Please check your computer or if this doesn't happen for the first time, contact the devs.", SPACE_ALLOCATION_ERROR_CODE); lang_print_please_press_enter_to_exit(); exit(SPACE_ALLOCATION_ERROR_CODE);}
+#define INVALID_PLAYER_NUMBER_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", INVALID_PLAYER_NUMBER); lang_print_please_press_enter_to_exit(); exit(INVALID_PLAYER_NUMBER);}
+#define CORRUPT_SAVE_FILE_ERROR() {printf("Errorcode: %i\nSomething is wrong with the savefile. Delete the savefile and try again or if this doesn't happen for the first time, contact the devs.", CORRUPT_SAVE_FILE_ERROR_CODE); lang_print_please_press_enter_to_exit(); exit(CORRUPT_SAVE_FILE_ERROR_CODE);}
+#define WRONG_PLAYER_TO_SAVE_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", WRONG_PLAYER_TO_SAVE_ERROR_CODE); lang_print_please_press_enter_to_exit(); exit(WRONG_PLAYER_TO_SAVE_ERROR_CODE);}
+#define DELETE_TEMP_SAVE_FILE_ERROR() {printf("Errorcode: %i\nDeleting temp savefile didn't work. Please contact the devs.", DELETE_TEMP_SAVE_FILE_ERROR_CODE); lang_print_please_press_enter_to_exit(); exit(DELETE_TEMP_SAVE_FILE_ERROR_CODE);}
+#define PLEASE_RESTART_THE_GAME_TO_APPLY_CHANGES() {printf("%s\n", lang_please_restart_to_apply_changes()); lang_print_please_press_enter_to_exit(); exit(SUCCESS);}
+#define MOVE_CURSOR_ERROR() {printf("Errorcode: %i\nInternal error in code. Please contact the devs.", MOVE_CURSOR_ERROR_CODE); lang_print_please_press_enter_to_exit(); exit(MOVE_CURSOR_ERROR_CODE);}
 
 /* Boolean constants */
 #define TRUE 1
