@@ -50,6 +50,7 @@ int check_colorcode_and_print_correct_pins(int *colorcode, int *guess)
                     colorcode_pin_array[j] = 'W';
                     guess_pin_array[i] = 'W';
                     counter_correct_color++;
+                    j = colorcode_length;
                 }
             }
         }
@@ -84,14 +85,19 @@ int flush_buff()
 
 int player_input_menu(int amount_of_menu_options)
 {
-    int input, status, c;
+    int input;
+    char c;
+    const char *for_atoi;
 
-    c = '\0';
-    status = scanf("%i", &input);
-    
-    if (status == EOF)
+    c = getchar();
+    if (c == EOF) {
         return BUFFER_ERROR;
-    if (status == 0 || input <= 0 || input > amount_of_menu_options || (c = getchar()) != '\n') {
+    } else if (c == '\n') {
+        return INVALID_MENU_INPUT;
+    }
+    for_atoi = &c;
+    input = atoi(for_atoi);
+    if (input <= 0 || input > amount_of_menu_options || (c = getchar()) != '\n') {
         if (c == EOF || !flush_buff()) {
             return BUFFER_ERROR;
         }
@@ -108,7 +114,7 @@ void mainmenu()
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
+        printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(5);
     }
 
@@ -140,11 +146,11 @@ void mainmenu()
 void please_press_one_to_go_back()
 {
     int i;
-    printf("%s: ", lang_please_type_one_to_go_back());
+    printf("    %s: ", lang_please_type_one_to_go_back());
     i = player_input_menu(1);
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
+        printf("    %s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
         i = player_input_menu(1);
     }
 }
@@ -173,7 +179,7 @@ void settings_menu()
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
+        printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
 
@@ -203,7 +209,7 @@ void language_menu()
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
+        printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(AMOUNT_OF_LANGUAGES);
     }
 
@@ -233,11 +239,18 @@ void change_gui_mode()
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
+        printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(2);
     }
 
     if (i == 1) {
+        if (pretty_mode == TRUE) {
+            pretty_mode = FALSE;
+            for (i = 0; i < 100; i++) {
+                printf("\n");
+            }
+            gui_print_mastermind_logo();
+        } 
         pretty_mode = FALSE;
         save_game_savefile(SAVEFILE_SETTINGS_ONLY);
     } else if (i == 2) {
@@ -396,6 +409,8 @@ void ask_player_for_name(int player_number)
 
 void ask_player_for_colorcode(int player_number)
 {
+    int i;
+
     if (player_number != 1 && player_number != 2) {
         INVALID_PLAYER_NUMBER_ERROR();
     }
@@ -408,8 +423,8 @@ void ask_player_for_colorcode(int player_number)
             if (pretty_mode == TRUE) {
                 wait_seconds(WAIT_3_SECONDS);
                 delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-                printf("%s. ", player1_name);
             }
+            printf("%s. ", player1_name);
         }
     } else if (player_number == 2) {
         printf("%s. ", player2_name);
@@ -419,11 +434,16 @@ void ask_player_for_colorcode(int player_number)
             if (pretty_mode == TRUE) {
                 wait_seconds(WAIT_3_SECONDS);
                 delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-                printf("%s. ", player2_name);
             }
+            printf("%s. ", player2_name);
         }
     }
     delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+    if (pretty_mode == FALSE) {
+        for (i = 0; i < 100; i++) {
+            printf("\n");
+        }
+    }
 }
 
 void player_turn(int player_number)
@@ -575,7 +595,7 @@ void start_game()
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
+        printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
 
@@ -599,7 +619,7 @@ void start_game()
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
         delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
-        printf("%s %s: ", lang_wrong_format(), lang_please_input_menu_option());
+        printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
 
@@ -613,6 +633,11 @@ void start_game()
         return;
     }
 
+    if (pretty_mode == FALSE) {
+        for (i = 0; i < 100; i++) {
+            printf("\n");
+        }
+    }
     delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 
     /* initialize players values */

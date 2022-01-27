@@ -75,6 +75,11 @@
 #define WAIT_3_SECONDS 3
 #define WAIT_5_SECONDS 5
 
+/* constants for version */
+#define VERSION_MAJOR 1
+#define VERSION_MINOR 0
+#define VERSION_PATCH 0
+
 /* variables for gamedata */
 int player1_colorcode[SUPER_MASTERMIND_COLORCODE_LENGTH];
 int player2_colorcode[SUPER_MASTERMIND_COLORCODE_LENGTH];

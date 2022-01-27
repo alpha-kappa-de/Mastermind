@@ -411,11 +411,11 @@ char *lang_please_input_menu_option()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "    Please enter a number according to the menu option";
+            return "Please enter a number according to the menu option";
         case LANGUAGE_FRENCH:
-            return "    Veuillez entrer un nombre en fonction de l'option de menu";
+            return "Veuillez entrer un nombre en fonction de l'option de menu";
         case LANGUAGE_GERMAN:
-            return "    Bitte gebe eine Zahl entsprechend der Menueoption ein";
+            return "Bitte gebe eine Zahl entsprechend der Menueoption ein";
         default:
             INVALID_LANGUAGE_ERROR();
     }
@@ -454,75 +454,75 @@ void lang_print_how_to_play()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("_____________________________________________\nHow to play:\n_____________________________________________\n");
+            printf("    _____________________________________________\n    How to play:\n    _____________________________________________\n");
             if (pretty_mode == TRUE) {
-                printf("%sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+                printf("    %sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
             } else {
-                printf("Mastermind:\n");
+                printf("    Mastermind:\n");
             }
-            printf("At the beginning, both players secretly determine a four-digit ordered color code, which is selected from six colors.\n");
-            printf("The possible colors in this mode are: %s, %s, %s, %s, %s and %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
-            printf("Each color can also be used several times. The aim of the game is to find out the other player's\n");
-            printf("color code with as few moves as possible, but after a maximum of twelve attempts.\n");
-            printf("With every move you get the information how many pins (in the color code) have been correctly set\n");
-            printf("in color and position and how many pins are in the correct color but are in the wrong position.\n");
+            printf("    At the beginning, both players secretly determine a 4-digit ordered color code, which is selected from 6 colors.\n");
+            printf("    The possible colors in this mode are: %s, %s, %s, %s, %s and %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
+            printf("    Each color can also be used several times. The aim of the game is to find out the other player's\n");
+            printf("    color code with as few moves as possible, but after a maximum of 12 attempts.\n");
+            printf("    With every move you get the information how many pins (in the color code) have been correctly set\n");
+            printf("    in color and position and how many pins are in the correct color but are in the wrong position.\n");
             if (pretty_mode == TRUE) {
-                printf("%s\nSuper Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+                printf("%s\n    Super Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
             } else {
-                printf("\n Super Mastermind:\n");
+                printf("\n    Super Mastermind:\n");
             }
-            printf("If the Super Mastermind option is selected, the color code consists of five pins.\n");
-            printf("Instead of six colors, you can now choose from eight colors.\n");
-            printf("In addition to the colors from Mastermind there are: %s and %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
-            printf("Here, too, you have a maximum of twelve attempts to guess the code.\n_____________________________________________\n");
+            printf("    If the Super Mastermind option is selected, the color code consists of 5 pins.\n");
+            printf("    Instead of 6 colors, you can now choose from 8 colors.\n");
+            printf("    In addition to the colors from Mastermind there are: %s and %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
+            printf("    Here, too, you have a maximum of 12 attempts to guess the code.\n    _____________________________________________\n");
             break;
         case LANGUAGE_FRENCH:
-            printf("_____________________________________________\nComment jouer:\n_____________________________________________\n");
+            printf("    _____________________________________________\n    Comment jouer:\n    _____________________________________________\n");
             if (pretty_mode == TRUE) {
-                printf("%sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+                printf("    %sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
             } else {
-                printf("Mastermind:\n");
+                printf("    Mastermind:\n");
             }
-            printf("Au debut, les deux joueurs determinent secretement un code couleur ordonne a quatre chiffres, qui est\n");
-            printf("selectionne parmi six couleurs. Les couleurs possibles dans ce mode sont: %s, %s, %s, %s, %s et %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
-            printf("Chaque couleur peut egalement etre utilisee plusieurs fois.\n");
-            printf("Le but du jeu est de decouvrir le code couleur de l'autre joueur avec le moins de coups possible,\n");
-            printf("mais apres un maximum de douze tentatives. A chaque mouvement, vous obtenez des informations sur le\n");
-            printf("nombre de broches (dans le code de couleur) qui ont ete correctement definies dans la couleur et la position\n");
-            printf("et sur le nombre de broches de la bonne couleur mais dans la mauvaise position.\n");
+            printf("    Au debut, les deux joueurs determinent secretement un code couleur ordonne a 4 chiffres, qui est\n");
+            printf("    selectionne parmi 6 couleurs. Les couleurs possibles dans ce mode sont: %s, %s, %s, %s, %s et %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
+            printf("    Chaque couleur peut egalement etre utilisee plusieurs fois.\n");
+            printf("    Le but du jeu est de decouvrir le code couleur de l'autre joueur avec le moins de coups possible,\n");
+            printf("    mais apres un maximum de 12 tentatives. A chaque mouvement, vous obtenez des informations sur le\n");
+            printf("    nombre de broches (dans le code de couleur) qui ont ete correctement definies dans la couleur et la position\n");
+            printf("    et sur le nombre de broches de la bonne couleur mais dans la mauvaise position.\n");
             if (pretty_mode == TRUE) {
-                printf("%s\nSuper Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+                printf("%s\n    Super Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
             } else {
-                printf("\n Super Mastermind:\n");
+                printf("\n    Super Mastermind:\n");
             }
-            printf("Si l'option Super Mastermind est selectionnee, le code couleur se compose de cinq broches. Au lieu de six couleurs,\n");
-            printf("vous pouvez desormais choisir parmi huit couleurs.\n");
-            printf("En plus des couleurs de Mastermind, il y a: %s et %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
-            printf("Ici aussi, vous disposez d'un maximum de douze tentatives pour deviner le code.\n_____________________________________________\n");
+            printf("    Si l'option Super Mastermind est selectionnee, le code couleur se compose de 5 broches. Au lieu de 6 couleurs,\n");
+            printf("    vous pouvez desormais choisir parmi 8 couleurs.\n");
+            printf("    En plus des couleurs de Mastermind, il y a: %s et %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
+            printf("    Ici aussi, vous disposez d'un maximum de 12 tentatives pour deviner le code.\n    _____________________________________________\n");
             break;
         case LANGUAGE_GERMAN:
-            printf("_____________________________________________\nWie man spielt:\n_____________________________________________\n");
+            printf("    _____________________________________________\n    Wie man spielt:\n    _____________________________________________\n");
             if (pretty_mode == TRUE) {
-                printf("%sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+                printf("    %sMastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
             } else {
-                printf("Mastermind:\n");
+                printf("    Mastermind:\n");
             }
-            printf("Beide Spieler legen zu Beginn verdeckt einen vierstelligen geordneten Farbcode fest, der aus sechs Farben\n");
-            printf("ausgewaehlt wird. Moegliche Farben in diesem Modus sind: %s, %s, %s, %s, %s und %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
-            printf("Jede Farbe kann auch mehrmals verwendet werden. Ziel des Spieles ist es, den Farbcode des\n"); 
-            printf("anderen mit so wenig Zuegen wie moeglich, jedoch nach maximal zwoelf Versuchen, herauszufinden.\n");
-            printf("Auf jeden Zug hin bekommt man die Information, wie viele Pins (im Farbcode)\n");
-            printf("in Farbe und Position richtig gesetzt wurden und wie viele Pins zwar die richtige Farbe haben, aber an einer\n");
-            printf("falschen Position stehen.\n");
+            printf("    Beide Spieler legen zu Beginn verdeckt einen vierstelligen geordneten Farbcode fest, der aus 6 Farben\n");
+            printf("    ausgewaehlt wird. Moegliche Farben in diesem Modus sind: %s, %s, %s, %s, %s und %s.\n", lang_color_name(BLUE), lang_color_name(RED), lang_color_name(YELLOW), lang_color_name(GREEN), lang_color_name(PURPLE), lang_color_name(ORANGE));
+            printf("    Jede Farbe kann auch mehrmals verwendet werden. Ziel des Spieles ist es, den Farbcode des\n"); 
+            printf("    anderen mit so wenig Zuegen wie moeglich, jedoch nach maximal 12 Versuchen, herauszufinden.\n");
+            printf("    Auf jeden Zug hin bekommt man die Information, wie viele Pins (im Farbcode)\n");
+            printf("    in Farbe und Position richtig gesetzt wurden und wie viele Pins zwar die richtige Farbe haben, aber an einer\n");
+            printf("    falschen Position stehen.\n");
             if (pretty_mode == TRUE) {
-                printf("%s\nSuper Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
+                printf("%s\n    Super Mastermind:%s\n", gui_write_in_random_color(), COLORMODE_RESET);
             } else {
-                printf("\n Super Mastermind:\n");
+                printf("\n    Super Mastermind:\n");
             }
-            printf("Wird die Option Super Mastermind ausgewaehlt besteht der Farbcode aus fuenf Pins.\n");
-            printf("Statt aus sechs Farben kann nun aus acht Farben ausgewaehlt werden.\n");
-            printf("Zusaetzlich zu den Farben aus Mastermind gibt es noch: %s und %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
-            printf("Auch hier hat man maximal zwoelf Versuche, um den Code zu erraten.\n_____________________________________________\n");
+            printf("    Wird die Option Super Mastermind ausgewaehlt besteht der Farbcode aus 5 Pins.\n");
+            printf("    Statt aus 6 Farben kann nun aus 8 Farben ausgewaehlt werden.\n");
+            printf("    Zusaetzlich zu den Farben aus Mastermind gibt es noch: %s und %s.\n", lang_color_name(BROWN), lang_color_name(CYAN));
+            printf("    Auch hier hat man maximal 12 Versuche, um den Code zu erraten.\n    _____________________________________________\n");
             break;
         default:
             INVALID_LANGUAGE_ERROR();
@@ -604,11 +604,11 @@ char *lang_change_guimode_message()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "_____________________________________________\nGUI mode:\n_____________________________________________\nDo you really want to change the GUI mode?\nChanging this option may make the game unplayable, if your OS doesn't accept it.\nIf the pretty mode looks weird, don't choose it!\n\n";
+            return "    _____________________________________________\n    GUI mode:\n    _____________________________________________\n    Do you really want to change the GUI mode?\n    Changing this option may make the game unplayable, if your OS doesn't accept it.\n    If the pretty mode looks weird, don't choose it!\n\n";
         case LANGUAGE_FRENCH:
-            return "_____________________________________________\nMode GUI:\n_____________________________________________\nVoulez-vous vraiment changer le mode GUI?\nChanger cette option peut rendre le jeu injouable, si votre systeme operateur ne l'accepte pas.\nSi le mode jolie a l'air bizarre, ne le choisissez pas!\n\n";
+            return "    _____________________________________________\n    Mode GUI:\n    _____________________________________________\n    Voulez-vous vraiment changer le mode GUI?\n    Changer cette option peut rendre le jeu injouable, si votre systeme operateur ne l'accepte pas.\n    Si le mode jolie a l'air bizarre, ne le choisissez pas!\n\n";
         case LANGUAGE_GERMAN:
-            return "_____________________________________________\nGUI Modus:\n_____________________________________________\nMoechten Sie den GUI Modus wirklich aendern?\nDas Aendern dieser Option kann das Spiel unspielbar machen, wenn Ihr Betriebssystem dies nicht akzeptiert.\nWenn der schoene Modus komisch aussieht, waehle ihn nicht aus!\n\n";
+            return "    _____________________________________________\n    GUI Modus:\n    _____________________________________________\n    Moechten Sie den GUI Modus wirklich aendern?\n    Das Aendern dieser Option kann das Spiel unspielbar machen, wenn Ihr Betriebssystem dies nicht akzeptiert.\n    Wenn der schoene Modus komisch aussieht, waehle ihn nicht aus!\n\n";
         default:
             INVALID_LANGUAGE_ERROR();
     }
@@ -878,11 +878,11 @@ char *lang_please_type_one_to_go_back()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "    Please type \"1\" to go back";
+            return "Please type \"1\" to go back";
         case LANGUAGE_FRENCH:
-            return "    Veuillez saisir \"1\" pour revenir en arriere";
+            return "Veuillez saisir \"1\" pour revenir en arriere";
         case LANGUAGE_GERMAN:
-            return "    Bitte gib \"1\" ein, um zurueck zu gehen";
+            return "Bitte gib \"1\" ein, um zurueck zu gehen";
         default:
             INVALID_LANGUAGE_ERROR();
     }
@@ -912,15 +912,15 @@ void lang_print_please_press_enter_to_exit()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            printf("Please press enter to exit. ");
+            printf("    Please press enter to exit. ");
             flush_buff();
             break;
         case LANGUAGE_FRENCH:
-            printf("Veuillez appuyer sur Entree pour quitter. ");
+            printf("    Veuillez appuyer sur Entree pour quitter. ");
             flush_buff();
             break;
         case LANGUAGE_GERMAN:
-            printf("Bitte dreucke Enter zum Beenden. ");
+            printf("    Bitte dreucke Enter zum Beenden. ");
             flush_buff();
             break;
         default:
@@ -1121,11 +1121,11 @@ char *lang_please_restart_to_apply_changes()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
-            return "Please restart the game to apply changes.";
+            return "    Please restart the game to apply changes.";
         case LANGUAGE_FRENCH:
-            return "Veuillez redemarrer le jeu pour appliquer les modifications.";
+            return "    Veuillez redemarrer le jeu pour appliquer les modifications.";
         case LANGUAGE_GERMAN:
-            return "Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen.";
+            return "    Bitte starte das Spiel erneut, um die Aenderungen zu uebernehmen.";
         default:
             INVALID_LANGUAGE_ERROR();
     }
