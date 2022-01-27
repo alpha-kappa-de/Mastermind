@@ -52,7 +52,7 @@ char *gui_write_in_random_color();
 void gui_print_stats();
 void gui_print_stat_lines_right_justified(int value);
 void gui_print_stat_line_winrate_right_justified();
-void delete_last_lines_and_go_there(int amount_of_lines);
+void gui_delete_last_lines_and_go_there(int amount_of_lines);
 void move_cursor(char up_or_down, int amount_of_lines);
 void wait_seconds(int seconds);
 

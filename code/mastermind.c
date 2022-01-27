@@ -113,7 +113,7 @@ void mainmenu()
     i = player_input_menu(5);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(5);
     }
@@ -121,19 +121,19 @@ void mainmenu()
     switch (i)
     {
         case 1:
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             start_game();
             break;
         case 2:
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             how_to_play_menu();
             break;
         case 3:
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             statistics_menu();
             break;
         case 4:
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             settings_menu();
             break;
         case 5:
@@ -149,7 +149,7 @@ void please_press_one_to_go_back()
     printf("    %s: ", lang_please_type_one_to_go_back());
     i = player_input_menu(1);
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("    %s %s: ", lang_wrong_format(), lang_please_type_one_to_go_back());
         i = player_input_menu(1);
     }
@@ -160,7 +160,7 @@ void how_to_play_menu()
     gui_print_back_only();
     lang_print_how_to_play();
     please_press_one_to_go_back();
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_HOW_TO_PLAY);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_HOW_TO_PLAY);
 }
 
 void statistics_menu()
@@ -168,7 +168,7 @@ void statistics_menu()
     gui_print_back_only();
     gui_print_stats();
     please_press_one_to_go_back();
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_STATS);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_STATS);
 }
 
 void settings_menu()
@@ -178,7 +178,7 @@ void settings_menu()
     i = player_input_menu(3);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
@@ -186,11 +186,11 @@ void settings_menu()
     switch (i)
     {
         case 1:
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             language_menu();
             break;
         case 2:
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
             change_gui_mode();
             break;
         case 3:
@@ -198,7 +198,7 @@ void settings_menu()
         default:
             INVALID_MENUOPTION_ERROR();
         }
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 }
 
 void language_menu()
@@ -208,7 +208,7 @@ void language_menu()
     i = player_input_menu(AMOUNT_OF_LANGUAGES);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(AMOUNT_OF_LANGUAGES);
     }
@@ -228,7 +228,7 @@ void language_menu()
             break;
     }
     save_game_savefile(SAVEFILE_SETTINGS_ONLY);
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 }
 
 void change_gui_mode()
@@ -238,7 +238,7 @@ void change_gui_mode()
     i = player_input_menu(2);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(2);
     }
@@ -263,7 +263,7 @@ void change_gui_mode()
             save_game_savefile(SAVEFILE_SETTINGS_ONLY);
         }
     }
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_GUI_MENU);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_GUI_MENU);
 }
 
 int player_colorcode_input(int *codearray)
@@ -378,25 +378,25 @@ void ask_player_for_name(int player_number)
     lang_print_please_input_name();
     if (player_number == 1) {
         while (get_player_name(player1_name) != SUCCESS) {
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             printf("%s %s %i ", lang_wrong_format(), lang_player(), player_number);
             lang_print_please_input_name();
         }
     } else if (player_number == 2) {
         while (get_player_name(player2_name) != SUCCESS || compare_player_names(player1_name, player2_name)) {
             if (compare_player_names(player1_name, player2_name)) {
-                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 if (pretty_mode == TRUE) {
-                    printf("%s%s%s\n", COLORMODE_RED, you_cant_have_the_same_name(), COLORMODE_RESET);
+                    printf("%s%s%s\n", COLORMODE_RED, lang_you_cant_have_the_same_name(), COLORMODE_RESET);
                 } else {
-                    printf("%s\n", you_cant_have_the_same_name());
+                    printf("%s\n", lang_you_cant_have_the_same_name());
                 }
                 wait_seconds(WAIT_3_SECONDS);
-                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 printf("%s %i ", lang_player(), player_number);
                 lang_print_please_input_name();
             } else {
-                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 printf("%s %s %i ", lang_wrong_format(), lang_player(), player_number);
                 lang_print_please_input_name();
             }
@@ -404,7 +404,7 @@ void ask_player_for_name(int player_number)
     }
 
     get_savefile_line_of_player(player_number);
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
 }
 
 void ask_player_for_colorcode(int player_number)
@@ -418,27 +418,27 @@ void ask_player_for_colorcode(int player_number)
     if (player_number == 1) {
         printf("%s. ", player1_name);
         while (player_colorcode_input(player1_colorcode) != SUCCESS) {
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
             if (pretty_mode == TRUE) {
                 wait_seconds(WAIT_3_SECONDS);
-                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             }
             printf("%s. ", player1_name);
         }
     } else if (player_number == 2) {
         printf("%s. ", player2_name);
         while (player_colorcode_input(player2_colorcode) != SUCCESS) {
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
             if (pretty_mode == TRUE) {
                 wait_seconds(WAIT_3_SECONDS);
-                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             }
             printf("%s. ", player2_name);
         }
     }
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
     if (pretty_mode == FALSE) {
         for (i = 0; i < 100; i++) {
             printf("\n");
@@ -463,11 +463,11 @@ void player_turn(int player_number)
         } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player1_attempts + 1) , player1_name);
 
         while (player_colorcode_input(player_guess) != SUCCESS) {
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             lang_print_colorcode_wrong_format_message();
             if (pretty_mode == TRUE) {
                 wait_seconds(WAIT_3_SECONDS);
-                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             }
             if (player1_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
                 if (pretty_mode == TRUE) {
@@ -475,7 +475,7 @@ void player_turn(int player_number)
                 } else printf("%s, %s. ", lang_its_your_last_try(), player1_name);
             } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player1_attempts + 1) , player1_name);
         }
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         move_cursor(UP, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) + (MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player1_attempts));
         lang_print_name_your_guess_was(player_number);
         /* if guessed right */
@@ -483,9 +483,9 @@ void player_turn(int player_number)
             player1_attempts++;
 
             if (pretty_mode == TRUE) {
-                printf("\n%s%s, %s %s %i.%s\n", COLORMODE_GREEN, player1_name, lang_correctly_guessed_code(), trials_needed(), player1_attempts, COLORMODE_RESET);
+                printf("\n%s%s, %s %s %i.%s\n", COLORMODE_GREEN, player1_name, lang_correctly_guessed_code(), lang_trials_needed(), player1_attempts, COLORMODE_RESET);
             } else {
-                printf("\n%s, %s %s %i.\n", player1_name, lang_correctly_guessed_code(), trials_needed(), player1_attempts);
+                printf("\n%s, %s %s %i.\n", player1_name, lang_correctly_guessed_code(), lang_trials_needed(), player1_attempts);
             }
 
             player1_game_over = TRUE;
@@ -527,11 +527,11 @@ void player_turn(int player_number)
             } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player2_attempts + 1) , player2_name);
 
             while (player_colorcode_input(player_guess) != SUCCESS) {
-                delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 lang_print_colorcode_wrong_format_message();
                 if (pretty_mode == TRUE) {
                     wait_seconds(WAIT_3_SECONDS);
-                    delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+                    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
                 }
                 if (player2_attempts == (MAX_ATTEMPTS_TO_GUESS_CODE - 1)) {
                     if (pretty_mode == TRUE) {
@@ -539,7 +539,7 @@ void player_turn(int player_number)
                     } else printf("%s, %s. ", lang_its_your_last_try(), player2_name);
                 } else printf("%s%i, %s. ", lang_its_your_try_nr(), (player2_attempts + 1) , player2_name);
             }
-            delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+            gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
             move_cursor(UP, ((MAX_ATTEMPTS_TO_GUESS_CODE + 2) - player2_attempts));
             lang_print_name_your_guess_was(player_number);
             /* if guessed right */
@@ -547,9 +547,9 @@ void player_turn(int player_number)
                 player2_attempts++;
 
                 if (pretty_mode == TRUE) {
-                    printf("\n%s%s, %s %s %i.%s\n", COLORMODE_GREEN, player2_name, lang_correctly_guessed_code(), trials_needed(), player2_attempts, COLORMODE_RESET);
+                    printf("\n%s%s, %s %s %i.%s\n", COLORMODE_GREEN, player2_name, lang_correctly_guessed_code(), lang_trials_needed(), player2_attempts, COLORMODE_RESET);
                 } else {
-                    printf("\n%s, %s %s %i.\n", player2_name, lang_correctly_guessed_code(), trials_needed(), player2_attempts);
+                    printf("\n%s, %s %s %i.\n", player2_name, lang_correctly_guessed_code(), lang_trials_needed(), player2_attempts);
                 }
 
                 player2_game_over = TRUE;
@@ -594,7 +594,7 @@ void start_game()
     i = player_input_menu(3);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
@@ -607,18 +607,18 @@ void start_game()
         colorcode_length = SUPER_MASTERMIND_COLORCODE_LENGTH;
     } else {
         /* deletes last lines and returns, so it can go back to main menu */
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
         return;
     }
 
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 
     /* single or multiplayer selection */
     gui_print_single_or_multiplayer_menu();
     i = player_input_menu(3);
 
     while (i == INVALID_MENU_INPUT || i == BUFFER_ERROR) {
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_ONE_LINE);
         printf("    %s %s: ", lang_wrong_format(), lang_please_input_menu_option());
         i = player_input_menu(3);
     }
@@ -629,7 +629,7 @@ void start_game()
         is_singleplayer = FALSE;
     } else {
         /* deletes last lines and returns, so it can go back to main menu */
-	    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+	    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
         return;
     }
 
@@ -638,7 +638,7 @@ void start_game()
             printf("\n");
         }
     }
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_MENUOPTION);
 
     /* initialize players values */
     player1_attempts = 0;
@@ -685,7 +685,7 @@ void start_game()
         printf("\n");
     }
     lang_print_please_press_enter_to_go_back();
-    delete_last_lines_and_go_there(DELETE_LAST_LINES_GAME);
+    gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_GAME);
 }
 
 int calc_seconds_played()

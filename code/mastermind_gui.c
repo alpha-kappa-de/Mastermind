@@ -24,7 +24,7 @@ void gui_print_mastermind_logo()
     } else if (pretty_mode == TRUE) {
         printf("                                                       %s%s%s \n\n", gui_write_in_random_color(), lang_pretty_mode(), COLORMODE_RESET);
         wait_seconds(WAIT_3_SECONDS);
-        delete_last_lines_and_go_there(DELETE_LAST_LINES_GAMELOGO);
+        gui_delete_last_lines_and_go_there(DELETE_LAST_LINES_GAMELOGO);
     }
 }
 
@@ -280,7 +280,7 @@ void gui_print_stat_line_winrate_right_justified()
     }
 }
 
-void delete_last_lines_and_go_there(int amount_of_lines)
+void gui_delete_last_lines_and_go_there(int amount_of_lines)
 {
     int i;
 

@@ -714,7 +714,7 @@ char *lang_correctly_guessed_code()
     }
 }
 
-char *trials_needed()
+char *lang_trials_needed()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
@@ -745,7 +745,7 @@ void lang_print_please_input_name()
     }
 }
 
-char *you_cant_have_the_same_name()
+char *lang_you_cant_have_the_same_name()
 {
     switch (gamelanguage) {
         case LANGUAGE_ENGLISH:
