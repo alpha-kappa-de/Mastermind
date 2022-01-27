@@ -13,7 +13,7 @@ echo Press any key to continue. Else just close this window.
 pause >nul
 
 mkdir .temp
-mkdir MASTERMIND_EXECUTABLE
+mkdir MASTERMIND_GAME
 
 echo ___________________________________________________________________________
 echo Copying needed files
@@ -24,8 +24,12 @@ echo Copying needed files
 >NUL copy "code\mastermind_gui.c" ".temp\mastermind_gui.c"
 >NUL copy "code\mastermind_gui.h" ".temp\mastermind_gui.h"
 >NUL copy "code\program.c" ".temp\program.c"
->NUL copy "code\mastermind_info.rc" ".temp\mastermind_info.rc"
->NUL copy "mastermind_icon.ico" ".temp\mastermind_icon.ico"
+>NUL copy "resources\mastermind_info.rc" ".temp\mastermind_info.rc"
+>NUL copy "resources\mastermind_icon.ico" ".temp\mastermind_icon.ico"
+>NUL copy "resources\activate_ansi_escape_codes_in_windows.reg" ".temp\activate_ansi_escape_codes_in_windows.reg"
+>NUL copy "resources\deactivate_ansi_escape_codes_in_windows.reg" ".temp\deactivate_ansi_escape_codes_in_windows.reg"
+>NUL copy "resources\README.txt" ".temp\README.txt"
+
 cd .temp
 
 echo ___________________________________________________________________________
@@ -51,7 +55,10 @@ cmd /c "gcc mastermind.o mastermind_language.o mastermind_gui.o mastermind_info.
 echo ___________________________________________________________________________
 echo Cleaning up
 cd ..\
->NUL copy ".temp\Mastermind.exe" "MASTERMIND_EXECUTABLE\Mastermind.exe"
+>NUL copy ".temp\Mastermind.exe" "MASTERMIND_GAME\Mastermind.exe"
+>NUL copy ".temp\activate_ansi_escape_codes_in_windows.reg" "MASTERMIND_GAME\activate_ansi_escape_codes_in_windows.reg"
+>NUL copy ".temp\deactivate_ansi_escape_codes_in_windows.reg" "MASTERMIND_GAME\deactivate_ansi_escape_codes_in_windows.reg"
+>NUL copy ".temp\README.txt" "MASTERMIND_GAME\README.txt"
 rmdir ".temp" /S /Q
 echo ___________________________________________________________________________
 echo.
