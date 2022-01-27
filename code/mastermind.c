@@ -681,6 +681,9 @@ void start_game()
             break;
         }
     }
+    if (pretty_mode == FALSE) {
+        printf("\n");
+    }
     lang_print_please_press_enter_to_go_back();
     delete_last_lines_and_go_there(DELETE_LAST_LINES_GAME);
 }
