@@ -2,6 +2,8 @@
 
  This is a little project we were writing for university. It's the game **Mastermind** also known as *SuperHirn*, *Super Code*, *Variablo* and *LogikTrainer*.
  The code is completely written in C according to the C89 standard and it's only using the C89 standard library.
+**Mastermind v1.0.0 can be downloaded [here](https://github.com/alpha-kappa-de/Mastermind/releases/download/v1.0.0/Mastermind_Windows_v1.0.0.zip)**  
+ 
 
 ## :building_construction:  Compile the game yourself. (You will need to have gcc installed)
 #### Compile it yourself
