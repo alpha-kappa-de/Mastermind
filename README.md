@@ -5,7 +5,7 @@
 **Mastermind v1.0.0 can be downloaded [here](https://github.com/alpha-kappa-de/Mastermind/releases/download/v1.0.0/Mastermind_Windows_v1.0.0.zip)**  
  
 
-## :building_construction:  Compile the game yourself. (You will need to have gcc installed)
+## :building_construction:  Compile the game yourself.
 #### Compile it yourself
 You can compile the complete game yourself. To make this task easier, you can just use the Compile Script!
 
